@@ -1,0 +1,13 @@
+# -*- mode: sh; sh-indentation: 4; indent-tabs-mode: nil; sh-basic-offset: 4; -*-
+# Copyright (c) 2020 Sebastian Gniazdowski
+
+∧za-meta-plugins-meta-cmd-help-handler() {
+    +zinit-message "—— {pre}meta {meta}--help{data}/{meta}-h" \
+            "{rst}{nl}{nl}" \
+            \
+            "{msg2}Description:{rst}{nl}" \
+            "{meta}--help{data}/{meta}-h{ehi}:{rst}{msg}       this message{rst}{nl}"
+    return 0
+}
+
+# vim:ft=zsh:tw=80:sw=4:sts=4:et:foldmarker=[[[,]]]
