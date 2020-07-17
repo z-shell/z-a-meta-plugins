@@ -51,7 +51,7 @@ Zinit_Annex_Meta_Plugins_Map=(
 
     molovo      "molovo/color molovo/revolver molovo/zunit"
 
-    console-tools "sharkdp ogham/exa dircolors-material"
+    console-tools "sharkdp ogham/exa dircolors-material jonas/tig"
 
     fuzzy       "fzf fzy"
 )
