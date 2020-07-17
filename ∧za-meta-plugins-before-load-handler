@@ -9,7 +9,7 @@
     builtin emulate -LR zsh
     builtin setopt extendedglob warncreateglobal typesetsilent noshortloops rcquotes
 
-    local type=$1 id=$2 id_as=$3 hook=$4 subtype=$5
+    local type=$1 id=$2 id_as=$3 hook=$4 args=$5 ices=$6 subtype=$7
 
     if (( $+ZINIT_ICE[debug] )) {
         # Enable the output from this annex
@@ -33,7 +33,7 @@
         return 0
     }
 
-    integer ibshow_messages=1
+    integer ibshow_messages=1 ierror_flag
     local -a match mbegin mend reply
     local MATCH REPLY
     integer MBEGIN MEND
@@ -41,12 +41,18 @@
     local -A tpe_map
     tpe_map=( 0 plugin 1 snippet )
 
-    # Strip the ID from some possible accidental /-s
+    # Reset the communication fields.
+    ZINIT[annex-before-load:new-@]=""
+    ZINIT[annex-before-load:new-global-ices]=""
+
+    # Strip the ID from some possible accidental /-s.
     id=${${id#@}%%(///|//|/)}
 
-    local new_teleid_data=${(v)Zinit_Annex_Meta_Plugins_Map[$id]}
+    local meta_plugin_data=${(v)Zinit_Annex_Meta_Plugins_Map[$id]}
 
-    if [[ -n $new_teleid_data ]] {
+    if [[ -n $meta_plugin_data ]] {
+        local -a plugin_array
+        plugin_array=( ${(s: :)meta_plugin_data} )
 
         # Debug message.
         if (( ibshow_messages )) {
