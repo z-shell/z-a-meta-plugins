@@ -13,7 +13,7 @@
 
     if (( $+ZINIT_ICE[debug] )) {
         # Enable the output from this annex
-        integer ibshow_messages=1
+        integer ibshow_messages=1 ibdebug=1
     }
 
     # Exclude IDs with slashes and also packages
@@ -22,13 +22,13 @@
     [[ $ZINIT_ICE[teleid] == */* ]] && local bad_tele=1
     (( $+ZINIT_ICE[pack] )) && local is_pack=1
     if (( bad_id || bad_id2 || bad_tele || is_pack )) {
-        if (( ibshow_messages )) {
+        if (( ibdebug )) {
             local -a msgs
             msgs=( ${bad_id:+the ID contains a slash} ${bad_id2:+the ID looks like a snippet ID}
                    ${bad_tele:+"the {ice}teleid{meta}''{msg} ice contains a slash"}
-                   ${is_pack:+"the ID is a package / {ice}pack{meta}''{msg} ice given"} )
+                   ${is_pack:+"the ID is a package ↔ {ice}pack{meta}''{msg} ice given"} )
             +zinit-message "{pre}meta-plugins annex: {msg}Skipping the ID: {meta2}$id{msg}" \
-                "(reason(s): ${(j:, :)msgs}).{rst}"
+                    "(reason(s): ${(j:, :)msgs}).{rst}"
         }
         return 0
     }
