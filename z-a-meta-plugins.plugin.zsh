@@ -41,6 +41,16 @@ typeset -gA Zinit_Annex_Meta_Plugins_Map
 Zinit_Annex_Meta_Plugins_Map=(
     sharkdp     "sharkdp/fd sharkdp/bat sharkdp/hexyl sharkdp/hyperfine sharkdp/vivid"
     file-utils  "ogham/exa sharkdp/fd sharkdp/bat"
+    zsh-users   "zsh-users/zsh-syntax-highlighting zsh-users/zsh-autosuggestions zsh-users/zsh-completions"
+    zsh-users+fast "zdharma/fast-syntax-highlighting zsh-users/zsh-autosuggestions zsh-users/zsh-completions"
+    zdharma     "zdharma/fast-syntax-highlighting zdharma/history-search-multi-word zdharma/zsh-diff-so-fancy"
+    zdharma2    "zdharma/zconvey zdharma/zui zdharma/zflai"
+
+    developer   "github-issues github-issues-srv molovo/color molovo/revolver molovo/zunit"
+
+    molovo      "molovo/color molovo/revolver molovo/zunit"
+
+    console-tools "sharkdp ogham/exa"
 )
 
 # The map in which the default sets of ices
@@ -125,11 +135,31 @@ Zinit_Annex_Meta_Plugins_Config_Map=(
     arzzen/git-quick-stats    "$_std null sbin atload'export _MENU_THEME=legacy;'"
     iwata/git-now             "$_std null sbin"
     tj/git-extras             "$_std null make'PREFIX=$ZPFX'"
+    wfxr/forgit               "$_std atinit'forgit_ignore=fgi'"
 
     # @jonas
     jonas/tig                 "$_std null make'prefix=$ZPFX install'"
 
+    # @sindresorhus
+    sindresorhus/pure         "$_std pick'async.zsh' src'pure.zsh' atload'prompt_pure_precmd' nocd"
+
+    # @agkozak
+    agkozak/agkozak-zsh-theme "$_std atload'_agkozak_precmd' atinit'AGKOZAK_FORCE_ASYNC_METHOD=subst-async' nocd"
+
+    # @woefe
+    woefe/git-prompt.zsh      "$_std atload'_zsh_git_prompt_precmd_hook' nocd"
 )
+
+# Snippets
+_std+=" is-snippet"
+
+Zinit_Annex_Meta_Plugins_Config_Map+=(
+    # Prezto
+    PZTM::archive       "$_std"
+    PZTM::directory     "$_std"
+    PZTM::utility       "$_std"
+)
+
 unset _std
 
 
