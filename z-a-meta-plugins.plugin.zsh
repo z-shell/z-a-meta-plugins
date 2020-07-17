@@ -47,9 +47,11 @@ Zinit_Annex_Meta_Plugins_Map=(
 # for the real plugins are being stored.
 typeset -gA Zinit_Annex_Meta_Plugins_Config_Map
 Zinit_Annex_Meta_Plugins_Config_Map=(
-    sharkdp/fd      "null lucid from'gh-r' mv'fd* fd' sbin'**/fd'"
-    sharkdp/bat     "null lucid from'gh-r' mv'bat* bat' sbin'**/bat'"
-    sharkdp/hexyl   "null lucid from'gh-r' mv'hexyl* hexyl' sbin'**/hexyl'"
+    sharkdp/fd            "null lucid from'gh-r' mv'fd* fd' sbin'**/fd'"
+    sharkdp/bat           "null lucid from'gh-r' mv'bat* bat' sbin'**/bat'"
+    sharkdp/hexyl         "null lucid from'gh-r' mv'hexyl* hexyl' sbin'**/hexyl'"
+    sharkdp/hyperfine     "null lucid from'gh-r' mv'hyperfine* hyperfine' sbin'**/hyperfine'"
+    sharkdp/vivid         "null lucid from'gh-r' mv'vivid* vivid' sbin'**/vivid'"
 )
 
 
