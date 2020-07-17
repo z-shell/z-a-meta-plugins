@@ -9,7 +9,7 @@
     builtin emulate -LR zsh
     builtin setopt extendedglob warncreateglobal typesetsilent noshortloops rcquotes
 
-    local type=$1 id=$2 id_as=$3 hook=$4 args=$5 ices=$6 subtype=$7
+    local type=$1 id=$2 id_as=$3 args=$4 ices=$5 hook=$6 subtype=$7
 
     if (( $+ZINIT_ICE[debug] )) {
         # Enable the output from this annex
