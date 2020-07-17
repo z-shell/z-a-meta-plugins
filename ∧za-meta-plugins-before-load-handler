@@ -67,6 +67,7 @@
                 count+=1
                 .zinit-any-colorify-as-uspl2 $p
                 [[ $p = $plugin_array[-1] ]] && local enotlast= || local enotlast=0
+                REPLY=${REPLY//\//∕}
                 +zinit-message -n " {bold}$count{rst}{msg}) $REPLY{msg}${enotlast:+,}"
             }
             +zinit-message ".{rst}"
