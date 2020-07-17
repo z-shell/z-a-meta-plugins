@@ -86,6 +86,7 @@
             local ice_list_data=$Zinit_Annex_Meta_Plugins_Config_Map[$p]
             ZINIT[annex-before-load:new-@]+="$ice_list_data @${(q)p} "
         }
+        ZINIT[annex-before-load:new-@]+=" $args"
     }
 
     return $(( ${${ZINIT[annex-before-load:new-global-ices]:+4}:-0} + \
