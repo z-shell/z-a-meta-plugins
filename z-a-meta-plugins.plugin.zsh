@@ -99,7 +99,7 @@ Zinit_Annex_Meta_Plugins_Config_Map=(
     # @pyenv
     pyenv                   "$_std pack'bgn'"
     # @ogham
-    ogham/exa               "$_std mv'exa* -> exa' sbin"
+    ogham/exa               "$_std from'gh-r' mv'exa* -> exa' sbin"
     cargo-exa               "$_std null cargo='!exa' teleid'zdharma/null'"
 
     # A few utility plugins
