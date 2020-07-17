@@ -54,8 +54,20 @@
         # Count the recognized meta-plugins
         Zinit_Annex_Meta_Plugins_Map[recon-count]=$(( Zinit_Annex_Meta_Plugins_Map[recon-count] + 1 ))
 
-        local -a plugin_array
+        local -a plugin_array loaded_plugins not_existing
         plugin_array=( ${(s: :)meta_plugin_data} )
+        loaded_plugins=( ${(@Q)${(@z)Zinit_Annex_Meta_Plugins[annex-loaded-plugins]}} )
+
+        local p
+        for p ( $plugin_array ) {
+            if [[ -z $Zinit_Annex_Meta_Plugins_Map[$p] ]] && \
+                ! .zinit-get-object-path AUTO $p
+            then
+                ibshow_messages=1
+                not_existing+=( $p )
+            fi
+        }
+
         # Debug message.
         if (( ibshow_messages )) {
             (($+functions[.zinit-two-paths])) || builtin source $ZINIT[BIN_DIR]/zinit-side.zsh
@@ -68,7 +80,6 @@
             +zinit-message -n "{pre}[meta-plugins annex]{msg} Installing" \
                 "{bold}{meta2}meta-plugin{ehi}: {rst}{msg}\`{meta}{bold}$id{rst}{msg}'" \
                 "consisting of{ehi}:{rst}"
-            local p
             integer count
             for p ( $plugin_array ) {
                 count+=1
@@ -84,7 +95,10 @@
         # ice-lists and preparing the above communication fields.
         for p ( $plugin_array ) {
             local ice_list_data=$Zinit_Annex_Meta_Plugins_Config_Map[$p]
-            ZINIT[annex-before-load:new-@]+="$ice_list_data @${(q)p} "
+            if (( ! ${loaded_plugins[(I)$p]} || ${not_existing[(I)$p]} )) {
+                ZINIT[annex-before-load:new-@]+="$ice_list_data @${(q)p} "
+                Zinit_Annex_Meta_Plugins[annex-loaded-plugins]+=" ${(q)p}"
+            }
         }
         ZINIT[annex-before-load:new-@]+=" $args"
     }
