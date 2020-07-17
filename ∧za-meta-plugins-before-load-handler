@@ -71,9 +71,17 @@
             }
             +zinit-message ".{rst}"
         }
+
+        # Pre-process each plugin retrieving the assigned, default
+        # ice-lists and preparing the above communication fields.
+        for p ( $plugin_array ) {
+            local ice_list_data=$Zinit_Annex_Meta_Plugins_Config_Map[$p]
+            ZINIT[annex-before-load:new-@]+="$ice_list_data @${(q)p} "
+        }
     }
 
-    return 0
+    return $(( ${${ZINIT[annex-before-load:new-global-ices]:+4}:-0} + \
+            ${${ZINIT[annex-before-load:new-@]:+2}:-0} + ierror_flag ))
 }
 
 # vim:ft=zsh:tw=80:sw=4:sts=4:et
