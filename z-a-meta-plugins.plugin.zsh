@@ -47,13 +47,14 @@ Zinit_Annex_Meta_Plugins_Map=(
     zdharma2    "zdharma/zconvey zdharma/zui zdharma/zflai"
 
     developer   "github-issues github-issues-srv molovo/color molovo/revolver molovo/zunit \
-                    voronkovich/gitignore.plugin.zsh"
+                    voronkovich/gitignore.plugin.zsh jonas/tig"
 
     molovo      "molovo/color molovo/revolver molovo/zunit"
 
-    console-tools "sharkdp ogham/exa dircolors-material jonas/tig"
+    console-tools "sharkdp ogham/exa BurntSushi/ripgrep dircolors-material jonas/tig"
 
-    fuzzy       "fzf fzy"
+    fuzzy       "fzf fzy lotabout/skim"
+    fuzzy-src   "fzf-go fzy skim-cargo"
 )
 
 # The map in which the default sets of ices
@@ -71,13 +72,6 @@ Zinit_Annex_Meta_Plugins_Config_Map=(
     zinit-zsh/z-a-bin-gem-node  "$_std"
     zinit-zsh/z-a-man           "$_std"
     zinit-zsh/z-a-test          "$_std"
-
-    # @sharkdp
-    sharkdp/fd              "$_std null lucid from'gh-r' mv'fd* fd' sbin'**/fd'"
-    sharkdp/bat             "$_std null lucid from'gh-r' mv'bat* bat' sbin'**/bat'"
-    sharkdp/hexyl           "$_std null lucid from'gh-r' mv'hexyl* hexyl' sbin'**/hexyl'"
-    sharkdp/hyperfine       "$_std null lucid from'gh-r' mv'hyperfine* hyperfine' sbin'**/hyperfine'"
-    sharkdp/vivid           "$_std null lucid from'gh-r' mv'vivid* vivid' sbin'**/vivid'"
     # @zsh-users
     zsh-users/zsh-autosuggestions       "$_std atload'_zsh_autosuggest_start;'"
     zsh-users/zsh-syntax-highlighting   "$_std atinit'ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay;'"
@@ -94,16 +88,42 @@ Zinit_Annex_Meta_Plugins_Config_Map=(
     github-issues           "$_std pack"
     github-issues-srv       "$_std pack atinit'GIT_PROJECTS=zdharma/zinit GIT_SLEEP_TIME=700;'"
     # @molovo
-    molovo/zunit            "$_std null sbin atclone'./build.zsh;' atpull'%atclone'"
-    molovo/color            "$_std null sbin'color.zsh -> color'"
+    molovo/zunit            "$_std binary sbin atclone'./build.zsh;' atpull'%atclone'"
+    molovo/color            "$_std binary sbin'color.zsh -> color'"
     molovo/revolver         "$_std as'program' pick'revolver'"
     # @zpm-zsh
     dircolors-material      "$_std pack"
     # @pyenv
     pyenv                   "$_std pack'bgn'"
+
+    # @sharkdp
+    sharkdp/fd              "$_std binary lucid from'gh-r' mv'fd* fd' sbin'**/fd(.exe|) -> fd'"
+    sharkdp/bat             "$_std binary lucid from'gh-r' mv'bat* bat' sbin'**/bat(.exe|) -> bat'"
+    sharkdp/hexyl           "$_std binary lucid from'gh-r' mv'hexyl* hexyl' sbin'**/hexyl(.exe|) -> hexyl'"
+    sharkdp/hyperfine       "$_std binary lucid from'gh-r' mv'hyperfine* hyperfine' sbin'**/hyperfine(.exe|) -> hyperfine'"
+    sharkdp/vivid           "$_std binary lucid from'gh-r' mv'vivid* vivid' sbin'**/vivid(.exe|) -> vivid'"
     # @ogham
-    ogham/exa               "$_std from'gh-r' mv'exa* -> exa' sbin"
-    cargo-exa               "$_std null cargo='!exa' teleid'zdharma/null'"
+    ogham/exa               "$_std binary from'gh-r' mv'exa* -> exa' sbin"
+    exa-cargo               "$_std binary cargo='!exa' teleid'zdharma/null'"
+    # @BurntSushi
+    BurntSushi/ripgrep      "$_std binary from'gh-r' mv'rip* ripgrep' sbin'**/rg(.exe|) -> rg'"
+
+    # @jonas
+    jonas/tig               "$_std binary make'prefix=$ZPFX install'"
+
+    # Fuzzy searchers
+    fzf                     "$_std pack'bgn-binary'"
+    fzy                     "$_std pack'bgn' git"
+    lotabout/skim           "$_std null from'gh-r' sbin'sk'"
+    # Fuzzy searchers – from sources
+    fzf-go                  "$_std pack'bgn' teleid'fzf'"
+    skim-cargo              "$_std null cargo='!skim -> sk' teleid'zdharma/null'"
+
+    # no username → a rust-annex usage to install Rust toolchain
+    rust-toolchain          "$_std null sbin='bin/*' rustup teleid'zdharma/null' \
+                                    atload='[[ ! -f \${ZINIT[COMPLETIONS_DIR]}/_cargo ]] && \
+                                        zi creinstall rust; \
+                                    export CARGO_HOME=\$PWD RUSTUP_HOME=\$PWD/rustup'"
 
     # A few utility plugins
     hlissner/zsh-autopair               "$_std"
@@ -114,22 +134,9 @@ Zinit_Annex_Meta_Plugins_Config_Map=(
             templates/Zsh.gitignore"
     psprint/zsh-editing-workbench       "$_std atinit'local zew_word_style=whitespace;'"
 
-
-
     # @marzocchi, a notifier, configured to use zconvey
     marzocchi/zsh-notify      "$_std atinit'zstyle \":notify:*\" command-complete-timeout 3; \
                                             zstyle \":notify:*\" notifier plg-zsh-notify"
-
-    # no username → a rust-annex usage to install Rust toolchain
-    rust-toolchain            "$_std null sbin='bin/*' rustup teleid'zdharma/null' \
-                                    atload='[[ ! -f \${ZINIT[COMPLETIONS_DIR]}/_cargo ]] && \
-                                        zi creinstall rust; \
-                                    export CARGO_HOME=\$PWD RUSTUP_HOME=\$PWD/rustup'"
-
-    # Fuzzy searchers
-    fzf                        "$_std pack'bgn-binary'"
-    fzy                        "$_std pack'bgn' git"
-
     # Git extensions
     Fakerr/git-recall         "$_std null sbin"
     paulirish/git-open        "$_std null sbin"
@@ -139,9 +146,6 @@ Zinit_Annex_Meta_Plugins_Config_Map=(
     iwata/git-now             "$_std null sbin"
     tj/git-extras             "$_std null make'PREFIX=$ZPFX'"
     wfxr/forgit               "$_std atinit'forgit_ignore=fgi'"
-
-    # @jonas
-    jonas/tig                 "$_std null make'prefix=$ZPFX install'"
 
     # @sindresorhus
     sindresorhus/pure         "$_std pick'async.zsh' src'pure.zsh' atload'prompt_pure_precmd' nocd"
