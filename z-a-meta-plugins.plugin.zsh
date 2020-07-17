@@ -46,11 +46,14 @@ Zinit_Annex_Meta_Plugins_Map=(
     zdharma     "zdharma/fast-syntax-highlighting zdharma/history-search-multi-word zdharma/zsh-diff-so-fancy"
     zdharma2    "zdharma/zconvey zdharma/zui zdharma/zflai"
 
-    developer   "github-issues github-issues-srv molovo/color molovo/revolver molovo/zunit"
+    developer   "github-issues github-issues-srv molovo/color molovo/revolver molovo/zunit \
+                    voronkovich/gitignore.plugin.zsh"
 
     molovo      "molovo/color molovo/revolver molovo/zunit"
 
-    console-tools "sharkdp ogham/exa"
+    console-tools "sharkdp ogham/exa dircolors-material"
+
+    fuzzy       "fzf fzy"
 )
 
 # The map in which the default sets of ices
@@ -124,8 +127,8 @@ Zinit_Annex_Meta_Plugins_Config_Map=(
                                     export CARGO_HOME=\$PWD RUSTUP_HOME=\$PWD/rustup'"
 
     # Fuzzy searchers
-    fzf     "$_std pack'bgn-binary'"
-    fzy     "$_std pack'bgn' git"
+    fzf                        "$_std pack'bgn-binary'"
+    fzy                        "$_std pack'bgn' git"
 
     # Git extensions
     Fakerr/git-recall         "$_std null sbin"
