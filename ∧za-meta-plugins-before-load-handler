@@ -33,7 +33,7 @@
         return 0
     }
 
-    integer ibshow_messages=1 ierror_flag
+    integer ibshow_messages=1 iberror_flag
     local -a match mbegin mend reply
     local MATCH REPLY
     integer MBEGIN MEND
@@ -90,7 +90,7 @@
     }
 
     return $(( ${${ZINIT[annex-before-load:new-global-ices]:+4}:-0} + \
-            ${${ZINIT[annex-before-load:new-@]:+2}:-0} + ierror_flag ))
+            ${${ZINIT[annex-before-load:new-@]:+2}:-0} + iberror_flag ))
 }
 
 # vim:ft=zsh:tw=80:sw=4:sts=4:et
