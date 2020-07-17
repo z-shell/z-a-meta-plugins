@@ -113,10 +113,11 @@
             }
         }
         ZINIT[annex-before-load:new-@]+=" $args"
+        ZINIT[annex-before-load:new-@]=${ZINIT[annex-before-load:new-@]## ##}
     }
 
     return $(( ${${ZINIT[annex-before-load:new-global-ices]:+4}:-0} + \
-            ${${ZINIT[annex-before-load:new-@]:+2}:-0} + iberror_flag ))
+            ${${ZINIT[annex-before-load:new-@]:+2}:-1} + iberror_flag ))
 }
 
 # vim:ft=zsh:tw=80:sw=4:sts=4:et
