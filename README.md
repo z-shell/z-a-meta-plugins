@@ -3,7 +3,7 @@
 ### **Install groups of plugins via a single, friendly label …**
 ### **… and also have the curated, optimal ice lists automatically applied !**
 
-![screenshot](https://raw.githubusercontent.com/zinit-zsh/z-a-meta-plugins/master/images/fuzzy-mplg-ex.png) (**package**)
+![screenshot](https://raw.githubusercontent.com/zinit-zsh/z-a-meta-plugins/master/images/fuzzy-mplg-ex.png)
 
 ## Rationale
 
