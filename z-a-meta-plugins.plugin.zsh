@@ -153,9 +153,9 @@ Zinit_Annex_Meta_Plugins_Config_Map=(
                                     export CARGO_HOME=\$PWD RUSTUP_HOME=\$PWD/rustup'"
 
     # see: https://dev.to/cad97/rust-must-know-crates-5ad8
-    cargo-extensions        "$_std binary cargo'!cargo-edit;!cargo-outdated;!cargo-tree; \
-                                !cargo-update; !cargo-expand;!cargo-modules;!cargo-audit;!cargo-clone' \
-                                teleid'zdharma/null'"
+    cargo-extensions        "$_std binary cargo'cargo-edit;cargo-outdated;cargo-tree; \
+                                cargo-update; cargo-expand;cargo-modules;cargo-audit;cargo-clone' \
+                                sbin'bin/*' teleid'zdharma/null'"
 
     # A few utility plugins
     hlissner/zsh-autopair               "$_std"
