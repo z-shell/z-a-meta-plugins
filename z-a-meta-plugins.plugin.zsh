@@ -39,27 +39,46 @@ autoload -Uz ∧za-meta-plugins-before-load-handler \
 # The map in which the definitions of the meta-plugins are being stored.
 typeset -gA Zinit_Annex_Meta_Plugins_Map
 Zinit_Annex_Meta_Plugins_Map=(
-    sharkdp     "sharkdp/fd sharkdp/bat sharkdp/hexyl sharkdp/hyperfine sharkdp/vivid"
-    file-utils  "ogham/exa sharkdp/fd sharkdp/bat"
+    # Zinit annexes
+    annexes     "zinit-zsh/z-a-unscope zinit-zsh/z-a-as-monitor zinit-zsh/z-a-patch-dl \
+                    zinit-zsh/z-a-rust zinit-zsh/z-a-submods zinit-zsh/z-a-bin-gem-node"
+    annexes+con "zinit-zsh/zinit-console annexes"
+
+    # @zsh-users
     zsh-users   "zsh-users/zsh-syntax-highlighting zsh-users/zsh-autosuggestions zsh-users/zsh-completions"
     zsh-users+fast "zdharma/fast-syntax-highlighting zsh-users/zsh-autosuggestions zsh-users/zsh-completions"
+    
+    # @zdharma
     zdharma     "zdharma/fast-syntax-highlighting zdharma/history-search-multi-word zdharma/zsh-diff-so-fancy"
     zdharma2    "zdharma/zconvey zdharma/zui zdharma/zflai"
 
+    # @molovo
+    molovo      "molovo/color molovo/revolver molovo/zunit"
+
+    # @sharkdp
+    sharkdp     "sharkdp/fd sharkdp/bat sharkdp/hexyl sharkdp/hyperfine sharkdp/vivid"
+
+    # Development-related utilities. color and revolver are zunit's
+    # dependencies. Tig is being built from source (Git). The gitignore
+    # plugin has a Zsh template automatically set up — gi zsh to see it.
     developer   "github-issues github-issues-srv molovo/color molovo/revolver molovo/zunit \
                     voronkovich/gitignore.plugin.zsh jonas/tig"
 
-    molovo      "molovo/color molovo/revolver molovo/zunit"
+    # General console utilities. Includes also a LS_COLORS theme with
+    # the Zsh completion configured.
+    console-tools "dircolors-material sharkdp ogham/exa BurntSushi/ripgrep jonas/tig"
 
-    console-tools "sharkdp ogham/exa BurntSushi/ripgrep dircolors-material jonas/tig"
-
+    # Fuzzy searchers (4 of them).
     fuzzy       "fzf fzy lotabout/skim peco/peco"
     fuzzy-src   "fzf-go fzy skim-cargo peco-go"
 
+    # Git extensions.
     ext-git     "Fakerr/git-recall paulirish/git-open paulirish/git-recent davidosomething/git-my arzzen/git-quick-stats iwata/git-now tj/git-extras wfxr/forgit"
 
+    # Rust toolchain + cargo extensions.
     rust-utils  "rust-toolchain cargo-extensions"
 
+    # A few Prezto modules.
     prezto      "PZTM::archive PZTM::directory PZTM::utility"
 )
 
