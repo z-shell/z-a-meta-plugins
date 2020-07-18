@@ -109,7 +109,7 @@
                     (idx2 = $on_demand_skip[(I)$p])
                 )) {
                     idx2=$on_demand_skip[(I)$p]
-                    local idtxt="{dbg}$p "
+                    local idtxt="{dbg}${p//\//∕} "
                     if (( idx1 && !idx2 )) {
                         skipped+=( $REPLY )
                         idtxt+="{warn}a/l{rst}"
