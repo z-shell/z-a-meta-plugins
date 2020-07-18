@@ -107,7 +107,7 @@
                 integer idx1=0 idx2=0 idx3=0
                 if (( ((idx1 = $loaded_plugins[(I)$p]) || (idx2 = $zsh_loaded_plugins[(I)$p])) && \
                     ! $not_existing[(I)$p] || (idx3 = $on_demand_skip[(I)$p])
-                )) {
+                )) && [[ $p != zdharma/null ]] {
                     idx3=$on_demand_skip[(I)$p]
                     local idtxt="{dbg}${p//\//∕} "
                     if (( (idx1 || idx2) && !idx3 )) {
@@ -136,7 +136,9 @@
             if (( ( $not_existing[(I)$p] || \
                     ! ($loaded_plugins[(I)$p] || $zsh_loaded_plugins[(I)$p]) ) && \
                 ! $on_demand_skip[(I)$p]
-            )) {
+            )) || [[ $p == zdharma/null ]] {
+                # The ↑zdharma/null↑ is a bogus exception, as this plugin will never
+                # be loaded under the direct name.
                 ZINIT[annex-before-load:new-@]+="$ice_list_data @${(q)p} "
                 Zinit_Annex_Meta_Plugins[annex-loaded-plugins]+=" ${(q)p}"
             }
