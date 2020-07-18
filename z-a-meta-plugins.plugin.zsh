@@ -58,7 +58,7 @@ Zinit_Annex_Meta_Plugins_Map=(
 
     ext-git     "Fakerr/git-recall paulirish/git-open paulirish/git-recent davidosomething/git-my arzzen/git-quick-stats iwata/git-now tj/git-extras wfxr/forgit"
 
-    rust-utils  "rust-toolchain"
+    rust-utils  "rust-toolchain cargo-extensions"
 
     prezto      "PZTM::archive PZTM::directory PZTM::utility"
 )
@@ -127,10 +127,15 @@ Zinit_Annex_Meta_Plugins_Config_Map=(
     peco-go                 "$_std binary make'build' sbin'**/peco(.exe|) -> peco' teleid'peco/peco'"
 
     # no username → a rust-annex usage to install Rust toolchain
-    rust-toolchain          "$_std null sbin='bin/*' rustup teleid'zdharma/null' \
+    rust-toolchain          "$_std binary sbin='bin/*' rustup teleid'zdharma/null' \
                                     atload='[[ ! -f \${ZINIT[COMPLETIONS_DIR]}/_cargo ]] && \
                                         zi creinstall rust; \
                                     export CARGO_HOME=\$PWD RUSTUP_HOME=\$PWD/rustup'"
+
+    # see: https://dev.to/cad97/rust-must-know-crates-5ad8
+    cargo-extensions        "$_std binary cargo'!cargo-edit;!cargo-outdated;!cargo-tree; \
+                                !cargo-update; !cargo-expand;!cargo-modules;!cargo-audit;!cargo-clone' \
+                                teleid'zdharma/null'"
 
     # A few utility plugins
     hlissner/zsh-autopair               "$_std"
