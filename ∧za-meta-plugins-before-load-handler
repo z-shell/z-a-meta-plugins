@@ -54,12 +54,24 @@
         # Count the recognized meta-plugins
         Zinit_Annex_Meta_Plugins_Map[recon-count]=$(( Zinit_Annex_Meta_Plugins_Map[recon-count] + 1 ))
 
-        local -a plugin_array loaded_plugins not_existing
+        local -a plugin_array loaded_plugins not_existing on_demand_cand on_demand_skip
         plugin_array=( ${(s: :)meta_plugin_data} )
         loaded_plugins=( ${(@Q)${(@z)Zinit_Annex_Meta_Plugins[annex-loaded-plugins]}} )
 
         local p
-        for p ( $plugin_array ) {
+
+        # Detect if any plugins should be skipped on-demand, via skip''.
+        on_demand_cand=( ${(@)${(@ps:\t:)${(@s: :)${(@s.;.)ZINIT_ICE[skip]}}}} )
+        for p ( $on_demand_cand ) {
+            integer index
+            # Need to decode the acronym-names and take into account full names
+            if (( index = $plugin_array[(I)(*/$p*|$p*|*$p|*-$p*|*$p-*)] )) {
+                on_demand_skip+=( $plugin_array[index] )
+            }
+        }
+
+        # Check if any plugins are missing on the disk.
+        for p ( ${plugin_array:|on_demand_skip} ) {
             if [[ -z $Zinit_Annex_Meta_Plugins_Map[$p] ]] && \
                 ! .zinit-get-object-path AUTO $p
             then
@@ -88,9 +100,19 @@
                 [[ $p = $plugin_array[-1] ]] && local enotlast= || local enotlast=0
                 REPLY=${REPLY//\//∕}
 
-                if (( ${loaded_plugins[(I)$p]} && !${not_existing[(I)$p]} )) {
-                    skipped+=( $REPLY )
-                    REPLY="{dbg}$p {warn}a/l{rst}"
+                integer idx1 idx2
+                if (( (idx1 = $loaded_plugins[(I)$p]) && !$not_existing[(I)$p] || \
+                    (idx2 = $on_demand_skip[(I)$p])
+                )) {
+                    idx2=$on_demand_skip[(I)$p]
+                    local idtxt="{dbg}$p "
+                    if (( idx1 && !idx2 )) {
+                        skipped+=( $REPLY )
+                        idtxt+="{warn}a/l{rst}"
+                    } else {
+                        idtxt+="{warn}skip{rst}"
+                    }
+                    REPLY=$idtxt
                 }
 
                 +zinit-message -n " {bold}$count{rst}{msg}) $REPLY{msg}${enotlast:+,}"
@@ -107,7 +129,9 @@
         # ice-lists and preparing the above communication fields.
         for p ( $plugin_array ) {
             local ice_list_data=$Zinit_Annex_Meta_Plugins_Config_Map[$p]
-            if (( ! ${loaded_plugins[(I)$p]} || ${not_existing[(I)$p]} )) {
+            if (( ( ! $loaded_plugins[(I)$p] || $not_existing[(I)$p] ) && \
+                ! $on_demand_skip[(I)$p]
+            )) {
                 ZINIT[annex-before-load:new-@]+="$ice_list_data @${(q)p} "
                 Zinit_Annex_Meta_Plugins[annex-loaded-plugins]+=" ${(q)p}"
             }

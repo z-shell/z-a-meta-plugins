@@ -27,7 +27,8 @@ autoload -Uz ∧za-meta-plugins-before-load-handler \
 @zinit-register-annex "z-a-meta-plugins" \
     hook:before-load-4 \
     ∧za-meta-plugins-before-load-handler \
-    ∧za-meta-plugins-help-null-handler
+    ∧za-meta-plugins-help-null-handler \
+    "skip''" # Add a new ice
 
 # The subcommand `meta'.
 @zinit-register-annex "z-a-meta-plugins" \
@@ -35,8 +36,7 @@ autoload -Uz ∧za-meta-plugins-before-load-handler \
     ∧za-meta-plugins-meta-cmd \
     ∧za-meta-plugins-meta-cmd-help-handler
 
-# The map in which the definitions of
-# the meta-plugins are being stored.
+# The map in which the definitions of the meta-plugins are being stored.
 typeset -gA Zinit_Annex_Meta_Plugins_Map
 Zinit_Annex_Meta_Plugins_Map=(
     sharkdp     "sharkdp/fd sharkdp/bat sharkdp/hexyl sharkdp/hyperfine sharkdp/vivid"
@@ -57,8 +57,7 @@ Zinit_Annex_Meta_Plugins_Map=(
     fuzzy-src   "fzf-go fzy skim-cargo"
 )
 
-# The map in which the default sets of ices
-# for the real plugins are being stored.
+# The map in which the default sets of ices for the real plugins are being stored.
 typeset -gA Zinit_Annex_Meta_Plugins_Config_Map
 typeset -g _std="lucid"
 Zinit_Annex_Meta_Plugins_Config_Map=(
