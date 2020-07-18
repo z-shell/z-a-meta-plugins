@@ -55,6 +55,12 @@ Zinit_Annex_Meta_Plugins_Map=(
 
     fuzzy       "fzf fzy lotabout/skim peco/peco"
     fuzzy-src   "fzf-go fzy skim-cargo peco-go"
+
+    ext-git     "Fakerr/git-recall paulirish/git-open paulirish/git-recent davidosomething/git-my arzzen/git-quick-stats iwata/git-now tj/git-extras wfxr/forgit"
+
+    rust-utils  "rust-toolchain"
+
+    prezto      "PZTM::archive PZTM::directory PZTM::utility"
 )
 
 # The map in which the default sets of ices for the real plugins are being stored.
@@ -129,10 +135,10 @@ Zinit_Annex_Meta_Plugins_Config_Map=(
     # A few utility plugins
     hlissner/zsh-autopair               "$_std"
     urbainvaes/fzf-marks                "$_std"
-    psprint/zsh-navigation-tools        "$_std"
     voronkovich/gitignore.plugin.zsh    "$_std trigger-load'!gi;!gii' \
         dl'https://gist.githubusercontent.com/psprint/1f4d0a3cb89d68d3256615f247e2aac9/raw -> \
             templates/Zsh.gitignore"
+    psprint/zsh-navigation-tools        "$_std"
     psprint/zsh-editing-workbench       "$_std atinit'local zew_word_style=whitespace;'"
 
     # @marzocchi, a notifier, configured to use zconvey
@@ -163,7 +169,7 @@ _std+=" is-snippet"
 
 Zinit_Annex_Meta_Plugins_Config_Map+=(
     # Prezto
-    PZTM::archive       "$_std"
+    PZTM::archive       "$_std svn silent nocompile"
     PZTM::directory     "$_std"
     PZTM::utility       "$_std"
 )
