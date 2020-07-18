@@ -140,8 +140,10 @@
         ZINIT[annex-before-load:new-@]=${ZINIT[annex-before-load:new-@]## ##}
     }
 
+    integer retval_part=${${ZINIT[annex-before-load:new-@]:+2}:-1}
+    [[ -z $meta_plugin_data ]] && (( retval_part &= 14 )) 
     return $(( ${${ZINIT[annex-before-load:new-global-ices]:+4}:-0} + \
-            ${${ZINIT[annex-before-load:new-@]:+2}:-1} + iberror_flag ))
+                retval_part + iberror_flag ))
 }
 
 # vim:ft=zsh:tw=80:sw=4:sts=4:et
