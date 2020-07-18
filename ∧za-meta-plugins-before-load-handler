@@ -63,10 +63,14 @@
         # Detect if any plugins should be skipped on-demand, via skip''.
         on_demand_cand=( ${(@)${(@ps:\t:)${(@s: :)${(@s.;.)ZINIT_ICE[skip]}}}} )
         for p ( $on_demand_cand ) {
-            integer index
-            # Need to decode the acronym-names and take into account full names
-            if (( index = $plugin_array[(I)(*/$p*|$p*|*$p|*-$p*|*$p-*)] )) {
-                on_demand_skip+=( $plugin_array[index] )
+            integer idx1 idx2
+            local pattern="(*/$p*|$p*|*$p|*-$p*|*$p-*)"
+            if (( idx1 = $plugin_array[(I)$pattern]  )) {
+                on_demand_skip+=( $plugin_array[idx1] )
+                # Go little onward and include a second match too.
+                if (( (idx2 = $plugin_array[(i)$pattern]) != idx1  )) {
+                    on_demand_skip+=( $plugin_array[idx2] )
+                }
             }
         }
 
