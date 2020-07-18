@@ -53,8 +53,8 @@ Zinit_Annex_Meta_Plugins_Map=(
 
     console-tools "sharkdp ogham/exa BurntSushi/ripgrep dircolors-material jonas/tig"
 
-    fuzzy       "fzf fzy lotabout/skim"
-    fuzzy-src   "fzf-go fzy skim-cargo"
+    fuzzy       "fzf fzy lotabout/skim peco/peco"
+    fuzzy-src   "fzf-go fzy skim-cargo peco-go"
 )
 
 # The map in which the default sets of ices for the real plugins are being stored.
@@ -113,10 +113,12 @@ Zinit_Annex_Meta_Plugins_Config_Map=(
     # Fuzzy searchers
     fzf                     "$_std pack'bgn-binary'"
     fzy                     "$_std pack'bgn' git"
-    lotabout/skim           "$_std null from'gh-r' sbin'sk'"
+    lotabout/skim           "$_std binary from'gh-r' sbin'**/sk(.exe|) -> sk'"
+    peco/peco               "$_std binary from'gh-r' mv'peco* peco' sbin'**/peco(.exe|) -> peco'"
     # Fuzzy searchers – from sources
-    fzf-go                  "$_std pack'bgn' teleid'fzf'"
-    skim-cargo              "$_std null cargo='!skim -> sk' teleid'zdharma/null'"
+    fzf-go                  "$_std pack'bgn' teleid'fzf' git"
+    skim-cargo              "$_std binary cargo='!skim -> sk' teleid'zdharma/null'"
+    peco-go                 "$_std binary make'build' sbin'**/peco(.exe|) -> peco' teleid'peco/peco'"
 
     # no username → a rust-annex usage to install Rust toolchain
     rust-toolchain          "$_std null sbin='bin/*' rustup teleid'zdharma/null' \
