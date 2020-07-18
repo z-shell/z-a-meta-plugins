@@ -42,6 +42,7 @@ Zinit_Annex_Meta_Plugins_Map=(
     # Zinit annexes
     annexes     "zinit-zsh/z-a-unscope zinit-zsh/z-a-as-monitor zinit-zsh/z-a-patch-dl \
                     zinit-zsh/z-a-rust zinit-zsh/z-a-submods zinit-zsh/z-a-bin-gem-node"
+    # Annexes + the zinit-console
     annexes+con "zinit-zsh/zinit-console annexes"
 
     # @zsh-users

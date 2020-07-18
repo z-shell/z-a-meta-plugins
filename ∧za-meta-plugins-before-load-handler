@@ -104,13 +104,13 @@
                 [[ $p = $plugin_array[-1] ]] && local enotlast= || local enotlast=0
                 REPLY=${REPLY//\//∕}
 
-                integer idx1 idx2
-                if (( (idx1 = $loaded_plugins[(I)$p]) && !$not_existing[(I)$p] || \
-                    (idx2 = $on_demand_skip[(I)$p])
+                integer idx1=0 idx2=0 idx3=0
+                if (( ((idx1 = $loaded_plugins[(I)$p]) || (idx2 = $zsh_loaded_plugins[(I)$p])) && \
+                    ! $not_existing[(I)$p] || (idx3 = $on_demand_skip[(I)$p])
                 )) {
-                    idx2=$on_demand_skip[(I)$p]
+                    idx3=$on_demand_skip[(I)$p]
                     local idtxt="{dbg}${p//\//∕} "
-                    if (( idx1 && !idx2 )) {
+                    if (( (idx1 || idx2) && !idx3 )) {
                         skipped+=( $REPLY )
                         idtxt+="{warn}a/l{rst}"
                     } else {
@@ -133,7 +133,8 @@
         # ice-lists and preparing the above communication fields.
         for p ( $plugin_array ) {
             local ice_list_data=$Zinit_Annex_Meta_Plugins_Config_Map[$p]
-            if (( ( ! $loaded_plugins[(I)$p] || $not_existing[(I)$p] ) && \
+            if (( ( $not_existing[(I)$p] || \
+                    ! ($loaded_plugins[(I)$p] || $zsh_loaded_plugins[(I)$p]) ) && \
                 ! $on_demand_skip[(I)$p]
             )) {
                 ZINIT[annex-before-load:new-@]+="$ice_list_data @${(q)p} "
