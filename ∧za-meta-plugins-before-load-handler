@@ -16,6 +16,11 @@
         integer ibshow_messages=1 ibdebug=1
     }
 
+    # Apply the default ices first.
+    local -a ices
+    ices=( "${(@Q)${(@z)Zinit_Annex_Meta_Plugins[default-ices]}}" )
+    (( ${#ices} > 0 && ${#ices} % 2 == 0 )) && ZINIT_ICE=( "${(@kv)ZINIT_ICE}" "${ices[@]}" )
+
     # Exclude IDs with slashes and also packages
     [[ $id == */* ]] && local bad_id=1 
     [[ $id == *:* ]] && local bad_id2=1

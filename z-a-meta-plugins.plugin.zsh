@@ -17,8 +17,8 @@ typeset -gA Plugins
 Plugins[META_PLUGINS_DIR]="${0:h}"
 
 autoload -Uz ∧za-meta-plugins-before-load-handler \
-    ∧za-meta-plugins-meta-cmd-help-handler \
-    ∧za-meta-plugins-meta-cmd
+    ∧za-meta-plugins-default-ice-cmd-help-handler \
+    ∧za-meta-plugins-default-ice-cmd
 
 # An empty stub to fill the help handler fields
 ∧za-meta-plugins-help-null-handler() { :; }
@@ -32,9 +32,9 @@ autoload -Uz ∧za-meta-plugins-before-load-handler \
 
 # The subcommand `meta'.
 @zinit-register-annex "z-a-meta-plugins" \
-    subcommand:meta \
-    ∧za-meta-plugins-meta-cmd \
-    ∧za-meta-plugins-meta-cmd-help-handler
+    subcommand:default-ice \
+    ∧za-meta-plugins-default-ice-cmd \
+    ∧za-meta-plugins-default-ice-cmd-help-handler
 
 # The map in which the definitions of the meta-plugins are being stored.
 typeset -gA Zinit_Annex_Meta_Plugins_Map
