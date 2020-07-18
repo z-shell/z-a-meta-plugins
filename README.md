@@ -33,30 +33,36 @@ Other unique benefits of the Meta-Plugins annex:
 
 |Meta-Plugin ID     | Contained sub-plugins |
 |:-----------------:|-----------------------|
-|annexes            |zinit-zsh/z-a-unscope zinit-zsh/z-a-as-monitor zinit-zsh/z-a-patch-dl zinit-zsh/z-a-rust zinit-zsh/z-a-submods zinit-zsh/z-a-bin-gem-node                        | 
-|annexes+con        |zinit-zsh/zinit-console annexes                                                                                                                                  |
-|                   |                                                                                                                                                                 |
-|zsh-users          |zsh-users/zsh-syntax-highlighting zsh-users/zsh-autosuggestions zsh-users/zsh-completions                                                                        |
-|zsh-users+fast     |zdharma/fast-syntax-highlighting zsh-users/zsh-autosuggestions zsh-users/zsh-completions                                                                         |
-|                   |                                                                                                                                                                 |
-|zdharma            |zdharma/fast-syntax-highlighting zdharma/history-search-multi-word zdharma/zsh-diff-so-fancy                                                                     |
-|zdharma2           |zdharma/zconvey zdharma/zui zdharma/zflai                                                                                                                        |
-|                   |                                                                                                                                                                 |
-|molovo             |molovo/color molovo/revolver molovo/zunit                                                                                                                        |
-|                   |                                                                                                                                                                 |
-|sharkdp            |sharkdp/fd sharkdp/bat sharkdp/hexyl sharkdp/hyperfine sharkdp/vivid                                                                                             |
-|                   |                                                                                                                                                                 |
-|developer          |github-issues github-issues-srv molovo/color molovo/revolver molovo/zunit voronkovich/gitignore.plugin.zsh jonas/tig                                             |
-|                   |                                                                                                                                                                 |
-|console-tools      |dircolors-material sharkdp ogham/exa BurntSushi/ripgrep jonas/tig                                                                                                |
-|                   |                                                                                                                                                                 |
-|fuzzy              |fzf fzy lotabout/skim peco/peco                                                                                                                                  |
-|fuzzy-src          |fzf-go fzy skim-cargo peco-go                                                                                                                                    |
-|                   |                                                                                                                                                                 |
-|ext-git            |Fakerr/git-recall paulirish/git-open paulirish/git-recent davidosomething/git-my arzzen/git-quick-stats iwata/git-now tj/git-extras wfxr/forgit                  |
-|                   |                                                                                                                                                                 |
-|rust-utils         |rust-toolchain cargo-extensions                                                                                                                                  |
-|                   |                                                                                                                                                                 |
-|prezto             |PZTM::archive PZTM::directory PZTM::utility                                                                                                                      |
-|                   |                                                                                                                                                                 |
+|**annexes**        |[zinit-zsh/z-a-unscope](https://github.com/zinit-zsh/z-a-unscope), [zinit-zsh/z-a-as-monitor](https://github.com/zinit-zsh/z-a-as-monitor), [zinit-zsh/z-a-patch-dl](https://github.com/zinit-zsh/z-a-patch-dl), [zinit-zsh/z-a-rust](https://github.com/zinit-zsh/z-a-rust), [zinit-zsh/z-a-submods](https://github.com/zinit-zsh/z-a-submods), [zinit-zsh/z-a-bin-gem-node](https://github.com/zinit-zsh/z-a-bin-gem-node)                        | 
+|**annexes+con**    |[zinit-zsh/zinit-console](https://github.com/zinit-zsh/zinit-console), annexes (**meta-plugin**)                 |
+|                   |                                                 |
+|**zsh-users**      |[zsh-users/zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting), [zsh-users/zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions), [zsh-users/zsh-completions](https://github.com/zsh-users/zsh-completions)        |
+|**zsh-users+fast**, |[zdharma/fast-syntax-highlighting](https://github.com/zdharma/fast-syntax-highlighting), [zsh-users/zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions), [zsh-users/zsh-completions](https://github.com/zsh-users/zsh-completions)         |
+|                   |                                                 |
+|**zdharma**        |[zdharma/fast-syntax-highlighting](https://github.com/zdharma/fast-syntax-highlighting), [zdharma/history-search-multi-word](https://github.com/zdharma/history-search-multi-word), [zdharma/zsh-diff-so-fancy](https://github.com/zdharma/zsh-diff-so-fancy)     |
+|**zdharma2**       |[zdharma/zconvey](https://github.com/zdharma/zconvey), [zdharma/zui](https://github.com/zdharma/zui), [zdharma/zflai](https://github.com/zdharma/zflai)        |
+|                   |                                                 |
+|**molovo**         |[molovo/color](https://github.com/molovo/color), [molovo/revolver](https://github.com/molovo/revolver), [molovo/zunit](https://github.com/molovo/zunit)        |
+|                   |                                                 |
+|**sharkdp**        |[sharkdp/fd](https://github.com/sharkdp/fd), [sharkdp/bat](https://github.com/sharkdp/bat), [sharkdp/hexyl](https://github.com/sharkdp/hexyl), [sharkdp/hyperfine](https://github.com/sharkdp/hyperfine), [sharkdp/vivid](https://github.com/sharkdp/vivid)             |
+|                   |                                                 |
+|**developer**      |[github-issues](https://github.com/Zsh-Packages/github-issues), [github-issues-srv](https://github.com/Zsh-Packages/github-issues-srv), [molovo/color](https://github.com/molovo/color), [molovo/revolver](https://github.com/molovo/revolver), [molovo/zunit](https://github.com/molovo/zunit), [voronkovich/gitignore](https://github.com/voronkovich/gitignore.plugin.zsh), [jonas/tig](https://github.com/jonas/tig)             |
+|                   |                                                 |
+|**console-tools**  |[dircolors-material](https://github.com/Zsh-Packages/dircolors-material), sharkdp (**meta-plugin**), [ogham/exa](https://github.com/ogham/exa), [BurntSushi/ripgrep](https://github.com/BurntSushi/ripgrep), [jonas/tig](https://github.com/jonas/tig)|
+|                   |                                                 |
+|**fuzzy**          |[fzf](https://github.com/Zsh-Packages/fzf), [fzy](https://github.com/Zsh-Packages/fzy), [lotabout/skim](https://github.com/lotabout/skim), [peco/peco](https://github.com/peco/peco)                  |
+|**fuzzy-src**      |fzf-go, [fzy](https://github.com/Zsh-Packages/fzy), skim-cargo, peco-go                    |
+|                   |                                                 |
+|**ext-git**        |[Fakerr/git-recall](https://github.com/Fakerr/git-recall), [paulirish/git-open](https://github.com/paulirish/git-open), [paulirish/git-recent](https://github.com/paulirish/git-recent), [davidosomething/git-my](https://github.com/davidosomething/git-my), [arzzen/git-quick-stats](https://github.com/arzzen/git-quick-stats), [iwata/git-now](https://github.com/iwata/git-now), [tj/git-extras](https://github.com/tj/git-extras), [wfxr/forgit](https://github.com/wfxr/forgit)  |
+|                   |                                                 |
+|**rust-utils**     |rust-toolchain, cargo-extensions                  |
+|                   |                                                 |
+|**prezto**         |PZTM::archive, PZTM::directory, PZTM::utility      |
+
+## Example zshrc
+
+```zsh
+# Installs total of 22 plugins
+zinit for annexes zsh-users+fast console-tools fuzzy
+```
 <!-- vim:set ft=markdown tw=81 fo+=a1n autoindent: -->
