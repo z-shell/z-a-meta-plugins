@@ -93,7 +93,7 @@
             [[ -z $Zinit_Annex_Meta_Plugins_Map[${ZINIT[annex-exposed-processed-IDs]##* }] ]] && builtin print 
 
             +zinit-message -n "{hi}$Zinit_Annex_Meta_Plugins_Map[recon-count].{rst} "
-            +zinit-message -n "{pre}[meta-plugins annex]{msg} Installing" \
+            +zinit-message -n "{pre}[meta-plugins annex]{msg} Loading" \
                 "{bold}{meta2}meta-plugin{ehi}: {rst}{msg}\`{meta}{bold}$id{rst}{msg}'" \
                 "consisting of{ehi}:{rst}"
             integer count
