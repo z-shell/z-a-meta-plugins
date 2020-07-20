@@ -162,7 +162,7 @@ Zinit_Annex_Meta_Plugins_Config_Map=(
     urbainvaes/fzf-marks                "$_std"
     voronkovich/gitignore.plugin.zsh    "$_std trigger-load'!gi;!gii' \
         dl'https://gist.githubusercontent.com/psprint/1f4d0a3cb89d68d3256615f247e2aac9/raw -> \
-            templates/Zsh.gitignore"
+            templates/Zsh.gitignore;'"
     psprint/zsh-navigation-tools        "$_std"
     psprint/zsh-editing-workbench       "$_std atinit'local zew_word_style=whitespace;'"
 
