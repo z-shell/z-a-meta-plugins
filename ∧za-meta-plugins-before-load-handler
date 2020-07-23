@@ -11,7 +11,7 @@
 
     local type=$1 id=$2 id_as=$3 args=$4 ices=$5 hook=$6 subtype=$7
 
-    if (( $+ZINIT_ICE[debug] )) {
+    if (( $+ICE[debug] )) {
         # Enable the output from this annex
         integer ibshow_messages=1 ibdebug=1
     }
@@ -19,13 +19,13 @@
     # Apply the default ices first.
     local -a ices
     ices=( "${(@Q)${(@z)Zinit_Annex_Meta_Plugins[default-ices]}}" )
-    (( ${#ices} > 0 && ${#ices} % 2 == 0 )) && ZINIT_ICE=( "${(@kv)ZINIT_ICE}" "${ices[@]}" )
+    (( ${#ices} > 0 && ${#ices} % 2 == 0 )) && ICE=( "${(@kv)ICE}" "${ices[@]}" )
 
     # Exclude IDs with slashes and also packages
     [[ $id == */* ]] && local bad_id=1 
     [[ $id == *:* ]] && local bad_id2=1
-    [[ $ZINIT_ICE[teleid] == */* ]] && local bad_tele=1
-    (( $+ZINIT_ICE[pack] )) && local is_pack=1
+    [[ $ICE[teleid] == */* ]] && local bad_tele=1
+    (( $+ICE[pack] )) && local is_pack=1
     if (( bad_id || bad_id2 || bad_tele || is_pack )) {
         if (( ibdebug )) {
             local -a msgs
@@ -66,7 +66,7 @@
         local p
 
         # Detect if any plugins should be skipped on-demand, via skip''.
-        on_demand_cand=( ${(@)${(@ps:\t:)${(@s: :)${(@s.;.)ZINIT_ICE[skip]}}}} )
+        on_demand_cand=( ${(@)${(@ps:\t:)${(@s: :)${(@s.;.)ICE[skip]}}}} )
         for p ( $on_demand_cand ) {
             integer idx1 count=1
             local pattern="(*/$p*|$p*|*$p|*-$p*|*$p-*)"

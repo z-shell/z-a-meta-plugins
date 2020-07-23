@@ -18,7 +18,7 @@
     integer retval
 
     [[ $1 == default-ice ]] && { shift; integer eas_subcommand=1; }
-    integer ibdebug=$+ZINIT_ICE[debug]
+    integer ibdebug=$+ICE[debug]
 
     # -D - clear out the recognized options
     # -E - allow mixing of options and non-options
@@ -55,13 +55,13 @@
         return $?
     }
 
-    local -A ZINIT_ICES
+    local -A ICES
     .zinit-ice "$@"
     integer iceret=$?
 
-    Zinit_Annex_Meta_Plugins[default-ices]=${(j: :)${(@qkv)ZINIT_ICES}}
+    Zinit_Annex_Meta_Plugins[default-ices]=${(j: :)${(@qkv)ICES}}
     +zinit-message "{pre}default-ice:{rst}{msg} Stored the ices{ehi}:{rst}" \
-            "${(j: :)${(@q-kv)ZINIT_ICES}}.{rst}"
+            "${(j: :)${(@q-kv)ICES}}.{rst}"
 }
 
 # vim:ft=zsh:sw=4:sts=4:et:
