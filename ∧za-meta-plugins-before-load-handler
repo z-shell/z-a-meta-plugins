@@ -96,7 +96,7 @@
 
             +zinit-message -n "{hi}$Zinit_Annex_Meta_Plugins_Map[recon-count].{rst} "
             +zinit-message -n "{pre}[meta-plugins annex]{msg} Loading" \
-                "{bold}{meta2}meta-plugin{ehi}: {rst}{msg}\`{meta}{bold}$id{rst}{msg}'" \
+                "{b}{meta2}meta-plugin{ehi}: {rst}{msg}\`{meta}{b}$id{rst}{msg}'" \
                 "consisting of{ehi}:{rst}"
             integer count
             local -a skipped
@@ -121,7 +121,7 @@
                     REPLY=$idtxt
                 }
 
-                +zinit-message -n " {bold}$count{rst}{msg}) $REPLY{msg}${enotlast:+,}"
+                +zinit-message -n " {b}$count{rst}{msg}) $REPLY{msg}${enotlast:+,}"
             }
             +zinit-message ".{rst}"
             if (( ibdebug && ${#skipped} )) {
