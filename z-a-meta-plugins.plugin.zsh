@@ -74,7 +74,7 @@ Zinit_Annex_Meta_Plugins_Map=(
     fuzzy-src   "fzf-go fzy skim-cargo peco-go"
 
     # Git extensions.
-    ext-git     "Fakerr/git-recall paulirish/git-open paulirish/git-recent davidosomething/git-my arzzen/git-quick-stats iwata/git-now tj/git-extras wfxr/forgit"
+    ext-git     "paulirish/git-open paulirish/git-recent davidosomething/git-my arzzen/git-quick-stats iwata/git-now tj/git-extras wfxr/forgit"
 
     # Rust toolchain + cargo extensions.
     rust-utils  "rust-toolchain cargo-extensions"
