@@ -128,7 +128,7 @@ Zinit_Annex_Meta_Plugins_Config_Map=(
     sharkdp/hyperfine       "$_std binary lucid from'gh-r' mv'hyperfine* hyperfine' sbin'**/hyperfine(.exe|) -> hyperfine'"
     sharkdp/vivid           "$_std binary lucid from'gh-r' mv'vivid* vivid' sbin'**/vivid(.exe|) -> vivid'"
     # @ogham
-    ogham/exa               "$_std binary from'gh-r' sbin'**/exa -> exa'"
+    ogham/exa               "$_std binary from'gh-r' sbin'**/exa -> exa' atclone'cp -vf completions/exa.zsh _exa'"
     exa-cargo               "$_std binary cargo='!exa' teleid'zdharma/null'"
     # @BurntSushi
     BurntSushi/ripgrep      "$_std binary from'gh-r' mv'rip* ripgrep' sbin'**/rg(.exe|) -> rg'"
