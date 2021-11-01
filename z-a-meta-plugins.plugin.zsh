@@ -47,7 +47,7 @@ Zinit_Annex_Meta_Plugins_Map=(
 
     # @zsh-users
     zsh-users   "zsh-users/zsh-syntax-highlighting zsh-users/zsh-autosuggestions zsh-users/zsh-completions"
-    zsh-users+fast "zdharma/fast-syntax-highlighting zsh-users/zsh-autosuggestions zsh-users/zsh-completions"
+    zsh-users+fast "zdharma-continuum/fast-syntax-highlighting zsh-users/zsh-autosuggestions zsh-users/zsh-completions"
     
     # @zdharma
     zdharma     "zdharma-continuum/fast-syntax-highlighting zdharma-continuum/history-search-multi-word zdharma/zsh-diff-so-fancy"
@@ -147,7 +147,7 @@ Zinit_Annex_Meta_Plugins_Config_Map=(
     peco-go                 "$_std binary make'build' sbin'**/peco(.exe|) -> peco' teleid'peco/peco'"
 
     # no username → a rust-annex usage to install Rust toolchain
-    rust-toolchain          "$_std binary sbin='bin/*' rustup teleid'zdharma/null' \
+    rust-toolchain          "$_std binary sbin='bin/*' rustup teleid'zdharma-continuum/null' \
                                     atload='[[ ! -f \${ZINIT[COMPLETIONS_DIR]}/_cargo ]] && \
                                         zi creinstall rust; \
                                     export CARGO_HOME=\$PWD RUSTUP_HOME=\$PWD/rustup'"
