@@ -50,8 +50,8 @@ Zinit_Annex_Meta_Plugins_Map=(
     zsh-users+fast "zdharma/fast-syntax-highlighting zsh-users/zsh-autosuggestions zsh-users/zsh-completions"
     
     # @zdharma
-    zdharma     "zdharma/fast-syntax-highlighting zdharma/history-search-multi-word zdharma/zsh-diff-so-fancy"
-    zdharma2    "zdharma/zconvey zdharma/zui zdharma/zflai"
+    zdharma     "zdharma-continuum/fast-syntax-highlighting zdharma-continuum/history-search-multi-word zdharma/zsh-diff-so-fancy"
+    zdharma2    "zdharma-continuum/zconvey zdharma-continuum/zui zdharma/zflai"
 
     # @molovo
     molovo      "molovo/color molovo/revolver molovo/zunit"
@@ -102,16 +102,16 @@ Zinit_Annex_Meta_Plugins_Config_Map=(
     zsh-users/zsh-syntax-highlighting   "$_std atinit'ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay;'"
     zsh-users/zsh-completions           "$_std pick'/dev/null'"
     # @zdharma
-    zdharma/fast-syntax-highlighting    "$_std atinit'ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay;'"
-    zdharma/history-search-multi-word   "$_std atinit'zstyle :history-search-multi-word page-size 7;'"
+    zdharma-continuum/fast-syntax-highlighting    "$_std atinit'ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay;'"
+    zdharma-continuum/history-search-multi-word   "$_std atinit'zstyle :history-search-multi-word page-size 7;'"
     zdharma/zsh-diff-so-fancy           "$_std null sbin'bin/git-dsf;bin/diff-so-fancy'"
     # @zdharma, less popular
-    zdharma/zui             "$_std blockf"
-    zdharma/zconvey         "$_std sbin'cmds/zc-bg-notify;cmds/plg-zsh-notify'"
+    zdharma-continuum/zui             "$_std blockf"
+    zdharma-continuum/zconvey         "$_std sbin'cmds/zc-bg-notify;cmds/plg-zsh-notify'"
     zdharma/zsh-unique-id   "$_std"
     zdharma/zflai           "$_std"
     github-issues           "$_std pack"
-    github-issues-srv       "$_std pack atinit'GIT_PROJECTS=zdharma/zinit GIT_SLEEP_TIME=700;'"
+    github-issues-srv       "$_std pack atinit'GIT_PROJECTS=zdharma-continuum/zinit GIT_SLEEP_TIME=700;'"
     # @molovo
     molovo/zunit            "$_std binary sbin atclone'./build.zsh;' atpull'%atclone'"
     molovo/color            "$_std binary sbin'color.zsh -> color'"
@@ -129,7 +129,7 @@ Zinit_Annex_Meta_Plugins_Config_Map=(
     sharkdp/vivid           "$_std binary lucid from'gh-r' mv'vivid* vivid' sbin'**/vivid(.exe|) -> vivid'"
     # @ogham
     ogham/exa               "$_std binary from'gh-r' sbin'**/exa -> exa' atclone'cp -vf completions/exa.zsh _exa'"
-    exa-cargo               "$_std binary cargo='!exa' teleid'zdharma/null'"
+    exa-cargo               "$_std binary cargo='!exa' teleid'zdharma-continuum/null'"
     # @BurntSushi
     BurntSushi/ripgrep      "$_std binary from'gh-r' mv'rip* ripgrep' sbin'**/rg(.exe|) -> rg'"
 
@@ -143,7 +143,7 @@ Zinit_Annex_Meta_Plugins_Config_Map=(
     peco/peco               "$_std binary from'gh-r' mv'peco* peco' sbin'**/peco(.exe|) -> peco'"
     # Fuzzy searchers – from sources
     fzf-go                  "$_std pack'bgn' teleid'fzf' git"
-    skim-cargo              "$_std binary cargo='!skim -> sk' teleid'zdharma/null'"
+    skim-cargo              "$_std binary cargo='!skim -> sk' teleid'zdharma-continuum/null'"
     peco-go                 "$_std binary make'build' sbin'**/peco(.exe|) -> peco' teleid'peco/peco'"
 
     # no username → a rust-annex usage to install Rust toolchain
@@ -155,7 +155,7 @@ Zinit_Annex_Meta_Plugins_Config_Map=(
     # see: https://dev.to/cad97/rust-must-know-crates-5ad8
     cargo-extensions        "$_std binary cargo'cargo-edit;cargo-outdated;cargo-tree; \
                                 cargo-update; cargo-expand;cargo-modules;cargo-audit;cargo-clone' \
-                                sbin'bin/*' teleid'zdharma/null'"
+                                sbin'bin/*' teleid'zdharma-continuum/null'"
 
     # A few utility plugins
     hlissner/zsh-autopair               "$_std"
