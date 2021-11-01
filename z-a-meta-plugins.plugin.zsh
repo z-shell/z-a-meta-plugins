@@ -50,8 +50,8 @@ Zinit_Annex_Meta_Plugins_Map=(
     zsh-users+fast "zdharma-continuum/fast-syntax-highlighting zsh-users/zsh-autosuggestions zsh-users/zsh-completions"
     
     # @zdharma
-    zdharma     "zdharma-continuum/fast-syntax-highlighting zdharma-continuum/history-search-multi-word zdharma/zsh-diff-so-fancy"
-    zdharma2    "zdharma-continuum/zconvey zdharma-continuum/zui zdharma/zflai"
+    zdharma     "zdharma-continuum/fast-syntax-highlighting zdharma-continuum/history-search-multi-word zdharma-continuum/zsh-diff-so-fancy"
+    zdharma2    "zdharma-continuum/zconvey zdharma-continuum/zui zdharma-continuum/zflai"
 
     # @molovo
     molovo      "molovo/color molovo/revolver molovo/zunit"
@@ -104,12 +104,12 @@ Zinit_Annex_Meta_Plugins_Config_Map=(
     # @zdharma
     zdharma-continuum/fast-syntax-highlighting    "$_std atinit'ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay;'"
     zdharma-continuum/history-search-multi-word   "$_std atinit'zstyle :history-search-multi-word page-size 7;'"
-    zdharma/zsh-diff-so-fancy           "$_std null sbin'bin/git-dsf;bin/diff-so-fancy'"
+    zdharma-continuum/zsh-diff-so-fancy           "$_std null sbin'bin/git-dsf;bin/diff-so-fancy'"
     # @zdharma, less popular
     zdharma-continuum/zui             "$_std blockf"
     zdharma-continuum/zconvey         "$_std sbin'cmds/zc-bg-notify;cmds/plg-zsh-notify'"
     zdharma/zsh-unique-id   "$_std"
-    zdharma/zflai           "$_std"
+    zdharma-continuum/zflai           "$_std"
     github-issues           "$_std pack"
     github-issues-srv       "$_std pack atinit'GIT_PROJECTS=zdharma-continuum/zinit GIT_SLEEP_TIME=700;'"
     # @molovo
