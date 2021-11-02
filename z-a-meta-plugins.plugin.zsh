@@ -108,7 +108,7 @@ Zinit_Annex_Meta_Plugins_Config_Map=(
     # @zdharma, less popular
     zdharma-continuum/zui             "$_std blockf"
     zdharma-continuum/zconvey         "$_std sbin'cmds/zc-bg-notify;cmds/plg-zsh-notify'"
-    zdharma/zsh-unique-id   "$_std"
+    zdharma-continuum/zsh-unique-id   "$_std"
     zdharma-continuum/zflai           "$_std"
     github-issues           "$_std pack"
     github-issues-srv       "$_std pack atinit'GIT_PROJECTS=zdharma-continuum/zinit GIT_SLEEP_TIME=700;'"
