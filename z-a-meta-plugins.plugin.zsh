@@ -40,18 +40,18 @@ autoload -Uz ∧za-meta-plugins-before-load-handler \
 typeset -gA Zinit_Annex_Meta_Plugins_Map
 Zinit_Annex_Meta_Plugins_Map=(
     # Zinit annexes
-    annexes     "zinit-zsh/z-a-unscope zinit-zsh/z-a-as-monitor zinit-zsh/z-a-patch-dl \
-                    zinit-zsh/z-a-rust zinit-zsh/z-a-submods zinit-zsh/z-a-bin-gem-node"
+    annexes     "z-shell/z-a-unscope z-shell/z-a-as-monitor z-shell/z-a-patch-dl \
+                    z-shell/z-a-rust z-shell/z-a-submods z-shell/z-a-bin-gem-node"
     # Annexes + the zinit-console
-    annexes+con "zinit-zsh/zinit-console annexes"
+    annexes+con "z-shell/zinit-console annexes"
 
     # @zsh-users
     zsh-users   "zsh-users/zsh-syntax-highlighting zsh-users/zsh-autosuggestions zsh-users/zsh-completions"
-    zsh-users+fast "zdharma-continuum/fast-syntax-highlighting zsh-users/zsh-autosuggestions zsh-users/zsh-completions"
+    zsh-users+fast "z-shell/fast-syntax-highlighting zsh-users/zsh-autosuggestions zsh-users/zsh-completions"
     
-    # @zdharma
-    zdharma     "zdharma-continuum/fast-syntax-highlighting zdharma-continuum/history-search-multi-word zdharma-continuum/zsh-diff-so-fancy"
-    zdharma2    "zdharma-continuum/zconvey zdharma-continuum/zui zdharma-continuum/zflai"
+    # @z-shell
+    z-shell     "z-shell/fast-syntax-highlighting z-shell/history-search-multi-word z-shell/zsh-diff-so-fancy"
+    z-shell2    "z-shell/zconvey z-shell/zui z-shell/zflai"
 
     # @molovo
     molovo      "molovo/color molovo/revolver molovo/zunit"
@@ -163,7 +163,7 @@ Zinit_Annex_Meta_Plugins_Config_Map=(
     voronkovich/gitignore.plugin.zsh    "$_std trigger-load'!gi;!gii' \
         dl'https://gist.githubusercontent.com/psprint/1f4d0a3cb89d68d3256615f247e2aac9/raw -> \
             templates/Zsh.gitignore;'"
-    psprint/zsh-navigation-tools        "$_std"
+    z-shell/zsh-navigation-tools        "$_std"
     psprint/zsh-editing-workbench       "$_std atinit'local zew_word_style=whitespace;'"
 
     # @marzocchi, a notifier, configured to use zconvey
