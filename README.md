@@ -3,7 +3,7 @@
 ### **Install groups of plugins via a single, friendly label …**
 ### **… and also have the curated, optimal ice lists automatically applied !**
 
-![screenshot](https://raw.githubusercontent.com/zinit-zsh/z-a-meta-plugins/master/images/fuzzy-mplg-ex.png)
+![screenshot](https://raw.githubusercontent.com/z-shell/z-a-meta-plugins/main/images/fuzzy-mplg-ex.png)
 
 ## Rationale
 
@@ -33,14 +33,14 @@ Other unique benefits of the Meta-Plugins annex:
 
 |Meta-Plugin ID     | Contained sub-plugins |
 |:-----------------:|-----------------------|
-|**annexes**        |[zinit-zsh/z-a-unscope](https://github.com/zinit-zsh/z-a-unscope), [zinit-zsh/z-a-as-monitor](https://github.com/zinit-zsh/z-a-as-monitor), [zinit-zsh/z-a-patch-dl](https://github.com/zinit-zsh/z-a-patch-dl), [zinit-zsh/z-a-rust](https://github.com/zinit-zsh/z-a-rust), [zinit-zsh/z-a-submods](https://github.com/zinit-zsh/z-a-submods), [zinit-zsh/z-a-bin-gem-node](https://github.com/zinit-zsh/z-a-bin-gem-node)                        | 
-|**annexes+con**    |[zinit-zsh/zinit-console](https://github.com/zinit-zsh/zinit-console), annexes (**meta-plugin**)                 |
+|**annexes**        |[z-shell/z-a-unscope](https://github.com/z-shell/z-a-unscope), [z-shell/z-a-as-monitor](https://github.com/z-shell/z-a-as-monitor), [z-shell/z-a-patch-dl](https://github.com/z-shell/z-a-patch-dl), [z-shell/z-a-rust](https://github.com/z-shell/z-a-rust), [z-shell/z-a-submods](https://github.com/z-shell/z-a-submods), [z-shell/z-a-bin-gem-node](https://github.com/z-shell/z-a-bin-gem-node)                        | 
+|**annexes+con**    |[z-shell/zinit-console](https://github.com/z-shell/zinit-console), annexes (**meta-plugin**)                 |
 |                   |                                                 |
 |**zsh-users**      |[zsh-users/zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting), [zsh-users/zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions), [zsh-users/zsh-completions](https://github.com/zsh-users/zsh-completions)        |
 |**zsh-users+fast**, |[zdharma/fast-syntax-highlighting](https://github.com/zdharma/fast-syntax-highlighting), [zsh-users/zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions), [zsh-users/zsh-completions](https://github.com/zsh-users/zsh-completions)         |
 |                   |                                                 |
-|**zdharma**        |[zdharma/fast-syntax-highlighting](https://github.com/zdharma/fast-syntax-highlighting), [zdharma/history-search-multi-word](https://github.com/zdharma/history-search-multi-word), [zdharma/zsh-diff-so-fancy](https://github.com/zdharma/zsh-diff-so-fancy)     |
-|**zdharma2**       |[zdharma/zconvey](https://github.com/zdharma/zconvey), [zdharma/zui](https://github.com/zdharma/zui), [zdharma/zflai](https://github.com/zdharma/zflai)        |
+|**z-shell**        |[z-shell/fast-syntax-highlighting](https://github.com/z-shell/fast-syntax-highlighting), [z-shell/history-search-multi-word](https://github.com/z-shell/history-search-multi-word), [z-shell/zsh-diff-so-fancy](https://github.com/z-shell/zsh-diff-so-fancy)     |
+|**z-shell2**       |[z-shell/zconvey](https://github.com/z-shell/zconvey), [z-shell/zui](https://github.com/z-shell/zui), [z-shell/zflai](https://github.com/zdharma/zflai)        |
 |                   |                                                 |
 |**molovo**         |[molovo/color](https://github.com/molovo/color), [molovo/revolver](https://github.com/molovo/revolver), [molovo/zunit](https://github.com/molovo/zunit)        |
 |                   |                                                 |
