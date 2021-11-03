@@ -1,21 +1,19 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
-
-- [`Z-A-META-PLUGINS`](#z-a-meta-plugins)
-  - [Introduction](#introduction)
-    - [**Install groups of plugins via a single, friendly label …**](#install-groups-of-plugins-via-a-single-friendly-label-)
-    - [**… and also have the curated, optimal ice lists automatically applied !**](#-and-also-have-the-curated-optimal-ice-lists-automatically-applied-)
-  - [Rationale](#rationale)
-  - [The list of the meta-plugins](#the-list-of-the-meta-plugins)
-  - [Example zshrc](#example-zshrc)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 # `Z-A-META-PLUGINS`
 
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-blue?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 [![DeepSource](https://deepsource.io/gh/z-shell/z-a-meta-plugins.svg/?label=active+issues&show_trend=true)](https://deepsource.io/gh/z-shell/z-a-meta-plugins/?ref=repository-badge)
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Introduction](#introduction)
+  - [**Install groups of plugins via a single, friendly label …**](#install-groups-of-plugins-via-a-single-friendly-label-)
+  - [**… and also have the curated, optimal ice lists automatically applied !**](#-and-also-have-the-curated-optimal-ice-lists-automatically-applied-)
+- [Rationale](#rationale)
+- [The list of the meta-plugins](#the-list-of-the-meta-plugins)
+- [Example zshrc](#example-zshrc)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Introduction
 
