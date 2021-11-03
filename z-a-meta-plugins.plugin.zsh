@@ -3,7 +3,7 @@
 # Copyright (c) 2020 Sebastian Gniazdowski
 
 # According to the Zsh Plugin Standard:
-# http://zdharma.org/Zsh-100-Commits-Club/Zsh-Plugin-Standard.html#zero-handling
+# http://z-shell.github.io/Zsh-100-Commits-Club/Zsh-Plugin-Standard.html#zero-handling
 
 0="${${ZERO:-${0:#$ZSH_ARGZERO}}:-${(%):-%N}}"
 0="${${(M)0:#/*}:-$PWD/$0}"
@@ -12,7 +12,7 @@ typeset -gA Zinit_Annex_Meta_Plugins
 Zinit_Annex_Meta_Plugins[0]="$0" Zinit_Annex_Meta_Plugins[repo-dir]="${0:h}"
 
 # Standard hash for plugins:
-# http://zdharma.org/Zsh-100-Commits-Club/Zsh-Plugin-Standard.html#std-hash
+# http://z-shell.github.io/Zsh-100-Commits-Club/Zsh-Plugin-Standard.html#std-hash
 typeset -gA Plugins
 Plugins[META_PLUGINS_DIR]="${0:h}"
 
@@ -48,7 +48,7 @@ Zinit_Annex_Meta_Plugins_Map=(
     # @zsh-users
     zsh-users   "zsh-users/zsh-syntax-highlighting zsh-users/zsh-autosuggestions zsh-users/zsh-completions"
     zsh-users+fast "z-shell/fast-syntax-highlighting zsh-users/zsh-autosuggestions zsh-users/zsh-completions"
-    
+
     # @z-shell
     z-shell     "z-shell/fast-syntax-highlighting z-shell/history-search-multi-word z-shell/zsh-diff-so-fancy"
     z-shell2    "z-shell/zconvey z-shell/zui z-shell/zflai"
@@ -87,31 +87,31 @@ Zinit_Annex_Meta_Plugins_Map=(
 typeset -gA Zinit_Annex_Meta_Plugins_Config_Map
 typeset -g _std="lucid"
 Zinit_Annex_Meta_Plugins_Config_Map=(
-    # @zinit-zsh (all annexes + extensions, without Meta-Plugins, obviously)
-    zinit-zsh/zinit-console     "$_std"
-    zinit-zsh/z-a-as-monitor    "$_std"
-    zinit-zsh/z-a-patch-dl      "$_std"
-    zinit-zsh/z-a-unscope       "$_std"
-    zinit-zsh/z-a-submods       "$_std"
-    zinit-zsh/z-a-rust          "$_std"
-    zinit-zsh/z-a-bin-gem-node  "$_std"
-    zinit-zsh/z-a-man           "$_std"
-    zinit-zsh/z-a-test          "$_std"
+    # @z-shell (all annexes + extensions, without Meta-Plugins, obviously)
+    z-shell/zinit-console     "$_std"
+    z-shell/z-a-as-monitor    "$_std"
+    z-shell/z-a-patch-dl      "$_std"
+    z-shell/z-a-unscope       "$_std"
+    z-shell/z-a-submods       "$_std"
+    z-shell/z-a-rust          "$_std"
+    z-shell/z-a-bin-gem-node  "$_std"
+    z-shell/z-a-man           "$_std"
+    z-shell/z-a-test          "$_std"
     # @zsh-users
     zsh-users/zsh-autosuggestions       "$_std atload'_zsh_autosuggest_start;'"
     zsh-users/zsh-syntax-highlighting   "$_std atinit'ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay;'"
     zsh-users/zsh-completions           "$_std pick'/dev/null'"
-    # @zdharma
-    zdharma-continuum/fast-syntax-highlighting    "$_std atinit'ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay;'"
-    zdharma-continuum/history-search-multi-word   "$_std atinit'zstyle :history-search-multi-word page-size 7;'"
-    zdharma-continuum/zsh-diff-so-fancy           "$_std null sbin'bin/git-dsf;bin/diff-so-fancy'"
-    # @zdharma, less popular
-    zdharma-continuum/zui             "$_std blockf"
-    zdharma-continuum/zconvey         "$_std sbin'cmds/zc-bg-notify;cmds/plg-zsh-notify'"
-    zdharma-continuum/zsh-unique-id   "$_std"
-    zdharma-continuum/zflai           "$_std"
+    # @z-shell
+    z-shell/fast-syntax-highlighting    "$_std atinit'ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay;'"
+    z-shell/history-search-multi-word   "$_std atinit'zstyle :history-search-multi-word page-size 7;'"
+    z-shell/zsh-diff-so-fancy           "$_std null sbin'bin/git-dsf;bin/diff-so-fancy'"
+    # @z-shell, less popular
+    z-shell/zui             "$_std blockf"
+    z-shell/zconvey         "$_std sbin'cmds/zc-bg-notify;cmds/plg-zsh-notify'"
+    z-shell/zsh-unique-id   "$_std"
+    z-shell/zflai           "$_std"
     github-issues           "$_std pack"
-    github-issues-srv       "$_std pack atinit'GIT_PROJECTS=zdharma-continuum/zinit GIT_SLEEP_TIME=700;'"
+    github-issues-srv       "$_std pack atinit'GIT_PROJECTS=z-shell/zinit GIT_SLEEP_TIME=700;'"
     # @molovo
     molovo/zunit            "$_std binary sbin atclone'./build.zsh;' atpull'%atclone'"
     molovo/color            "$_std binary sbin'color.zsh -> color'"
@@ -129,7 +129,7 @@ Zinit_Annex_Meta_Plugins_Config_Map=(
     sharkdp/vivid           "$_std binary lucid from'gh-r' mv'vivid* vivid' sbin'**/vivid(.exe|) -> vivid'"
     # @ogham
     ogham/exa               "$_std binary from'gh-r' sbin'**/exa -> exa' atclone'cp -vf completions/exa.zsh _exa'"
-    exa-cargo               "$_std binary cargo='!exa' teleid'zdharma-continuum/null'"
+    exa-cargo               "$_std binary cargo='!exa' teleid'z-shell/null'"
     # @BurntSushi
     BurntSushi/ripgrep      "$_std binary from'gh-r' mv'rip* ripgrep' sbin'**/rg(.exe|) -> rg'"
 
@@ -143,11 +143,11 @@ Zinit_Annex_Meta_Plugins_Config_Map=(
     peco/peco               "$_std binary from'gh-r' mv'peco* peco' sbin'**/peco(.exe|) -> peco'"
     # Fuzzy searchers – from sources
     fzf-go                  "$_std pack'bgn' teleid'fzf' git"
-    skim-cargo              "$_std binary cargo='!skim -> sk' teleid'zdharma-continuum/null'"
+    skim-cargo              "$_std binary cargo='!skim -> sk' teleid'z-shell/null'"
     peco-go                 "$_std binary make'build' sbin'**/peco(.exe|) -> peco' teleid'peco/peco'"
 
     # no username → a rust-annex usage to install Rust toolchain
-    rust-toolchain          "$_std binary sbin='bin/*' rustup teleid'zdharma-continuum/null' \
+    rust-toolchain          "$_std binary sbin='bin/*' rustup teleid'z-shell/null' \
                                     atload='[[ ! -f \${ZINIT[COMPLETIONS_DIR]}/_cargo ]] && \
                                         zi creinstall rust; \
                                     export CARGO_HOME=\$PWD RUSTUP_HOME=\$PWD/rustup'"
@@ -155,14 +155,11 @@ Zinit_Annex_Meta_Plugins_Config_Map=(
     # see: https://dev.to/cad97/rust-must-know-crates-5ad8
     cargo-extensions        "$_std binary cargo'cargo-edit;cargo-outdated;cargo-tree; \
                                 cargo-update; cargo-expand;cargo-modules;cargo-audit;cargo-clone' \
-                                sbin'bin/*' teleid'zdharma-continuum/null'"
+                                sbin'bin/*' teleid'z-shell/null'"
 
     # A few utility plugins
     hlissner/zsh-autopair               "$_std"
     urbainvaes/fzf-marks                "$_std"
-    voronkovich/gitignore.plugin.zsh    "$_std trigger-load'!gi;!gii' \
-        dl'https://gist.githubusercontent.com/psprint/1f4d0a3cb89d68d3256615f247e2aac9/raw -> \
-            templates/Zsh.gitignore;'"
     z-shell/zsh-navigation-tools        "$_std"
     psprint/zsh-editing-workbench       "$_std atinit'local zew_word_style=whitespace;'"
 
