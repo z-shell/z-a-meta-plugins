@@ -1,4 +1,6 @@
-# Meta-Plugins support for Zsh-Zinit
+# `Z-A-META-PLUGINS`
+
+[![DeepSource](https://deepsource.io/gh/z-shell/z-a-meta-plugins.svg/?label=active+issues&show_trend=true)](https://deepsource.io/gh/z-shell/z-a-meta-plugins/?ref=repository-badge)
 
 ### **Install groups of plugins via a single, friendly label …**
 ### **… and also have the curated, optimal ice lists automatically applied !**
