@@ -86,9 +86,12 @@ Zinit_Annex_Meta_Plugins_Map=(
 # The map in which the default sets of ices for the real plugins are being stored.
 typeset -gA Zinit_Annex_Meta_Plugins_Config_Map
 typeset -g _std="lucid"
+## DISABLED AS NOT FOUND
+##     z-shell/zinit-console     "$_std"
+##     z-shell/z-a-test          "$_std"
+
 Zinit_Annex_Meta_Plugins_Config_Map=(
     # @z-shell (all annexes + extensions, without Meta-Plugins, obviously)
-    z-shell/zinit-console     "$_std"
     z-shell/z-a-as-monitor    "$_std"
     z-shell/z-a-patch-dl      "$_std"
     z-shell/z-a-unscope       "$_std"
@@ -96,7 +99,6 @@ Zinit_Annex_Meta_Plugins_Config_Map=(
     z-shell/z-a-rust          "$_std"
     z-shell/z-a-bin-gem-node  "$_std"
     z-shell/z-a-man           "$_std"
-    z-shell/z-a-test          "$_std"
     # @zsh-users
     zsh-users/zsh-autosuggestions       "$_std atload'_zsh_autosuggest_start;'"
     zsh-users/zsh-syntax-highlighting   "$_std atinit'ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay;'"
@@ -110,8 +112,8 @@ Zinit_Annex_Meta_Plugins_Config_Map=(
     z-shell/zconvey         "$_std sbin'cmds/zc-bg-notify;cmds/plg-zsh-notify'"
     z-shell/zsh-unique-id   "$_std"
     z-shell/zflai           "$_std"
-    github-issues           "$_std pack"
-    github-issues-srv       "$_std pack atinit'GIT_PROJECTS=z-shell/zinit GIT_SLEEP_TIME=700;'"
+#    github-issues           "$_std pack"
+#    github-issues-srv       "$_std pack atinit'GIT_PROJECTS=z-shell/zinit GIT_SLEEP_TIME=700;'"
     # @molovo
     molovo/zunit            "$_std binary sbin atclone'./build.zsh;' atpull'%atclone'"
     molovo/color            "$_std binary sbin'color.zsh -> color'"
@@ -137,8 +139,8 @@ Zinit_Annex_Meta_Plugins_Config_Map=(
     jonas/tig               "$_std binary make'prefix=$ZPFX install'"
 
     # Fuzzy searchers
-    fzf                     "$_std pack'bgn-binary'"
-    fzy                     "$_std pack'bgn' git"
+#    fzf                     "$_std pack'bgn-binary'"
+#    fzy                     "$_std pack'bgn' git"
     lotabout/skim           "$_std binary from'gh-r' sbin'**/sk(.exe|) -> sk'"
     peco/peco               "$_std binary from'gh-r' mv'peco* peco' sbin'**/peco(.exe|) -> peco'"
     # Fuzzy searchers – from sources
@@ -161,7 +163,7 @@ Zinit_Annex_Meta_Plugins_Config_Map=(
     hlissner/zsh-autopair               "$_std"
     urbainvaes/fzf-marks                "$_std"
     z-shell/zsh-navigation-tools        "$_std"
-    psprint/zsh-editing-workbench       "$_std atinit'local zew_word_style=whitespace;'"
+#    psprint/zsh-editing-workbench       "$_std atinit'local zew_word_style=whitespace;'"
 
     # @marzocchi, a notifier, configured to use zconvey
     marzocchi/zsh-notify      "$_std atinit'zstyle \":notify:*\" command-complete-timeout 3; \
