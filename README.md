@@ -1,6 +1,7 @@
 # `Z-A-META-PLUGINS`
 
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-blue?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
+[![CodeFactor](https://www.codefactor.io/repository/github/z-shell/z-a-meta-plugins/badge)](https://www.codefactor.io/repository/github/z-shell/z-a-meta-plugins)
 [![DeepSource](https://deepsource.io/gh/z-shell/z-a-meta-plugins.svg/?label=active+issues&show_trend=true)](https://deepsource.io/gh/z-shell/z-a-meta-plugins/?ref=repository-badge)
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
