@@ -138,8 +138,8 @@ Zinit_Annex_Meta_Plugins_Config_Map=(
     jonas/tig               "$_std binary make'prefix=$ZPFX install'"
 
     # Fuzzy searchers
-#    fzf                     "$_std pack'bgn-binary'"
-#    fzy                     "$_std pack'bgn' git"
+    fzf                     "$_std pack'bgn-binary'"
+    fzy                     "$_std pack'bgn' git"
     lotabout/skim           "$_std binary from'gh-r' sbin'**/sk(.exe|) -> sk'"
     peco/peco               "$_std binary from'gh-r' mv'peco* peco' sbin'**/peco(.exe|) -> peco'"
     # Fuzzy searchers – from sources
