@@ -1,5 +1,3 @@
-# `Z-A-META-PLUGINS`
-
 [![CodeFactor](https://www.codefactor.io/repository/github/z-shell/z-a-meta-plugins/badge)](https://www.codefactor.io/repository/github/z-shell/z-a-meta-plugins)
 [![DeepSource](https://deepsource.io/gh/z-shell/z-a-meta-plugins.svg/?label=active+issues&show_trend=true)](https://deepsource.io/gh/z-shell/z-a-meta-plugins/?ref=repository-badge)
 
