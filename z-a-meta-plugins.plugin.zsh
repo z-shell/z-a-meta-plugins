@@ -3,7 +3,7 @@
 # Copyright (c) 2020 Sebastian Gniazdowski
 
 # According to the Zsh Plugin Standard:
-# http://z-shell.github.io/Zsh-100-Commits-Club/Zsh-Plugin-Standard.html#zero-handling
+# http://z-shell.github.io/ZSH-TOP-100/Zsh-Plugin-Standard.html#zero-handling
 
 0="${${ZERO:-${0:#$ZSH_ARGZERO}}:-${(%):-%N}}"
 0="${${(M)0:#/*}:-$PWD/$0}"
@@ -12,7 +12,7 @@ typeset -gA Zinit_Annex_Meta_Plugins
 Zinit_Annex_Meta_Plugins[0]="$0" Zinit_Annex_Meta_Plugins[repo-dir]="${0:h}"
 
 # Standard hash for plugins:
-# http://z-shell.github.io/Zsh-100-Commits-Club/Zsh-Plugin-Standard.html#std-hash
+# http://z-shell.github.io/ZSH-TOP-100/Zsh-Plugin-Standard.html#std-hash
 typeset -gA Plugins
 Plugins[META_PLUGINS_DIR]="${0:h}"
 
