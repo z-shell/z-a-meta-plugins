@@ -1,5 +1,3 @@
-# -*- mode: sh; sh-indentation: 4; indent-tabs-mode: nil; sh-basic-offset: 4; -*-
-
 # Copyright (c) 2020 Sebastian Gniazdowski
 
 # According to the Zsh Plugin Standard:
@@ -112,7 +110,7 @@ Zinit_Annex_Meta_Plugins_Config_Map=(
     z-shell/zsh-unique-id   "$_std"
     z-shell/zflai           "$_std"
     github-issues           "$_std pack"
-    github-issues-srv       "$_std pack atinit'GIT_PROJECTS=z-shell/zinit GIT_SLEEP_TIME=700;'"
+    github-issues-srv       "$_std pack atinit'GIT_PROJECTS=z-shell/zi GIT_SLEEP_TIME=700;'"
     # @molovo
     molovo/zunit            "$_std binary sbin atclone'./build.zsh;' atpull'%atclone'"
     molovo/color            "$_std binary sbin'color.zsh -> color'"
@@ -198,6 +196,3 @@ Zinit_Annex_Meta_Plugins_Config_Map+=(
 )
 
 unset _std
-
-
-# vim:ft=zsh:tw=80:sw=4:sts=4:et:foldmarker=[[[,]]]
