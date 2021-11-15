@@ -81,7 +81,6 @@ Other unique benefits of the Meta-Plugins annex:
 
 ```zsh
 zinit light-mode for \
-    z-shell/z-a-readurl \
     z-shell/z-a-meta-plugins
 
 zinit light-mode for annexes \
@@ -94,5 +93,3 @@ zinit light-mode for annexes \
 # Installs total of 22 plugins
 zinit for annexes zsh-users+fast console-tools fuzzy
 ```
-
-<!-- vim:set ft=markdown tw=81 fo+=a1n autoindent: -->
