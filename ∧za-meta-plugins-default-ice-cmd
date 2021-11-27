@@ -31,14 +31,14 @@
         -show=show s=show -stats=stats t=stats -get=get g=get \
         -quiet=quiet q=quiet h=help -help=help || retval=1
         if [[ $retval -gt 0 || $1 = -* ]] {
-            +zinit-message "{nl}{error}meta-plugins annex: {msg}Incorrect options" \
+            +zi-message "{nl}{error}meta-plugins annex: {msg}Incorrect options" \
                 "given${${(M)1:#-*}:+ "(bad option: {ehi}$1{rst}{msg})"}." \
                 "Usage:{rst}{nl}"
             help=( -h ) retval=1
         }
 
     if (( !$# && !${#help} && !${#show} && !${#clear} && !${#stats} )) {
-        +zinit-message "{ehi}meta-plugins annex:{rst}{msg} Missing any" \
+        +zi-message "{ehi}meta-plugins annex:{rst}{msg} Missing any" \
             "ices. Usage:{rst}{nl}"
         help=( -h ) retval=1
     }
@@ -56,10 +56,10 @@
     }
 
     local -A ICES
-    .zinit-ice "$@"
+    .zi-ice "$@"
     integer iceret=$?
 
     zi_annex_meta_plugins[default-ices]=${(j: :)${(@qkv)ICES}}
-    +zinit-message "{pre}default-ice:{rst}{msg} Stored the ices{ehi}:{rst}" \
+    +zi-message "{pre}default-ice:{rst}{msg} Stored the ices{ehi}:{rst}" \
             "${(j: :)${(@q-kv)ICES}}.{rst}"
 }

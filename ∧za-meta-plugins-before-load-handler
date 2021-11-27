@@ -31,7 +31,7 @@
             msgs=( ${bad_id:+the ID contains a slash} ${bad_id2:+the ID looks like a snippet ID}
                    ${bad_tele:+"the {ice}teleid{meta}''{msg} ice contains a slash"}
                    ${is_pack:+"the ID is a package ↔ {ice}pack{meta}''{msg} ice given"} )
-            +zinit-message "{pre}meta-plugins annex: {msg}Skipping the ID: {meta2}$id{msg}" \
+            +zi-message "{pre}meta-plugins annex: {msg}Skipping the ID: {meta2}$id{msg}" \
                     "(reason(s): ${(j:, :)msgs}).{rst}"
         }
         return 0
@@ -78,7 +78,7 @@
         # Check if any plugins are missing on the disk.
         for p ( ${plugin_array:|on_demand_skip} ) {
             if [[ -z $zi_annex_meta_plugins_map[$p] ]] && \
-                ! .zinit-get-object-path AUTO $p
+                ! .zi-get-object-path AUTO $p
             then
                 ibshow_messages=1
                 not_existing+=( $p )
@@ -87,21 +87,21 @@
 
         # Debug message.
         if (( ibshow_messages )) {
-            (($+functions[.zinit-two-paths])) || builtin source $ZI[BIN_DIR]/lib/zsh/side.zsh
+            (($+functions[.zi-two-paths])) || builtin source $ZI[BIN_DIR]/lib/zsh/side.zsh
 
             # Output a separating newline if the previous-processed
             # plugin isn't a meta-plugin → to cluster the messages.
             [[ -z $zi_annex_meta_plugins_map[${ZI[annex-exposed-processed-IDs]##* }] ]] && builtin print
 
-            +zinit-message -n "{hi}$zi_annex_meta_plugins_map[recon-count].{rst} "
-            +zinit-message -n "{pre}[meta-plugins annex]{msg} Loading" \
+            +zi-message -n "{hi}$zi_annex_meta_plugins_map[recon-count].{rst} "
+            +zi-message -n "{pre}[meta-plugins annex]{msg} Loading" \
                 "{b}{meta2}meta-plugin{ehi}: {rst}{msg}\`{meta}{b}$id{rst}{msg}'" \
                 "consisting of{ehi}:{rst}"
             integer count
             local -a skipped
             for p ( $plugin_array ) {
                 count+=1
-                .zinit-any-colorify-as-uspl2 $p
+                .zi-any-colorify-as-uspl2 $p
                 [[ $p = $plugin_array[-1] ]] && local enotlast= || local enotlast=0
                 REPLY=${REPLY//\//∕}
 
@@ -120,12 +120,12 @@
                     REPLY=$idtxt
                 }
 
-                +zinit-message -n " {b}$count{rst}{msg}) $REPLY{msg}${enotlast:+,}"
+                +zi-message -n " {b}$count{rst}{msg}) $REPLY{msg}${enotlast:+,}"
             }
-            +zinit-message ".{rst}"
+            +zi-message ".{rst}"
             if (( ibdebug && ${#skipped} )) {
-                +zinit-message -n "{hi}$zi_annex_meta_plugins_map[recon-count].{rst} "
-                +zinit-message "{pre}[meta-plugins annex]{msg} Skipping already" \
+                +zi-message -n "{hi}$zi_annex_meta_plugins_map[recon-count].{rst} "
+                +zi-message "{pre}[meta-plugins annex]{msg} Skipping already" \
                     "loaded: ${(j:, :)skipped}{msg}.{rst}"
             }
         }

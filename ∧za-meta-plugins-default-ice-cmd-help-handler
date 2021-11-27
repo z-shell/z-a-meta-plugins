@@ -2,7 +2,7 @@
 # Copyright (c) 2021 Z-Shell ZI Contributors
 
 ∧za-meta-plugins-default-ice-cmd-help-handler() {
-    +zinit-message "—— {pre}default-ice {meta}--help{data}/{meta}-h" \
+    +zi-message "—— {pre}default-ice {meta}--help{data}/{meta}-h" \
             "{rst}{nl}{nl}" \
             \
             "{msg2}Description:{rst}{nl}" \
