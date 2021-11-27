@@ -17,7 +17,7 @@
 
     # Apply the default ices first.
     local -a ices
-    ices=( "${(@Q)${(@z)Zinit_Annex_Meta_Plugins[default-ices]}}" )
+    ices=( "${(@Q)${(@z)zi_annex_meta_plugins[default-ices]}}" )
     (( ${#ices} > 0 && ${#ices} % 2 == 0 )) && ICE=( "${(@kv)ICE}" "${ices[@]}" )
 
     # Exclude IDs with slashes and also packages
@@ -52,15 +52,15 @@
     # Strip the ID from some possible accidental /-s.
     id=${${id#@}%%(///|//|/)}
 
-    local meta_plugin_data=${(v)Zinit_Annex_Meta_Plugins_Map[$id]}
+    local meta_plugin_data=${(v)zi_annex_meta_plugins_map[$id]}
 
     if [[ -n $meta_plugin_data ]] {
         # Count the recognized meta-plugins
-        Zinit_Annex_Meta_Plugins_Map[recon-count]=$(( Zinit_Annex_Meta_Plugins_Map[recon-count] + 1 ))
+        zi_annex_meta_plugins_map[recon-count]=$(( zi_annex_meta_plugins_map[recon-count] + 1 ))
 
         local -a plugin_array loaded_plugins not_existing on_demand_cand on_demand_skip
         plugin_array=( ${(s: :)meta_plugin_data} )
-        loaded_plugins=( ${(@Q)${(@z)Zinit_Annex_Meta_Plugins[annex-loaded-plugins]}} )
+        loaded_plugins=( ${(@Q)${(@z)zi_annex_meta_plugins[annex-loaded-plugins]}} )
 
         local p
 
@@ -77,7 +77,7 @@
 
         # Check if any plugins are missing on the disk.
         for p ( ${plugin_array:|on_demand_skip} ) {
-            if [[ -z $Zinit_Annex_Meta_Plugins_Map[$p] ]] && \
+            if [[ -z $zi_annex_meta_plugins_map[$p] ]] && \
                 ! .zinit-get-object-path AUTO $p
             then
                 ibshow_messages=1
@@ -87,13 +87,13 @@
 
         # Debug message.
         if (( ibshow_messages )) {
-            (($+functions[.zinit-two-paths])) || builtin source $ZI[BIN_DIR]/zinit-side.zsh
+            (($+functions[.zinit-two-paths])) || builtin source $ZI[BIN_DIR]/lib/zsh/side.zsh
 
             # Output a separating newline if the previous-processed
             # plugin isn't a meta-plugin → to cluster the messages.
-            [[ -z $Zinit_Annex_Meta_Plugins_Map[${ZI[annex-exposed-processed-IDs]##* }] ]] && builtin print 
+            [[ -z $zi_annex_meta_plugins_map[${ZI[annex-exposed-processed-IDs]##* }] ]] && builtin print 
 
-            +zinit-message -n "{hi}$Zinit_Annex_Meta_Plugins_Map[recon-count].{rst} "
+            +zinit-message -n "{hi}$zi_annex_meta_plugins_map[recon-count].{rst} "
             +zinit-message -n "{pre}[meta-plugins annex]{msg} Loading" \
                 "{b}{meta2}meta-plugin{ehi}: {rst}{msg}\`{meta}{b}$id{rst}{msg}'" \
                 "consisting of{ehi}:{rst}"
@@ -124,7 +124,7 @@
             }
             +zinit-message ".{rst}"
             if (( ibdebug && ${#skipped} )) {
-                +zinit-message -n "{hi}$Zinit_Annex_Meta_Plugins_Map[recon-count].{rst} "
+                +zinit-message -n "{hi}$zi_annex_meta_plugins_map[recon-count].{rst} "
                 +zinit-message "{pre}[meta-plugins annex]{msg} Skipping already" \
                     "loaded: ${(j:, :)skipped}{msg}.{rst}"
             }
@@ -133,7 +133,7 @@
         # Pre-process each plugin retrieving the assigned, default
         # ice-lists and preparing the above communication fields.
         for p ( $plugin_array ) {
-            local ice_list_data=$Zinit_Annex_Meta_Plugins_Config_Map[$p]
+            local ice_list_data=$zi_annex_meta_plugins_config_map[$p]
             if (( ( $not_existing[(I)$p] || \
                     ! ($loaded_plugins[(I)$p] || $zsh_loaded_plugins[(I)$p]) ) && \
                 ! $on_demand_skip[(I)$p]
@@ -141,7 +141,7 @@
                 # The ↑zdharma/null↑ is a bogus exception, as this plugin will never
                 # be loaded under the direct name.
                 ZI[annex-before-load:new-@]+="$ice_list_data @${(q)p} "
-                Zinit_Annex_Meta_Plugins[annex-loaded-plugins]+=" ${(q)p}"
+                zi_annex_meta_plugins[annex-loaded-plugins]+=" ${(q)p}"
             }
         }
         ZI[annex-before-load:new-@]+=" $args"

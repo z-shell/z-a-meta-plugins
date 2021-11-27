@@ -58,9 +58,7 @@
     .zinit-ice "$@"
     integer iceret=$?
 
-    Zinit_Annex_Meta_Plugins[default-ices]=${(j: :)${(@qkv)ICES}}
+    zi_annex_meta_plugins[default-ices]=${(j: :)${(@qkv)ICES}}
     +zinit-message "{pre}default-ice:{rst}{msg} Stored the ices{ehi}:{rst}" \
             "${(j: :)${(@q-kv)ICES}}.{rst}"
 }
-
-# vim:ft=zsh:sw=4:sts=4:et:

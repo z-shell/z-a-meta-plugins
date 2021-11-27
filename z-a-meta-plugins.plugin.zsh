@@ -1,4 +1,5 @@
 # Copyright (c) 2020 Sebastian Gniazdowski
+# Copyright (c) 2021 Z-a-Meta-Plugins contributors
 
 # According to the Zsh Plugin Standard:
 # http://z-shell.github.io/ZSH-TOP-100/Zsh-Plugin-Standard.html#zero-handling
@@ -6,8 +7,8 @@
 0="${${ZERO:-${0:#$ZSH_ARGZERO}}:-${(%):-%N}}"
 0="${${(M)0:#/*}:-$PWD/$0}"
 
-typeset -gA Zinit_Annex_Meta_Plugins
-Zinit_Annex_Meta_Plugins[0]="$0" Zinit_Annex_Meta_Plugins[repo-dir]="${0:h}"
+typeset -gA zi_annex_meta_plugins
+zi_annex_meta_plugins[0]="$0" zi_annex_meta_plugins[repo-dir]="${0:h}"
 
 # Standard hash for plugins:
 # http://z-shell.github.io/ZSH-TOP-100/Zsh-Plugin-Standard.html#std-hash
@@ -35,13 +36,13 @@ autoload -Uz ∧za-meta-plugins-before-load-handler \
     ∧za-meta-plugins-default-ice-cmd-help-handler
 
 # The map in which the definitions of the meta-plugins are being stored.
-typeset -gA Zinit_Annex_Meta_Plugins_Map
-Zinit_Annex_Meta_Plugins_Map=(
-    # Zinit annexes
+typeset -gA zi_annex_meta_plugins_map
+zi_annex_meta_plugins_map=(
+    # zi annexes
     annexes     "z-shell/z-a-unscope z-shell/z-a-as-monitor z-shell/z-a-patch-dl \
                     z-shell/z-a-rust z-shell/z-a-submods z-shell/z-a-bin-gem-node"
-    # Annexes + the zinit-console
-    annexes+con "z-shell/zinit-console annexes"
+    # Annexes + the zi-console
+    annexes+con "z-shell/zi-console annexes"
 
     # @zsh-users
     zsh-users   "zsh-users/zsh-syntax-highlighting zsh-users/zsh-autosuggestions zsh-users/zsh-completions"
@@ -82,12 +83,12 @@ Zinit_Annex_Meta_Plugins_Map=(
 )
 
 # The map in which the default sets of ices for the real plugins are being stored.
-typeset -gA Zinit_Annex_Meta_Plugins_Config_Map
+typeset -gA zi_annex_meta_plugins_config_map
 typeset -g _std="lucid"
 
-Zinit_Annex_Meta_Plugins_Config_Map=(
+zi_annex_meta_plugins_config_map=(
     # @z-shell (all annexes + extensions, without Meta-Plugins, obviously)
-    z-shell/zinit-console     "$_std"
+    z-shell/zi-console     "$_std"
     z-shell/z-a-as-monitor    "$_std"
     z-shell/z-a-patch-dl      "$_std"
     z-shell/z-a-unscope       "$_std"
@@ -188,7 +189,7 @@ Zinit_Annex_Meta_Plugins_Config_Map=(
 # Snippets
 _std+=" is-snippet"
 
-Zinit_Annex_Meta_Plugins_Config_Map+=(
+zi_annex_meta_plugins_config_map+=(
     # Prezto
     PZTM::archive       "$_std svn silent nocompile"
     PZTM::directory     "$_std"
