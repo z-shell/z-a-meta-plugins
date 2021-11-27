@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 # Copyright (c) 2020 Sebastian Gniazdowski
-# Copyright (c) 2021 Salvydas Lukosius
+# Copyright (c) 2021 Z-Shell ZI Contributors
 
 ∧za-meta-plugins-before-load-handler() {
 
@@ -21,7 +21,7 @@
     (( ${#ices} > 0 && ${#ices} % 2 == 0 )) && ICE=( "${(@kv)ICE}" "${ices[@]}" )
 
     # Exclude IDs with slashes and also packages
-    [[ $id == */* ]] && local bad_id=1 
+    [[ $id == */* ]] && local bad_id=1
     [[ $id == *:* ]] && local bad_id2=1
     [[ $ICE[teleid] == */* ]] && local bad_tele=1
     (( $+ICE[pack] )) && local is_pack=1
@@ -91,7 +91,7 @@
 
             # Output a separating newline if the previous-processed
             # plugin isn't a meta-plugin → to cluster the messages.
-            [[ -z $zi_annex_meta_plugins_map[${ZI[annex-exposed-processed-IDs]##* }] ]] && builtin print 
+            [[ -z $zi_annex_meta_plugins_map[${ZI[annex-exposed-processed-IDs]##* }] ]] && builtin print
 
             +zinit-message -n "{hi}$zi_annex_meta_plugins_map[recon-count].{rst} "
             +zinit-message -n "{pre}[meta-plugins annex]{msg} Loading" \

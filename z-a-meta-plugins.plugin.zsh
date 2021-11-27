@@ -1,6 +1,6 @@
 # Copyright (c) 2020 Sebastian Gniazdowski
-# Copyright (c) 2021 Z-a-Meta-Plugins contributors
-
+# Copyright (c) 2021 Z-Shell ZI Contributors
+#
 # According to the Zsh Plugin Standard:
 # http://z-shell.github.io/ZSH-TOP-100/Zsh-Plugin-Standard.html#zero-handling
 

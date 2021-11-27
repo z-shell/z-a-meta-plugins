@@ -1,7 +1,8 @@
 #!/usr/bin/env zsh
-
+# shellcheck shell=sh
+#
 # Copyright (c) 2020 Sebastian Gniazdowski
-# Copyright (c) 2021 Salvydas Lukosius
+# Copyright (c) 2021 Z-Shell ZI Contributors
 
 ∧za-meta-plugins-default-ice-cmd() {
     # Set the base and typically useful options.

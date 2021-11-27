@@ -1,5 +1,5 @@
 # Copyright (c) 2020 Sebastian Gniazdowski
-# Copyright (c) 2021 Salvydas Lukosius
+# Copyright (c) 2021 Z-Shell ZI Contributors
 
 ∧za-meta-plugins-default-ice-cmd-help-handler() {
     +zinit-message "—— {pre}default-ice {meta}--help{data}/{meta}-h" \
