@@ -1,5 +1,5 @@
-# -*- mode: sh; sh-indentation: 4; indent-tabs-mode: nil; sh-basic-offset: 4; -*-
 # Copyright (c) 2020 Sebastian Gniazdowski
+# Copyright (c) 2021 Salvydas Lukosius
 
 ∧za-meta-plugins-default-ice-cmd-help-handler() {
     +zinit-message "—— {pre}default-ice {meta}--help{data}/{meta}-h" \
@@ -9,5 +9,3 @@
             "{meta}--help{data}/{meta}-h{ehi}:{rst}{msg}       this message{rst}{nl}"
     return 0
 }
-
-# vim:ft=zsh:tw=80:sw=4:sts=4:et:foldmarker=[[[,]]]

@@ -1,20 +1,17 @@
-[![CodeFactor](https://www.codefactor.io/repository/github/z-shell/z-a-meta-plugins/badge)](https://www.codefactor.io/repository/github/z-shell/z-a-meta-plugins)
-[![DeepSource](https://deepsource.io/gh/z-shell/z-a-meta-plugins.svg/?label=active+issues&show_trend=true)](https://deepsource.io/gh/z-shell/z-a-meta-plugins/?ref=repository-badge)
-
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
 - [Introduction](#introduction)
-  - [**Install groups of plugins via a single, friendly label …**](#install-groups-of-plugins-via-a-single-friendly-label-)
-  - [**… and also have the curated, optimal ice lists automatically applied !**](#-and-also-have-the-curated-optimal-ice-lists-automatically-applied-)
-- [Rationale](#rationale)
-- [The list of the meta-plugins](#the-list-of-the-meta-plugins)
-- [Recommended to start with](#recommended-to-start-with)
-- [Install example of 22 plugins](#install-example-of-22-plugins)
+    - [**Install groups of plugins via a single, friendly label …**](#install-groups-of-plugins-via-a-single-friendly-label-)
+    - [**… and also have the curated, optimal ice lists automatically applied !**](#-and-also-have-the-curated-optimal-ice-lists-automatically-applied-)
+  - [Rationale](#rationale)
+  - [The list of the meta-plugins](#the-list-of-the-meta-plugins)
+  - [Recommended to start with](#recommended-to-start-with)
+  - [Install example of 22 plugins](#install-example-of-22-plugins)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Introduction
+# Introduction
+
+> **[?]**
+> This repository not compatible with previous version of Zinit
 
 ### **Install groups of plugins via a single, friendly label …**
 
@@ -36,7 +33,7 @@ Meta-Plugins annex helps in those problems:
 |                          Problem                           | Solution                                                                                                                                                                                                                                                                          |
 |:----------------------------------------------------------:|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |               (1)<br/> _finding new plugins_               | the annex contains a curated, broad list of plugins, e.g.: all the console tools like `fd`, `fzf`, `exa`, `ripgrep`, etc.,                                                                                                                                                        |
-| (2)<br/> _reconstructing the findings in new environments_ | it's easy to say and memorize e.g.: `zinit for console-tools` – one label pulls a group of plugins and also the curated, optimal, default ice lists for each of them,                                                                                                             |
+| (2)<br/> _reconstructing the findings in new environments_ | it's easy to say and memorize e.g.: `zi for console-tools` – one label pulls a group of plugins and also the curated, optimal, default ice lists for each of them,                                                                                                             |
 | (3)<br/> _constant increase of complexity of the commands_ | the provided, hopefully best/optimal ices for each plugin are handled transparently and automatically; care is given to each ice list so that the plugin loads without any glitches (e.g.: without "No files for compilation found." message and other, even such slight issues). |
 
 Other unique benefits of the Meta-Plugins annex:
@@ -44,7 +41,7 @@ Other unique benefits of the Meta-Plugins annex:
 |                           Benefit                           | Description                                                                                                                                                                                                                                                                                                        |
 |:-----------------------------------------------------------:|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |                     plugin dependencies                     | The meta-plugins implement a dependency mechanism (to some extent), so that e.g.: selecting a from-source built [ogham/exa](https://github.com/ogham/exa) will automatically pull-in also the Rust compiler (available under meta-plugin name: `rust-toolchain`).                                                  |
-| flexible disabling of chosen sub-plugins in any meta-plugin | A meta-plugin can contain many sub-plugins and it's possible to skip installing some of them by the **skip'plg-1 plg-2…'** ice, e.g.: `zinit skip'ripgrep fd' for console-tools`. This way despite that some of the meta-plugins are broad the user still has control over what's and how much is being installed. |
+| flexible disabling of chosen sub-plugins in any meta-plugin | A meta-plugin can contain many sub-plugins and it's possible to skip installing some of them by the **skip'plg-1 plg-2…'** ice, e.g.: `zi skip'ripgrep fd' for console-tools`. This way despite that some of the meta-plugins are broad the user still has control over what's and how much is being installed. |
 |               common from-source meta-plugins               | For the plugins that provide the binary programs it is often the case that a meta-plugin exists that'll build the program from source (e.g.: **fuzzy** meta-plugin and its **fuzzy-src** counterpart). This might be handy e.g.: if there's no binary for our machine.                                             |
 
 ## The list of the meta-plugins
@@ -52,7 +49,7 @@ Other unique benefits of the Meta-Plugins annex:
 |   Meta-Plugin ID    | Contained sub-plugins                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 |:-------------------:|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |     **annexes**     | [z-shell/z-a-unscope](https://github.com/z-shell/z-a-unscope), [z-shell/z-a-as-monitor](https://github.com/z-shell/z-a-as-monitor), [z-shell/z-a-patch-dl](https://github.com/z-shell/z-a-patch-dl), [z-shell/z-a-rust](https://github.com/z-shell/z-a-rust), [z-shell/z-a-submods](https://github.com/z-shell/z-a-submods), [z-shell/z-a-bin-gem-node](https://github.com/z-shell/z-a-bin-gem-node)                                                                                   |
-|   **annexes+con**   | [z-shell/zinit-console](https://github.com/z-shell/zinit-console), annexes (**meta-plugin**)                                                                                                                                                                                                                                                                                                                                                                                           |
+|   **annexes+con**   | [z-shell/zi-console](https://github.com/z-shell/zi-console), annexes (**meta-plugin**)                                                                                                                                                                                                                                                                                                                                                                                           |
 |                     |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 |    **zsh-users**    | [zsh-users/zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting), [zsh-users/zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions), [zsh-users/zsh-completions](https://github.com/zsh-users/zsh-completions)                                                                                                                                                                                                                                |
 | **zsh-users+fast**, | [z-shell/fast-syntax-highlighting](https://github.com/z-shell/fast-syntax-highlighting), [zsh-users/zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions), [zsh-users/zsh-completions](https://github.com/zsh-users/zsh-completions)                                                                                                                                                                                                                                  |
@@ -80,10 +77,10 @@ Other unique benefits of the Meta-Plugins annex:
 ## Recommended to start with
 
 ```zsh
-zinit light-mode for \
+zi light-mode for \
     z-shell/z-a-meta-plugins
 
-zinit light-mode for annexes \
+zi light-mode for annexes \
     zsh-users+fast
 ```
 
@@ -91,5 +88,5 @@ zinit light-mode for annexes \
 
 ```zsh
 # Installs total of 22 plugins
-zinit for annexes zsh-users+fast console-tools fuzzy
+zi for annexes zsh-users+fast console-tools fuzzy
 ```

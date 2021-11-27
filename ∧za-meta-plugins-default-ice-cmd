@@ -1,8 +1,7 @@
 #!/usr/bin/env zsh
-# -*- mode: sh; sh-indentation: 4; sh-basic-offset: 4; indent-tabs-mode: nil;  -*-
 
 # Copyright (c) 2020 Sebastian Gniazdowski
-# License: MIT
+# Copyright (c) 2021 Salvydas Lukosius
 
 ∧za-meta-plugins-default-ice-cmd() {
     # Set the base and typically useful options.

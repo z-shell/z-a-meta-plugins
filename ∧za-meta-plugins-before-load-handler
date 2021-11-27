@@ -1,7 +1,6 @@
 #!/usr/bin/env zsh
-# -*- mode: sh; sh-indentation: 4; indent-tabs-mode: nil; sh-basic-offset: 4; -*-
-
 # Copyright (c) 2020 Sebastian Gniazdowski
+# Copyright (c) 2021 Salvydas Lukosius
 
 ∧za-meta-plugins-before-load-handler() {
 
@@ -47,8 +46,8 @@
     tpe_map=( 0 plugin 1 snippet )
 
     # Reset the communication fields.
-    ZINIT[annex-before-load:new-@]=""
-    ZINIT[annex-before-load:new-global-ices]=""
+    ZI[annex-before-load:new-@]=""
+    ZI[annex-before-load:new-global-ices]=""
 
     # Strip the ID from some possible accidental /-s.
     id=${${id#@}%%(///|//|/)}
@@ -88,11 +87,11 @@
 
         # Debug message.
         if (( ibshow_messages )) {
-            (($+functions[.zinit-two-paths])) || builtin source $ZINIT[BIN_DIR]/zinit-side.zsh
+            (($+functions[.zinit-two-paths])) || builtin source $ZI[BIN_DIR]/zinit-side.zsh
 
             # Output a separating newline if the previous-processed
             # plugin isn't a meta-plugin → to cluster the messages.
-            [[ -z $Zinit_Annex_Meta_Plugins_Map[${ZINIT[annex-exposed-processed-IDs]##* }] ]] && builtin print 
+            [[ -z $Zinit_Annex_Meta_Plugins_Map[${ZI[annex-exposed-processed-IDs]##* }] ]] && builtin print 
 
             +zinit-message -n "{hi}$Zinit_Annex_Meta_Plugins_Map[recon-count].{rst} "
             +zinit-message -n "{pre}[meta-plugins annex]{msg} Loading" \
@@ -141,21 +140,19 @@
             )) || [[ $p == zdharma/null ]] {
                 # The ↑zdharma/null↑ is a bogus exception, as this plugin will never
                 # be loaded under the direct name.
-                ZINIT[annex-before-load:new-@]+="$ice_list_data @${(q)p} "
+                ZI[annex-before-load:new-@]+="$ice_list_data @${(q)p} "
                 Zinit_Annex_Meta_Plugins[annex-loaded-plugins]+=" ${(q)p}"
             }
         }
-        ZINIT[annex-before-load:new-@]+=" $args"
-        ZINIT[annex-before-load:new-@]=${ZINIT[annex-before-load:new-@]## ##}
+        ZI[annex-before-load:new-@]+=" $args"
+        ZI[annex-before-load:new-@]=${ZI[annex-before-load:new-@]## ##}
         # Setting to 1 here will prevent the error message
         # on no plugin/snippet ID given.
-        integer retval_part=${${ZINIT[annex-before-load:new-@]:+2}:-1}
+        integer retval_part=${${ZI[annex-before-load:new-@]:+2}:-1}
     } else {
         integer retval_part=0
     }
 
-    return $(( ${${ZINIT[annex-before-load:new-global-ices]:+4}:-0} + \
+    return $(( ${${ZI[annex-before-load:new-global-ices]:+4}:-0} + \
                 retval_part + iberror_flag ))
 }
-
-# vim:ft=zsh:tw=80:sw=4:sts=4:et
