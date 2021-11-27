@@ -11,7 +11,8 @@
 # Introduction
 
 > **[?]**
-> This repository not compatible with previous version of Zinit
+> This repository not compatible with previous version of Zinit.
+> Please upgrade to [ZI](https://github.com/z-shell/zi).
 
 ### **Install groups of plugins via a single, friendly label …**
 
