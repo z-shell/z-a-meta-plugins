@@ -49,8 +49,11 @@ zi_annex_meta_plugins_map=(
     zsh-users+fast "z-shell/F-Sy-H zsh-users/zsh-autosuggestions zsh-users/zsh-completions"
 
     # @z-shell
-    z-shell     "z-shell/fast-syntax-highlighting z-shell/H-S-MW z-shell/zsh-diff-so-fancy"
+    z-shell     "z-shell/F-Sy-H z-shell/H-S-MW z-shell/zsh-diff-so-fancy"
     z-shell2    "z-shell/zconvey z-shell/zui z-shell/zflai"
+
+    # @romkatv
+    romkatv     "romkatv/powerlevel10k"
 
     # @molovo
     molovo      "molovo/color molovo/revolver molovo/zunit"
@@ -64,9 +67,9 @@ zi_annex_meta_plugins_map=(
     developer   "github-issues github-issues-srv molovo/color molovo/revolver molovo/zunit \
                     voronkovich/gitignore.plugin.zsh jonas/tig"
 
-    # General console utilities. Includes also a LS_COLORS theme with
-    # the Zsh completion configured.
+    # General console utilities. Includes also a LS_COLORS theme with the Zsh completion configured.
     console-tools "dircolors-material sharkdp ogham/exa BurntSushi/ripgrep jonas/tig"
+
 
     # Fuzzy searchers (4 of them).
     fuzzy       "fzf fzy lotabout/skim peco/peco"
@@ -78,6 +81,9 @@ zi_annex_meta_plugins_map=(
     # Rust toolchain + cargo extensions.
     rust-utils  "rust-toolchain cargo-extensions"
 
+    # Python utilities.
+    py-utils    "pyenv"
+
     # A few Prezto modules.
     prezto      "PZTM::archive PZTM::directory PZTM::utility"
 )
@@ -86,9 +92,11 @@ zi_annex_meta_plugins_map=(
 typeset -gA zi_annex_meta_plugins_config_map
 typeset -g _std="lucid"
 
+# TODO: #4 Check availability of the annexes. Run tests and reflect here.
 zi_annex_meta_plugins_config_map=(
+
     # @z-shell (all annexes + extensions, without Meta-Plugins, obviously)
-    z-shell/zi-console     "$_std"
+    z-shell/zi-console        "$_std"
     z-shell/z-a-as-monitor    "$_std"
     z-shell/z-a-patch-dl      "$_std"
     z-shell/z-a-unscope       "$_std"
@@ -97,14 +105,17 @@ zi_annex_meta_plugins_config_map=(
     z-shell/z-a-bin-gem-node  "$_std"
     z-shell/z-a-man           "$_std"
     z-shell/z-a-test          "$_std"
+
     # @zsh-users
     zsh-users/zsh-autosuggestions       "$_std atload'_zsh_autosuggest_start;'"
     zsh-users/zsh-syntax-highlighting   "$_std atinit'ZI[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay;'"
     zsh-users/zsh-completions           "$_std pick'/dev/null'"
+
     # @z-shell
     z-shell/F-Sy-H                      "$_std atinit'ZI[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay;'"
     z-shell/H-S-MW                      "$_std atinit'zstyle :history-search-multi-word page-size 7;'"
     z-shell/zsh-diff-so-fancy           "$_std null sbin'bin/git-dsf;bin/diff-so-fancy'"
+
     # @z-shell, less popular
     z-shell/zui             "$_std blockf"
     z-shell/zconvey         "$_std sbin'cmds/zc-bg-notify;cmds/plg-zsh-notify'"
@@ -112,12 +123,15 @@ zi_annex_meta_plugins_config_map=(
     z-shell/zflai           "$_std"
     github-issues           "$_std pack"
     github-issues-srv       "$_std pack atinit'GIT_PROJECTS=z-shell/zi GIT_SLEEP_TIME=700;'"
+
     # @molovo
     molovo/zunit            "$_std binary sbin atclone'./build.zsh;' atpull'%atclone'"
     molovo/color            "$_std binary sbin'color.zsh -> color'"
     molovo/revolver         "$_std as'program' pick'revolver'"
+
     # @zpm-zsh
     dircolors-material      "$_std pack"
+
     # @pyenv
     pyenv                   "$_std pack'bgn'"
 
@@ -127,9 +141,11 @@ zi_annex_meta_plugins_config_map=(
     sharkdp/hexyl           "$_std binary lucid from'gh-r' mv'hexyl* hexyl' sbin'**/hexyl(.exe|) -> hexyl'"
     sharkdp/hyperfine       "$_std binary lucid from'gh-r' mv'hyperfine* hyperfine' sbin'**/hyperfine(.exe|) -> hyperfine'"
     sharkdp/vivid           "$_std binary lucid from'gh-r' mv'vivid* vivid' sbin'**/vivid(.exe|) -> vivid'"
+
     # @ogham
     ogham/exa               "$_std binary from'gh-r' sbin'**/exa -> exa' atclone'cp -vf completions/exa.zsh _exa'"
     exa-cargo               "$_std binary cargo='!exa' teleid'z-shell/null'"
+
     # @BurntSushi
     BurntSushi/ripgrep      "$_std binary from'gh-r' mv'rip* ripgrep' sbin'**/rg(.exe|) -> rg'"
 
@@ -141,6 +157,7 @@ zi_annex_meta_plugins_config_map=(
     fzy                     "$_std pack'bgn' git"
     lotabout/skim           "$_std binary from'gh-r' sbin'**/sk(.exe|) -> sk'"
     peco/peco               "$_std binary from'gh-r' mv'peco* peco' sbin'**/peco(.exe|) -> peco'"
+
     # Fuzzy searchers – from sources
     fzf-go                  "$_std pack'bgn' teleid'fzf' git"
     skim-cargo              "$_std binary cargo='!skim -> sk' teleid'z-shell/null'"
@@ -148,9 +165,8 @@ zi_annex_meta_plugins_config_map=(
 
     # no username → a rust-annex usage to install Rust toolchain
     rust-toolchain          "$_std binary sbin='bin/*' rustup teleid'z-shell/null' \
-                                    atload='[[ ! -f \${ZI[COMPLETIONS_DIR]}/_cargo ]] && \
-                                        zi creinstall rust; \
-                                    export CARGO_HOME=\$PWD RUSTUP_HOME=\$PWD/rustup'"
+                                atload='[[ ! -f \${ZI[COMPLETIONS_DIR]}/_cargo ]] && \
+                                zi creinstall rust; export CARGO_HOME=\$PWD RUSTUP_HOME=\$PWD/rustup'"
 
     # see: https://dev.to/cad97/rust-must-know-crates-5ad8
     cargo-extensions        "$_std binary cargo'cargo-edit;cargo-outdated;cargo-tree; \
@@ -165,7 +181,7 @@ zi_annex_meta_plugins_config_map=(
 
     # @marzocchi, a notifier, configured to use zconvey
     marzocchi/zsh-notify      "$_std atinit'zstyle \":notify:*\" command-complete-timeout 3; \
-                                            zstyle \":notify:*\" notifier plg-zsh-notify"
+                                    zstyle \":notify:*\" notifier plg-zsh-notify"
     # Git extensions
     Fakerr/git-recall         "$_std null sbin"
     paulirish/git-open        "$_std null sbin"
@@ -181,6 +197,9 @@ zi_annex_meta_plugins_config_map=(
 
     # @agkozak
     agkozak/agkozak-zsh-theme "$_std atload'_agkozak_precmd' atinit'AGKOZAK_FORCE_ASYNC_METHOD=subst-async' nocd"
+
+    # @romkatv
+    romkatv/powerlevel10k     "$_std depth=1 atinit'POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true' atload'[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh'"
 
     # @woefe
     woefe/git-prompt.zsh      "$_std atload'_zsh_git_prompt_precmd_hook' nocd"
