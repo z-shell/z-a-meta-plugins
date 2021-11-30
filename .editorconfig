@@ -21,12 +21,3 @@ trim_trailing_whitespace = false
 [*.yml]
 indent_style = space
 indent_size = 2
-
-[.git*]
-indent_size = tab
-indent_style = tab
-
-[*.{sh,zsh}]
-indent_style = space  
-shell_variant   = sh
-#max_line_length = 120

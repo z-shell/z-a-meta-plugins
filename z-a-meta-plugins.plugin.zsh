@@ -49,7 +49,7 @@ zi_annex_meta_plugins_map=(
     zsh-users+fast "z-shell/F-Sy-H zsh-users/zsh-autosuggestions zsh-users/zsh-completions"
 
     # @z-shell
-    z-shell     "z-shell/fast-syntax-highlighting z-shell/history-search-multi-word z-shell/zsh-diff-so-fancy"
+    z-shell     "z-shell/fast-syntax-highlighting z-shell/H-S-MW z-shell/zsh-diff-so-fancy"
     z-shell2    "z-shell/zconvey z-shell/zui z-shell/zflai"
 
     # @molovo
@@ -103,7 +103,7 @@ zi_annex_meta_plugins_config_map=(
     zsh-users/zsh-completions           "$_std pick'/dev/null'"
     # @z-shell
     z-shell/F-Sy-H                      "$_std atinit'ZI[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay;'"
-    z-shell/history-search-multi-word   "$_std atinit'zstyle :history-search-multi-word page-size 7;'"
+    z-shell/H-S-MW                      "$_std atinit'zstyle :history-search-multi-word page-size 7;'"
     z-shell/zsh-diff-so-fancy           "$_std null sbin'bin/git-dsf;bin/diff-so-fancy'"
     # @z-shell, less popular
     z-shell/zui             "$_std blockf"
