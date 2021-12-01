@@ -1,6 +1,4 @@
 #!/usr/bin/env zsh
-# shellcheck shell=sh
-#
 # Copyright (c) 2020 Sebastian Gniazdowski
 # Copyright (c) 2021 Z-Shell ZI Contributors
 
@@ -8,18 +6,13 @@
     # Set the base and typically useful options.
     builtin emulate -LR zsh
     builtin setopt extendedglob warncreateglobal typesetsilent noshortloops rcquotes
-
     (( $+reply && $+REPLY )) || unsetopt warncreateglobal
-
     autoload -Uz is-at-least
     local is_58
     is-at-least 5.8 && is_58=1
-
     integer retval
-
     [[ $1 == default-ice ]] && { shift; integer eas_subcommand=1; }
     integer ibdebug=$+ICE[debug]
-
     # -D - clear out the recognized options
     # -E - allow mixing of options and non-options
     # -M - allow private arrays for the options
@@ -36,29 +29,24 @@
                 "Usage:{rst}{nl}"
             help=( -h ) retval=1
         }
-
     if (( !$# && !${#help} && !${#show} && !${#clear} && !${#stats} )) {
         +zi-message "{ehi}meta-plugins annex:{rst}{msg} Missing any" \
             "ices. Usage:{rst}{nl}"
         help=( -h ) retval=1
     }
-
     # --help/-h
     if (( ${#help} )) {
         ∧za-meta-plugins-default-ice-cmd-help-handler
         return retval
     }
-
     # --show/-s
     if (( ${#show} )) {
         .za-meta-plugins-show-default-ices
         return $?
     }
-
     local -A ICES
     .zi-ice "$@"
     integer iceret=$?
-
     zi_annex_meta_plugins[default-ices]=${(j: :)${(@qkv)ICES}}
     +zi-message "{pre}default-ice:{rst}{msg} Stored the ices{ehi}:{rst}" \
             "${(j: :)${(@q-kv)ICES}}.{rst}"

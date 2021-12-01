@@ -199,7 +199,7 @@ zi_annex_meta_plugins_config_map=(
     agkozak/agkozak-zsh-theme "$_std atload'_agkozak_precmd' atinit'AGKOZAK_FORCE_ASYNC_METHOD=subst-async' nocd"
 
     # @romkatv
-    romkatv/powerlevel10k     "$_std depth=1 atinit'POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true' atload'[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh'"
+    romkatv/powerlevel10k     "$_std depth=1 atinit'POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true' atload'[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh' nocd"
 
     # @woefe
     woefe/git-prompt.zsh      "$_std atload'_zsh_git_prompt_precmd_hook' nocd"

@@ -1,10 +1,10 @@
 - [Introduction](#introduction)
     - [**Install groups of plugins via a single, friendly label …**](#install-groups-of-plugins-via-a-single-friendly-label-)
-    - [**… and also have the curated, optimal ice lists automatically applied !**](#-and-also-have-the-curated-optimal-ice-lists-automatically-applied-)
   - [Rationale](#rationale)
   - [The list of the meta-plugins](#the-list-of-the-meta-plugins)
   - [Recommended to start with](#recommended-to-start-with)
   - [Install example of 22 plugins](#install-example-of-22-plugins)
+    - [**… and also have the curated, optimal ice lists automatically applied !**](#-and-also-have-the-curated-optimal-ice-lists-automatically-applied-)
 
 # Introduction
 
@@ -13,10 +13,6 @@
 > Please upgrade to [ZI](https://github.com/z-shell/zi).
 
 ### **Install groups of plugins via a single, friendly label …**
-
-### **… and also have the curated, optimal ice lists automatically applied !**
-
-![screenshot](https://raw.githubusercontent.com/z-shell/z-a-meta-plugins/main/images/fuzzy-mplg-ex.png)
 
 ## Rationale
 
@@ -89,3 +85,7 @@ zi light-mode for annexes \
 # Installs total of 22 plugins
 zi for annexes zsh-users+fast console-tools fuzzy
 ```
+
+### **… and also have the curated, optimal ice lists automatically applied !**
+
+![screenshot](https://raw.githubusercontent.com/z-shell/z-a-meta-plugins/main/images/fuzzy-mplg-ex.png)
