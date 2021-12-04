@@ -15,77 +15,71 @@ zi_annex_meta_plugins[0]="$0" zi_annex_meta_plugins[repo-dir]="${0:h}"
 typeset -gA Plugins
 Plugins[META_PLUGINS_DIR]="${0:h}"
 
-autoload -Uz ∧za-meta-plugins-before-load-handler \
-    ∧za-meta-plugins-default-ice-cmd-help-handler \
-    ∧za-meta-plugins-default-ice-cmd
+autoload -Uz za-meta-plugins-before-load-handler \
+za-meta-plugins-default-ice-cmd-help-handler \
+za-meta-plugins-default-ice-cmd
 
 # An empty stub to fill the help handler fields
-∧za-meta-plugins-help-null-handler() { :; }
+za-meta-plugins-help-null-handler() { :; }
 
 # The unscoping-support hook.
-@zi-register-annex "z-a-meta-plugins" \
-    hook:before-load-4 \
-    ∧za-meta-plugins-before-load-handler \
-    ∧za-meta-plugins-help-null-handler \
-    "skip''" # Add a new ice
+@zi-register-annex "z-a-meta-plugins" hook:before-load-4 \
+za-meta-plugins-before-load-handler \
+za-meta-plugins-help-null-handler "skip''" # Add a new ice
 
 # The subcommand `meta'.
 @zi-register-annex "z-a-meta-plugins" \
-    subcommand:default-ice \
-    ∧za-meta-plugins-default-ice-cmd \
-    ∧za-meta-plugins-default-ice-cmd-help-handler
+subcommand:default-ice \
+za-meta-plugins-default-ice-cmd \
+za-meta-plugins-default-ice-cmd-help-handler
 
 # The map in which the definitions of the meta-plugins are being stored.
 typeset -gA zi_annex_meta_plugins_map
 zi_annex_meta_plugins_map=(
-    # zi annexes
-    annexes     "z-shell/z-a-unscope z-shell/z-a-as-monitor z-shell/z-a-patch-dl \
-                    z-shell/z-a-rust z-shell/z-a-submods z-shell/z-a-bin-gem-node"
-    # Annexes + the zi-console
-    annexes+con "z-shell/zi-console annexes"
+  # zi annexes
+  annexes     "z-shell/z-a-unscope z-shell/z-a-as-monitor z-shell/z-a-patch-dl z-shell/z-a-rust z-shell/z-a-submods z-shell/z-a-bin-gem-node"
+  # Annexes + the zi-console
+  annexes+con "z-shell/zi-console annexes"
 
-    # @zsh-users
-    zsh-users   "zsh-users/zsh-syntax-highlighting zsh-users/zsh-autosuggestions zsh-users/zsh-completions"
-    zsh-users+fast "z-shell/F-Sy-H zsh-users/zsh-autosuggestions zsh-users/zsh-completions"
+  # @zsh-users
+  zsh-users   "zsh-users/zsh-syntax-highlighting zsh-users/zsh-autosuggestions zsh-users/zsh-completions"
+  zsh-users+fast "z-shell/F-Sy-H zsh-users/zsh-autosuggestions zsh-users/zsh-completions"
 
-    # @z-shell
-    z-shell     "z-shell/F-Sy-H z-shell/H-S-MW z-shell/zsh-diff-so-fancy"
-    z-shell2    "z-shell/zconvey z-shell/zui z-shell/zflai"
+  # @z-shell
+  z-shell     "z-shell/F-Sy-H z-shell/H-S-MW z-shell/zsh-diff-so-fancy"
+  z-shell2    "z-shell/zconvey z-shell/zui z-shell/zflai"
 
-    # @romkatv
-    romkatv     "romkatv/powerlevel10k"
+  # @romkatv
+  romkatv     "romkatv/powerlevel10k"
 
-    # @molovo
-    molovo      "molovo/color molovo/revolver molovo/zunit"
+  # @molovo
+  molovo      "molovo/color molovo/revolver molovo/zunit"
 
-    # @sharkdp
-    sharkdp     "sharkdp/fd sharkdp/bat sharkdp/hexyl sharkdp/hyperfine sharkdp/vivid"
+  # @sharkdp
+  sharkdp     "sharkdp/fd sharkdp/bat sharkdp/hexyl sharkdp/hyperfine sharkdp/vivid"
 
-    # Development-related utilities. color and revolver are zunit's
-    # dependencies. Tig is being built from source (Git). The gitignore
-    # plugin has a Zsh template automatically set up — gi zsh to see it.
-    developer   "github-issues github-issues-srv molovo/color molovo/revolver molovo/zunit \
-                    voronkovich/gitignore.plugin.zsh jonas/tig"
+  # Development-related utilities. color and revolver are zunit' dependencies.
+  # Tig is being built from source (Git). The gitignore plugin has a Zsh template automatically set up — gi zsh to see it.
+  developer   "github-issues github-issues-srv molovo/color molovo/revolver molovo/zunit voronkovich/gitignore.plugin.zsh jonas/tig"
 
-    # General console utilities. Includes also a LS_COLORS theme with the Zsh completion configured.
-    console-tools "dircolors-material sharkdp ogham/exa BurntSushi/ripgrep jonas/tig"
+  # General console utilities. Includes also a LS_COLORS theme with the Zsh completion configured.
+  console-tools "dircolors-material sharkdp ogham/exa BurntSushi/ripgrep jonas/tig"
 
+  # Fuzzy searchers (4 of them).
+  fuzzy       "fzf fzy lotabout/skim peco/peco"
+  fuzzy-src   "fzf-go fzy skim-cargo peco-go"
 
-    # Fuzzy searchers (4 of them).
-    fuzzy       "fzf fzy lotabout/skim peco/peco"
-    fuzzy-src   "fzf-go fzy skim-cargo peco-go"
+  # Git extensions.
+  ext-git     "paulirish/git-open paulirish/git-recent davidosomething/git-my arzzen/git-quick-stats iwata/git-now tj/git-extras wfxr/forgit"
 
-    # Git extensions.
-    ext-git     "paulirish/git-open paulirish/git-recent davidosomething/git-my arzzen/git-quick-stats iwata/git-now tj/git-extras wfxr/forgit"
+  # Rust toolchain + cargo extensions.
+  rust-utils  "rust-toolchain cargo-extensions"
 
-    # Rust toolchain + cargo extensions.
-    rust-utils  "rust-toolchain cargo-extensions"
+  # Python utilities.
+  py-utils    "pyenv"
 
-    # Python utilities.
-    py-utils    "pyenv"
-
-    # A few Prezto modules.
-    prezto      "PZTM::archive PZTM::directory PZTM::utility"
+  # A few Prezto modules.
+  prezto      "PZTM::archive PZTM::directory PZTM::utility"
 )
 
 # The map in which the default sets of ices for the real plugins are being stored.
@@ -164,14 +158,10 @@ zi_annex_meta_plugins_config_map=(
     peco-go                 "$_std binary make'build' sbin'**/peco(.exe|) -> peco' teleid'peco/peco'"
 
     # no username → a rust-annex usage to install Rust toolchain
-    rust-toolchain          "$_std binary sbin='bin/*' rustup teleid'z-shell/null' \
-                                atload='[[ ! -f \${ZI[COMPLETIONS_DIR]}/_cargo ]] && \
-                                zi creinstall rust; export CARGO_HOME=\$PWD RUSTUP_HOME=\$PWD/rustup'"
+    rust-toolchain          "$_std binary sbin='bin/*' rustup teleid'z-shell/null' atload='[[ ! -f \${ZI[COMPLETIONS_DIR]}/_cargo ]] && zi creinstall rust; export CARGO_HOME=\$PWD RUSTUP_HOME=\$PWD/rustup'"
 
     # see: https://dev.to/cad97/rust-must-know-crates-5ad8
-    cargo-extensions        "$_std binary cargo'cargo-edit;cargo-outdated;cargo-tree; \
-                                cargo-update; cargo-expand;cargo-modules;cargo-audit;cargo-clone' \
-                                sbin'bin/*' teleid'z-shell/null'"
+    cargo-extensions        "$_std binary cargo'cargo-edit;cargo-outdated;cargo-tree; cargo-update; cargo-expand;cargo-modules;cargo-audit;cargo-clone' sbin'bin/*' teleid'z-shell/null'"
 
     # A few utility plugins
     hlissner/zsh-autopair               "$_std"
@@ -180,8 +170,8 @@ zi_annex_meta_plugins_config_map=(
     z-shell/zsh-editing-workbench       "$_std atinit'local zew_word_style=whitespace;'"
 
     # @marzocchi, a notifier, configured to use zconvey
-    marzocchi/zsh-notify      "$_std atinit'zstyle \":notify:*\" command-complete-timeout 3; \
-                                    zstyle \":notify:*\" notifier plg-zsh-notify"
+    marzocchi/zsh-notify      "$_std atinit'zstyle \":notify:*\" command-complete-timeout 3; zstyle \":notify:*\" notifier plg-zsh-notify"
+
     # Git extensions
     Fakerr/git-recall         "$_std null sbin"
     paulirish/git-open        "$_std null sbin"
