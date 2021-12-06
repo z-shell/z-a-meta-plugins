@@ -37,7 +37,7 @@ za-meta-plugins-default-ice-cmd-help-handler
 typeset -gA zi_annex_meta_plugins_map
 zi_annex_meta_plugins_map=(
   # zi annexes
-  annexes     "z-shell/z-a-unscope z-shell/z-a-as-monitor z-shell/z-a-patch-dl z-shell/z-a-rust z-shell/z-a-submods z-shell/z-a-bin-gem-node"
+  annexes     "z-shell/z-a-unscope z-shell/z-a-readurl z-shell/z-a-patch-dl z-shell/z-a-rust z-shell/z-a-submods z-shell/z-a-bin-gem-node"
   # Annexes + the zi-console
   annexes+con "z-shell/zi-console annexes"
 
@@ -88,121 +88,99 @@ typeset -g _std="lucid"
 
 # TODO: #4 Check availability of the annexes. Run tests and reflect here.
 zi_annex_meta_plugins_config_map=(
-
-    # @z-shell (all annexes + extensions, without Meta-Plugins, obviously)
-    z-shell/zi-console        "$_std"
-    z-shell/z-a-as-monitor    "$_std"
-    z-shell/z-a-patch-dl      "$_std"
-    z-shell/z-a-unscope       "$_std"
-    z-shell/z-a-submods       "$_std"
-    z-shell/z-a-rust          "$_std"
-    z-shell/z-a-bin-gem-node  "$_std"
-    z-shell/z-a-man           "$_std"
-    z-shell/z-a-test          "$_std"
-
-    # @zsh-users
-    zsh-users/zsh-autosuggestions       "$_std atload'_zsh_autosuggest_start;'"
-    zsh-users/zsh-syntax-highlighting   "$_std atinit'ZI[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay;'"
-    zsh-users/zsh-completions           "$_std pick'/dev/null'"
-
-    # @z-shell
-    z-shell/F-Sy-H                      "$_std atinit'ZI[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay;'"
-    z-shell/H-S-MW                      "$_std atinit'zstyle :history-search-multi-word page-size 7;'"
-    z-shell/zsh-diff-so-fancy           "$_std null sbin'bin/git-dsf;bin/diff-so-fancy'"
-
-    # @z-shell, less popular
-    z-shell/zui             "$_std blockf"
-    z-shell/zconvey         "$_std sbin'cmds/zc-bg-notify;cmds/plg-zsh-notify'"
-    z-shell/zsh-unique-id   "$_std"
-    z-shell/zflai           "$_std"
-    github-issues           "$_std pack"
-    github-issues-srv       "$_std pack atinit'GIT_PROJECTS=z-shell/zi GIT_SLEEP_TIME=700;'"
-
-    # @molovo
-    molovo/zunit            "$_std binary sbin atclone'./build.zsh;' atpull'%atclone'"
-    molovo/color            "$_std binary sbin'color.zsh -> color'"
-    molovo/revolver         "$_std as'program' pick'revolver'"
-
-    # @zpm-zsh
-    dircolors-material      "$_std pack"
-
-    # @pyenv
-    pyenv                   "$_std pack'bgn'"
-
-    # @sharkdp
-    sharkdp/fd              "$_std binary lucid from'gh-r' mv'fd* fd' sbin'**/fd(.exe|) -> fd'"
-    sharkdp/bat             "$_std binary lucid from'gh-r' mv'bat* bat' sbin'**/bat(.exe|) -> bat'"
-    sharkdp/hexyl           "$_std binary lucid from'gh-r' mv'hexyl* hexyl' sbin'**/hexyl(.exe|) -> hexyl'"
-    sharkdp/hyperfine       "$_std binary lucid from'gh-r' mv'hyperfine* hyperfine' sbin'**/hyperfine(.exe|) -> hyperfine'"
-    sharkdp/vivid           "$_std binary lucid from'gh-r' mv'vivid* vivid' sbin'**/vivid(.exe|) -> vivid'"
-
-    # @ogham
-    ogham/exa               "$_std binary from'gh-r' sbin'**/exa -> exa' atclone'cp -vf completions/exa.zsh _exa'"
-    exa-cargo               "$_std binary cargo='!exa' teleid'z-shell/null'"
-
-    # @BurntSushi
-    BurntSushi/ripgrep      "$_std binary from'gh-r' mv'rip* ripgrep' sbin'**/rg(.exe|) -> rg'"
-
-    # @jonas
-    jonas/tig               "$_std binary make'prefix=$ZPFX install'"
-
-    # Fuzzy searchers
-    fzf                     "$_std pack'bgn-binary'"
-    fzy                     "$_std pack'bgn' git"
-    lotabout/skim           "$_std binary from'gh-r' sbin'**/sk(.exe|) -> sk'"
-    peco/peco               "$_std binary from'gh-r' mv'peco* peco' sbin'**/peco(.exe|) -> peco'"
-
-    # Fuzzy searchers – from sources
-    fzf-go                  "$_std pack'bgn' teleid'fzf' git"
-    skim-cargo              "$_std binary cargo='!skim -> sk' teleid'z-shell/null'"
-    peco-go                 "$_std binary make'build' sbin'**/peco(.exe|) -> peco' teleid'peco/peco'"
-
-    # no username → a rust-annex usage to install Rust toolchain
-    rust-toolchain          "$_std binary sbin='bin/*' rustup teleid'z-shell/null' atload='[[ ! -f \${ZI[COMPLETIONS_DIR]}/_cargo ]] && zi creinstall rust; export CARGO_HOME=\$PWD RUSTUP_HOME=\$PWD/rustup'"
-
-    # see: https://dev.to/cad97/rust-must-know-crates-5ad8
-    cargo-extensions        "$_std binary cargo'cargo-edit;cargo-outdated;cargo-tree; cargo-update; cargo-expand;cargo-modules;cargo-audit;cargo-clone' sbin'bin/*' teleid'z-shell/null'"
-
-    # A few utility plugins
-    hlissner/zsh-autopair               "$_std"
-    urbainvaes/fzf-marks                "$_std"
-    z-shell/zsh-navigation-tools        "$_std"
-    z-shell/zsh-editing-workbench       "$_std atinit'local zew_word_style=whitespace;'"
-
-    # @marzocchi, a notifier, configured to use zconvey
-    marzocchi/zsh-notify      "$_std atinit'zstyle \":notify:*\" command-complete-timeout 3; zstyle \":notify:*\" notifier plg-zsh-notify"
-
-    # Git extensions
-    Fakerr/git-recall         "$_std null sbin"
-    paulirish/git-open        "$_std null sbin"
-    paulirish/git-recent      "$_std null sbin"
-    davidosomething/git-my    "$_std null sbin"
-    arzzen/git-quick-stats    "$_std null sbin atload'export _MENU_THEME=legacy;'"
-    iwata/git-now             "$_std null sbin"
-    tj/git-extras             "$_std null make'PREFIX=$ZPFX'"
-    wfxr/forgit               "$_std atinit'forgit_ignore=fgi'"
-
-    # @sindresorhus
-    sindresorhus/pure         "$_std pick'async.zsh' src'pure.zsh' atload'prompt_pure_precmd' nocd"
-
-    # @agkozak
-    agkozak/agkozak-zsh-theme "$_std atload'_agkozak_precmd' atinit'AGKOZAK_FORCE_ASYNC_METHOD=subst-async' nocd"
-
-    # @romkatv
-    romkatv/powerlevel10k     "$_std depth=1 atinit'POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true' atload'[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh' nocd"
-
-    # @woefe
-    woefe/git-prompt.zsh      "$_std atload'_zsh_git_prompt_precmd_hook' nocd"
+  # @z-shell (all annexes + extensions, without Meta-Plugins, obviously)
+  z-shell/zi-console        "$_std"
+  z-shell/z-a-readurl       "$_std"
+  z-shell/z-a-patch-dl      "$_std"
+  z-shell/z-a-unscope       "$_std"
+  z-shell/z-a-submods       "$_std"
+  z-shell/z-a-rust          "$_std"
+  z-shell/z-a-bin-gem-node  "$_std"
+  z-shell/z-a-man           "$_std"
+  z-shell/z-a-test          "$_std"
+  # @zsh-users
+  zsh-users/zsh-autosuggestions       "$_std atload'_zsh_autosuggest_start;'"
+  zsh-users/zsh-syntax-highlighting   "$_std atinit'ZI[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay;'"
+  zsh-users/zsh-completions           "$_std pick'/dev/null'"
+  # @z-shell
+  z-shell/F-Sy-H                      "$_std atinit'ZI[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay;'"
+  z-shell/H-S-MW                      "$_std atinit'zstyle :history-search-multi-word page-size 7;'"
+  z-shell/zsh-diff-so-fancy           "$_std null sbin'bin/git-dsf;bin/diff-so-fancy'"
+  # @z-shell, less popular
+  z-shell/zui             "$_std blockf"
+  z-shell/zconvey         "$_std sbin'cmds/zc-bg-notify;cmds/plg-zsh-notify'"
+  z-shell/zsh-unique-id   "$_std"
+  z-shell/zflai           "$_std"
+  github-issues           "$_std pack"
+  github-issues-srv       "$_std pack atinit'GIT_PROJECTS=z-shell/zi GIT_SLEEP_TIME=700;'"
+  # @molovo
+  molovo/zunit            "$_std binary sbin atclone'./build.zsh;' atpull'%atclone'"
+  molovo/color            "$_std binary sbin'color.zsh -> color'"
+  molovo/revolver         "$_std as'program' pick'revolver'"
+  # @zpm-zsh
+  dircolors-material      "$_std pack"
+  # @pyenv
+  pyenv                   "$_std pack'bgn'"
+  # @sharkdp
+  sharkdp/fd              "$_std binary lucid from'gh-r' mv'fd* fd' sbin'**/fd(.exe|) -> fd'"
+  sharkdp/bat             "$_std binary lucid from'gh-r' mv'bat* bat' sbin'**/bat(.exe|) -> bat'"
+  sharkdp/hexyl           "$_std binary lucid from'gh-r' mv'hexyl* hexyl' sbin'**/hexyl(.exe|) -> hexyl'"
+  sharkdp/hyperfine       "$_std binary lucid from'gh-r' mv'hyperfine* hyperfine' sbin'**/hyperfine(.exe|) -> hyperfine'"
+  sharkdp/vivid           "$_std binary lucid from'gh-r' mv'vivid* vivid' sbin'**/vivid(.exe|) -> vivid'"
+  # @ogham
+  ogham/exa               "$_std binary from'gh-r' sbin'**/exa -> exa' atclone'cp -vf completions/exa.zsh _exa'"
+  exa-cargo               "$_std binary cargo='!exa' teleid'z-shell/null'"
+  # @BurntSushi
+  BurntSushi/ripgrep      "$_std binary from'gh-r' mv'rip* ripgrep' sbin'**/rg(.exe|) -> rg'"
+  # @jonas
+  jonas/tig               "$_std binary make'prefix=$ZPFX install'"
+  # Fuzzy searchers
+  fzf                     "$_std pack'bgn-binary'"
+  fzy                     "$_std pack'bgn' git"
+  lotabout/skim           "$_std binary from'gh-r' sbin'**/sk(.exe|) -> sk'"
+  peco/peco               "$_std binary from'gh-r' mv'peco* peco' sbin'**/peco(.exe|) -> peco'"
+  # Fuzzy searchers – from sources
+  fzf-go                  "$_std pack'bgn' teleid'fzf' git"
+  skim-cargo              "$_std binary cargo='!skim -> sk' teleid'z-shell/null'"
+  peco-go                 "$_std binary make'build' sbin'**/peco(.exe|) -> peco' teleid'peco/peco'"
+  # no username → a rust-annex usage to install Rust toolchain
+  rust-toolchain          "$_std binary sbin='bin/*' rustup teleid'z-shell/null' atload='[[ ! -f \${ZI[COMPLETIONS_DIR]}/_cargo ]] && zi creinstall rust; export CARGO_HOME=\$PWD RUSTUP_HOME=\$PWD/rustup'"
+  # see: https://dev.to/cad97/rust-must-know-crates-5ad8
+  cargo-extensions        "$_std binary cargo'cargo-edit;cargo-outdated;cargo-tree; cargo-update; cargo-expand;cargo-modules;cargo-audit;cargo-clone' sbin'bin/*' teleid'z-shell/null'"
+  # A few utility plugins
+  hlissner/zsh-autopair               "$_std"
+  urbainvaes/fzf-marks                "$_std"
+  z-shell/zsh-navigation-tools        "$_std"
+  z-shell/zsh-editing-workbench       "$_std atinit'local zew_word_style=whitespace;'"
+  # @marzocchi, a notifier, configured to use zconvey
+  marzocchi/zsh-notify      "$_std atinit'zstyle \":notify:*\" command-complete-timeout 3; zstyle \":notify:*\" notifier plg-zsh-notify"
+  # Git extensions
+  Fakerr/git-recall         "$_std null sbin"
+  paulirish/git-open        "$_std null sbin"
+  paulirish/git-recent      "$_std null sbin"
+  davidosomething/git-my    "$_std null sbin"
+  arzzen/git-quick-stats    "$_std null sbin atload'export _MENU_THEME=legacy;'"
+  iwata/git-now             "$_std null sbin"
+  tj/git-extras             "$_std null make'PREFIX=$ZPFX'"
+  wfxr/forgit               "$_std atinit'forgit_ignore=fgi'"
+  # @sindresorhus
+  sindresorhus/pure         "$_std pick'async.zsh' src'pure.zsh' atload'prompt_pure_precmd' nocd"
+  # @agkozak
+  agkozak/agkozak-zsh-theme "$_std atload'_agkozak_precmd' atinit'AGKOZAK_FORCE_ASYNC_METHOD=subst-async' nocd"
+  # @romkatv
+  romkatv/powerlevel10k     "$_std depth=1 atinit'POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true' atload'[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh' nocd"
+  # @woefe
+  woefe/git-prompt.zsh      "$_std atload'_zsh_git_prompt_precmd_hook' nocd"
 )
 
 # Snippets
 _std+=" is-snippet"
 
 zi_annex_meta_plugins_config_map+=(
-    # Prezto
-    PZTM::archive       "$_std svn silent nocompile"
-    PZTM::directory     "$_std"
-    PZTM::utility       "$_std"
+  # Prezto
+  PZTM::archive       "$_std svn silent nocompile"
+  PZTM::directory     "$_std"
+  PZTM::utility       "$_std"
 )
 
 unset _std
