@@ -1,4 +1,9 @@
-# ZI Annex `META-PLUGINS`
+<h2 align="center">
+  <a href="https://github.com/z-shell/zi">
+    <img src="https://github.com/z-shell/zi/raw/main/docs/images/logo.svg" alt="Logo" width="80" height="80">
+  </a>
+❮ ZI ❯ Annex - meta plugins
+</h2>
 
 ### **Wiki:** [z-a-meta-plugins](https://github.com/z-shell/zi/wiki/z-a-meta-plugins)
 
