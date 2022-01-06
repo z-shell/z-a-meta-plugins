@@ -34,8 +34,8 @@ za-meta-plugins-default-ice-cmd-help-handler
 typeset -gA zi_annex_meta_plugins_map
 zi_annex_meta_plugins_map=(
   # zi annexes
-  annexes     "z-shell/z-a-readurl z-shell/z-a-patch-dl z-shell/z-a-rust z-shell/z-a-bin-gem-node"
-  annexes2    "z-shell/z-a-unscope z-shell/z-a-submods z-shell/z-a-default-ice"
+  annexes     "z-shell/z-a-readurl z-shell/z-a-patch-dl z-shell/z-a-submods z-shell/z-a-unscope z-shell/z-a-rust z-shell/z-a-bin-gem-node"
+  annexes2    "z-shell/z-a-default-ice z-shell/z-a-test"
   # Annexes + the zi-console
   annexes+con "z-shell/zi-console annexes"
 
@@ -89,10 +89,10 @@ zi_annex_meta_plugins_config_map=(
   # @z-shell (all annexes + extensions, without Meta-Plugins, obviously)
   z-shell/z-a-readurl       "$_std"
   z-shell/z-a-patch-dl      "$_std"
-  z-shell/z-a-unscope       "$_std"
-  z-shell/z-a-submods       "$_std"
   z-shell/z-a-rust          "$_std"
   z-shell/z-a-bin-gem-node  "$_std"
+  z-shell/z-a-unscope       "$_std"
+  z-shell/z-a-submods       "$_std"
   z-shell/z-a-default-ice   "$_std"
   z-shell/z-a-man           "$_std"
   z-shell/z-a-test          "$_std"
