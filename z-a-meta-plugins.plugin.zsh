@@ -108,7 +108,7 @@ zi_annex_meta_plugins_config_map=(
   z-shell/zui             "$_std blockf"
   z-shell/zconvey         "$_std sbin'cmds/zc-bg-notify;cmds/plg-zsh-notify'"
   z-shell/zsh-unique-id   "$_std"
-  z-shell/zi-console        "$_std"
+  z-shell/zi-console      "$_std"
   z-shell/zflai           "$_std"
   github-issues           "$_std pack"
   github-issues-srv       "$_std pack atinit'GIT_PROJECTS=z-shell/zi GIT_SLEEP_TIME=700;'"
