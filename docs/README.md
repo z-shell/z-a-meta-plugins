@@ -5,7 +5,7 @@
 ❮ ZI ❯ Annex - meta plugins
 </h2>
 
-### **Wiki:** [z-a-meta-plugins](https://github.com/z-shell/zi/wiki/z-a-meta-plugins)
+### **Wiki:** [annexes/meta-plugins](https://z-shell.pages.dev/docs/ecosystem/annexes/meta-plugins)
 
 ## Rationale
 
