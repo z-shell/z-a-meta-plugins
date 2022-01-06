@@ -1,8 +1,5 @@
 # Copyright (c) 2020 Sebastian Gniazdowski
 # Copyright (c) 2021 Z-Shell ZI Contributors
-#
-# According to the Zsh Plugin Standard:
-# http://z-shell.github.io/ZSH-TOP-100/Zsh-Plugin-Standard.html#zero-handling
 
 0="${${ZERO:-${0:#$ZSH_ARGZERO}}:-${(%):-%N}}"
 0="${${(M)0:#/*}:-$PWD/$0}"
@@ -37,7 +34,8 @@ za-meta-plugins-default-ice-cmd-help-handler
 typeset -gA zi_annex_meta_plugins_map
 zi_annex_meta_plugins_map=(
   # zi annexes
-  annexes     "z-shell/z-a-unscope z-shell/z-a-readurl z-shell/z-a-patch-dl z-shell/z-a-rust z-shell/z-a-submods z-shell/z-a-bin-gem-node"
+  annexes     "z-shell/z-a-readurl z-shell/z-a-patch-dl z-shell/z-a-rust z-shell/z-a-bin-gem-node"
+  annexes2    "z-shell/z-a-unscope z-shell/z-a-submods z-shell/z-a-default-ice"
   # Annexes + the zi-console
   annexes+con "z-shell/zi-console annexes"
 
@@ -89,13 +87,13 @@ typeset -g _std="lucid"
 # TODO: #4 Check availability of the annexes. Run tests and reflect here.
 zi_annex_meta_plugins_config_map=(
   # @z-shell (all annexes + extensions, without Meta-Plugins, obviously)
-  z-shell/zi-console        "$_std"
   z-shell/z-a-readurl       "$_std"
   z-shell/z-a-patch-dl      "$_std"
   z-shell/z-a-unscope       "$_std"
   z-shell/z-a-submods       "$_std"
   z-shell/z-a-rust          "$_std"
   z-shell/z-a-bin-gem-node  "$_std"
+  z-shell/z-a-default-ice   "$_std"
   z-shell/z-a-man           "$_std"
   z-shell/z-a-test          "$_std"
   # @zsh-users
@@ -110,6 +108,7 @@ zi_annex_meta_plugins_config_map=(
   z-shell/zui             "$_std blockf"
   z-shell/zconvey         "$_std sbin'cmds/zc-bg-notify;cmds/plg-zsh-notify'"
   z-shell/zsh-unique-id   "$_std"
+  z-shell/zi-console        "$_std"
   z-shell/zflai           "$_std"
   github-issues           "$_std pack"
   github-issues-srv       "$_std pack atinit'GIT_PROJECTS=z-shell/zi GIT_SLEEP_TIME=700;'"
@@ -164,13 +163,13 @@ zi_annex_meta_plugins_config_map=(
   tj/git-extras             "$_std null make'PREFIX=$ZPFX'"
   wfxr/forgit               "$_std atinit'forgit_ignore=fgi'"
   # @sindresorhus
-  sindresorhus/pure         "$_std pick'async.zsh' src'pure.zsh' atload'prompt_pure_precmd' nocd"
+  sindresorhus/pure           "$_std pick'async.zsh' src'pure.zsh' atload'prompt_pure_precmd' nocd"
   # @agkozak
-  agkozak/agkozak-zsh-theme "$_std atload'_agkozak_precmd' atinit'AGKOZAK_FORCE_ASYNC_METHOD=subst-async' nocd"
+  agkozak/agkozak-zsh-prompt  "$_std atload'_agkozak_precmd' atinit'AGKOZAK_FORCE_ASYNC_METHOD=subst-async' nocd"
   # @romkatv
-  romkatv/powerlevel10k     "$_std depth=1 atinit'POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true' atload'[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh' nocd"
+  romkatv/powerlevel10k       "$_std depth=1 atinit'POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true' atload'[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh' nocd"
   # @woefe
-  woefe/git-prompt.zsh      "$_std atload'_zsh_git_prompt_precmd_hook' nocd"
+  woefe/git-prompt.zsh        "$_std atload'_zsh_git_prompt_precmd_hook' nocd"
 )
 
 # Snippets
