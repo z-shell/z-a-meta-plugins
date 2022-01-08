@@ -66,7 +66,7 @@ zi_annex_meta_plugins_map=(
   developer   "molovo/color molovo/revolver molovo/zunit voronkovich/gitignore.plugin.zsh jonas/tig"
 
   # General console utilities. Includes also a LS_COLORS theme with the Zsh completion configured.
-  console-tools "dircolors-material sharkdp/fd sharkdp/bat sharkdp/hexyl sharkdp/hyperfine ogham/exa BurntSushi/ripgrep jonas/tig"
+  console-tools "dircolors-material sharkdp/fd sharkdp/bat sharkdp/hexyl sharkdp/hyperfine sharkdp/vivid ogham/exa BurntSushi/ripgrep jonas/tig"
 
   # Fuzzy searchers (4 of them).
   fuzzy       "fzf fzy lotabout/skim peco/peco"
