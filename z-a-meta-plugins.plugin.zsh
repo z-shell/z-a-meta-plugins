@@ -33,15 +33,19 @@ za-meta-plugins-default-ice-cmd-help-handler
 # The map in which the definitions of the meta-plugins are being stored.
 typeset -gA zi_annex_meta_plugins_map
 zi_annex_meta_plugins_map=(
-  # zi annexes
-  annexes     "z-shell/z-a-readurl z-shell/z-a-patch-dl z-shell/z-a-submods z-shell/z-a-unscope z-shell/z-a-rust z-shell/z-a-bin-gem-node"
-  annexes2    "z-shell/z-a-default-ice z-shell/z-a-test"
+  # Required annexes
+  annexes     "z-shell/z-a-bin-gem-node z-shell/z-a-readurl z-shell/z-a-patch-dl z-shell/z-a-rust"
+  # Recommended + required annexes 
+  annexes+rec "annexes z-shell/z-a-submods z-shell/z-a-unscope"
+  # Additional + recommended + required annexes
+  annexes+add "annexes+rec z-shell/z-a-default-ice z-shell/z-a-test"
+
   # Annexes + the zi-console
   annexes+con "z-shell/zi-console annexes"
 
   # @zsh-users
-  zsh-users   "zsh-users/zsh-syntax-highlighting zsh-users/zsh-autosuggestions zsh-users/zsh-completions"
-  zsh-users+fast "z-shell/F-Sy-H zsh-users/zsh-autosuggestions zsh-users/zsh-completions"
+  zsh-users       "zsh-users/zsh-syntax-highlighting zsh-users/zsh-autosuggestions zsh-users/zsh-completions"
+  zsh-users+fast  "z-shell/F-Sy-H zsh-users/zsh-autosuggestions zsh-users/zsh-completions"
 
   # @z-shell
   z-shell     "z-shell/F-Sy-H z-shell/H-S-MW z-shell/zsh-diff-so-fancy"
@@ -58,10 +62,11 @@ zi_annex_meta_plugins_map=(
 
   # Development-related utilities. color and revolver are zunit' dependencies.
   # Tig is being built from source (Git). The gitignore plugin has a Zsh template automatically set up — gi zsh to see it.
-  developer   "github-issues github-issues-srv molovo/color molovo/revolver molovo/zunit voronkovich/gitignore.plugin.zsh jonas/tig"
+  # TODO: github-issues github-issues-srv 
+  developer   "molovo/color molovo/revolver molovo/zunit voronkovich/gitignore.plugin.zsh jonas/tig"
 
   # General console utilities. Includes also a LS_COLORS theme with the Zsh completion configured.
-  console-tools "dircolors-material sharkdp ogham/exa BurntSushi/ripgrep jonas/tig"
+  console-tools "dircolors-material sharkdp/fd sharkdp/bat sharkdp/hexyl sharkdp/hyperfine ogham/exa BurntSushi/ripgrep jonas/tig"
 
   # Fuzzy searchers (4 of them).
   fuzzy       "fzf fzy lotabout/skim peco/peco"
@@ -87,10 +92,10 @@ typeset -g _std="lucid"
 # TODO: #4 Check availability of the annexes. Run tests and reflect here.
 zi_annex_meta_plugins_config_map=(
   # @z-shell (all annexes + extensions, without Meta-Plugins, obviously)
+  z-shell/z-a-bin-gem-node  "$_std"
   z-shell/z-a-readurl       "$_std"
   z-shell/z-a-patch-dl      "$_std"
   z-shell/z-a-rust          "$_std"
-  z-shell/z-a-bin-gem-node  "$_std"
   z-shell/z-a-unscope       "$_std"
   z-shell/z-a-submods       "$_std"
   z-shell/z-a-default-ice   "$_std"
