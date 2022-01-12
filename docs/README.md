@@ -16,7 +16,7 @@ It can be tiring to:
 3. Constantly extend and tweak the ice list of each plugin, so that it's hard on
    eyes, especially for an outsider.
 
-## Recommended to start with
+## Meta plugins usage examples
 
 ```zsh
 zi light-mode for \
@@ -26,10 +26,9 @@ zi light-mode for annexes \
     zsh-users+fast
 ```
 
-## Install example of 22 plugins
 
 ```zsh
-# Installs total of 22 plugins
+zi for z-shell/z-a-meta-plugins
 zi for annexes zsh-users+fast console-tools fuzzy
 ```
 
