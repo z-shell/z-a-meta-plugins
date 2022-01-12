@@ -149,7 +149,7 @@ zi_annex_meta_plugins_config_map=(
   BurntSushi/ripgrep      "$_std binary from'gh-r' mv'rip* ripgrep' sbin'**/rg(.exe|) -> rg'"
 
   # @jonas
-  jonas/tig               "$_std binary make'prefix=$ZPFX install'"
+  jonas/tig               "$_std binary as'program' atclone'make configure; ./configure' atpull'%atclone' make'prefix=$ZPFX install'"
 
   # Fuzzy searchers
   fzf                     "$_std pack'bgn-binary'"
