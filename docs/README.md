@@ -1,20 +1,15 @@
-<h2 align="center">
+<h1 align="center">
   <a href="https://github.com/z-shell/zi">
-    <img src="https://github.com/z-shell/zi/raw/main/docs/images/logo.svg" alt="Logo" width="80" height="80">
+    <img src="https://github.com/z-shell/zi/raw/main/docs/images/logo.svg" alt="Logo" width="80" height="80" />
   </a>
 ❮ ZI ❯ Annex - meta plugins
-</h2>
+</h1>
 
-### **Wiki:** [annexes/meta-plugins](https://z-shell.pages.dev/docs/ecosystem/annexes/meta-plugins)
+## 💡 Wiki 
 
-## Rationale
-
-It can be tiring to:
-
-1. Constantly, over and over collect some new interesting plugins to install/load.
-2. Over and over reconstruct the new findings on the new machines.
-3. Constantly extend and tweak the ice list of each plugin, so that it's hard on
-   eyes, especially for an outsider.
+- [meta-plugins](https://z.digitalclouds.dev/docs/ecosystem/annexes/meta-plugins)
+- [bin-gem-node](https://z.digitalclouds.dev/docs/ecosystem/annexes/bin-gem-node)
+- [annexes](https://z.digitalclouds.dev/docs/ecosystem/annexes)
 
 ## Meta plugins usage examples
 
