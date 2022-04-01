@@ -194,7 +194,7 @@ zi_annex_meta_plugins_config_map=(
   iwata/git-now             "$_std null sbin"
   wfxr/forgit               "$_std atinit'forgit_ignore=fgi'"
   tj/git-extras             "$_std null make'PREFIX=$ZPFX'"
-  tj/n                      "$_std as'program' atinit'export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"' pick'bin/n'"
+  tj/n                      "$_std as'program' atinit'export N_PREFIX="$PWD/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"' pick'bin/n'"
   
   # @sindresorhus
   sindresorhus/pure           "$_std pick'async.zsh' src'pure.zsh' atload'prompt_pure_precmd' nocd"
