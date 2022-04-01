@@ -1,6 +1,7 @@
-# Copyright (c) 2020 Sebastian Gniazdowski
-# Copyright (c) 2021 Z-Shell ZI Contributors
-
+# Copyright (c) 2021 Z-Shell Communituy
+#
+# Standardized $0 Handling
+# https://z.digitalclouds.dev/community/zsh_plugin_standard#zero-handling
 0="${${ZERO:-${0:#$ZSH_ARGZERO}}:-${(%):-%N}}"
 0="${${(M)0:#/*}:-$PWD/$0}"
 
@@ -8,7 +9,7 @@ typeset -gA zi_annex_meta_plugins
 zi_annex_meta_plugins[0]="$0" zi_annex_meta_plugins[repo-dir]="${0:h}"
 
 # Standard hash for plugins:
-# http://z-shell.github.io/ZSH-TOP-100/Zsh-Plugin-Standard.html#std-hash
+# https://z.digitalclouds.dev/community/zsh_plugin_standard#standard-plugins-hash
 typeset -gA Plugins
 Plugins[META_PLUGINS_DIR]="${0:h}"
 
@@ -33,12 +34,16 @@ za-meta-plugins-default-ice-cmd-help-handler
 # The map in which the definitions of the meta-plugins are being stored.
 typeset -gA zi_annex_meta_plugins_map
 zi_annex_meta_plugins_map=(
+
   # Required annexes
   annexes     "z-shell/z-a-bin-gem-node z-shell/z-a-readurl z-shell/z-a-patch-dl z-shell/z-a-rust"
+
   # Recommended + required annexes 
   annexes+rec "annexes z-shell/z-a-submods z-shell/z-a-unscope"
+
   # Additional + recommended + required annexes
   annexes+add "annexes+rec z-shell/z-a-default-ice z-shell/z-a-test"
+
   # Required annexes + the zi-console
   annexes+con "z-shell/zi-console annexes"
 
@@ -51,10 +56,10 @@ zi_annex_meta_plugins_map=(
   zsh-users+fast  "z-shell/F-Sy-H zsh-users/zsh-autosuggestions zsh-users/zsh-completions"
 
   # @romkatv
-  romkatv     "romkatv/powerlevel10k"
+  romkatv    "romkatv/powerlevel10k"
 
-  # @molovo
-  molovo      "molovo/color molovo/revolver molovo/zunit"
+  # @zunit
+  zunit      "zdharma/color zdharma/revolver zdharma/zunit"
 
   # @sharkdp
   sharkdp     "sharkdp/fd sharkdp/bat sharkdp/hexyl sharkdp/hyperfine sharkdp/vivid"
@@ -63,7 +68,7 @@ zi_annex_meta_plugins_map=(
   # Tig is being built from source (Git).
   # The gitignore plugin has a Zsh template automatically set up — gi zsh to see it.
   # TODO: github-issues github-issues-srv 
-  developer   "molovo/color molovo/revolver molovo/zunit voronkovich/gitignore.plugin.zsh jonas/tig"
+  developer   "zdharma/color zdharma/revolver zdharma/zunit voronkovich/gitignore.plugin.zsh jonas/tig"
 
   # General console utilities. Includes also a LS_COLORS theme with the Zsh completion configured.
   console-tools "dircolors-material sharkdp/fd sharkdp/bat sharkdp/hexyl sharkdp/hyperfine sharkdp/vivid ogham/exa BurntSushi/ripgrep jonas/tig"
@@ -74,6 +79,9 @@ zi_annex_meta_plugins_map=(
 
   # Git extensions.
   ext-git     "paulirish/git-open paulirish/git-recent davidosomething/git-my arzzen/git-quick-stats iwata/git-now tj/git-extras wfxr/forgit"
+  
+  # Node Managment
+  tj-node     "tj/n"
 
   # Rust toolchain + cargo extensions.
   rust-utils  "rust-toolchain cargo-extensions"
@@ -105,12 +113,12 @@ zi_annex_meta_plugins_config_map=(
   z-shell/z-a-man           "$_std compile'*handler'"
  
   # @zsh-users
-  zsh-users/zsh-syntax-highlighting   "$_std atinit'ZI[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay;'"
+  zsh-users/zsh-syntax-highlighting   "$_std atinit'ZI[COMPINIT_OPTS]=-C; zicompinit; zicdreplay;'"
   zsh-users/zsh-autosuggestions       "$_std atload'_zsh_autosuggest_start;'"
   zsh-users/zsh-completions           "$_std pick'/dev/null'"
   
   # @z-shell
-  z-shell/F-Sy-H                      "$_std atinit'ZI[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay;'"
+  z-shell/F-Sy-H                      "$_std atinit'ZI[COMPINIT_OPTS]=-C; zicompinit; zicdreplay;'"
   z-shell/H-S-MW                      "$_std atinit'zstyle :history-search-multi-word page-size 7;'"
   z-shell/zsh-diff-so-fancy           "$_std null sbin'bin/git-dsf;bin/diff-so-fancy'"
 
@@ -123,10 +131,10 @@ zi_annex_meta_plugins_config_map=(
   github-issues           "$_std pack"
   github-issues-srv       "$_std pack atinit'GIT_PROJECTS=z-shell/zi GIT_SLEEP_TIME=700;'"
 
-  # @molovo
-  molovo/zunit            "$_std binary sbin atclone'./build.zsh;' atpull'%atclone'"
-  molovo/color            "$_std binary sbin'color.zsh -> color'"
-  molovo/revolver         "$_std as'program' pick'revolver'"
+  # @zdharma
+  zdharma/zunit            "$_std binary sbin atclone'./build.zsh;' atpull'%atclone'"
+  zdharma/color            "$_std binary sbin'color.zsh -> color'"
+  zdharma/revolver         "$_std as'program' pick'revolver'"
 
   # @zpm-zsh
   dircolors-material      "$_std pack"
@@ -184,9 +192,10 @@ zi_annex_meta_plugins_config_map=(
   davidosomething/git-my    "$_std null sbin"
   arzzen/git-quick-stats    "$_std null sbin atload'export _MENU_THEME=legacy;'"
   iwata/git-now             "$_std null sbin"
-  tj/git-extras             "$_std null make'PREFIX=$ZPFX'"
   wfxr/forgit               "$_std atinit'forgit_ignore=fgi'"
-
+  tj/git-extras             "$_std null make'PREFIX=$ZPFX'"
+  tj/n                      "$_std as'program' atinit'export N_PREFIX="$PWD/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"' pick'bin/n'"
+  
   # @sindresorhus
   sindresorhus/pure           "$_std pick'async.zsh' src'pure.zsh' atload'prompt_pure_precmd' nocd"
   
