@@ -1,7 +1,7 @@
 # Copyright (c) 2020 Sebastian Gniazdowski
 # Copyright (c) 2021 Z-Shell ZI Contributors
 
-za-meta-plugins-cmd-help-handler() {
+za-meta-plugins-meta-cmd-help-handler() {
   +zi-message "{nl}—— {pre}meta {meta}--help{data}/{meta}-h" "{rst}{nl}{nl}" \
     \
     "{msg2}Description:{rst}{nl}" "{meta}--help{data}/{meta}-h{ehi}:{rst}{msg} this message{rst}{nl}"
