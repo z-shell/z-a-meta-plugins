@@ -11,7 +11,7 @@ za-meta-plugins-load-handler() {
     local is_58
     is-at-least 5.8 && is_58=1
     integer retval
-    [[ $1 == annex-loaded-plugins ]] && { shift; integer eas_subcommand=1; }
+    [[ $1 == default-ice ]] && { shift; integer eas_subcommand=1; }
     integer ibdebug=$+ICE[debug]
     # -D - clear out the recognized options
     # -E - allow mixing of options and non-options
