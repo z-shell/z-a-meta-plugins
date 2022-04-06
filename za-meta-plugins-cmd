@@ -11,7 +11,7 @@ za-meta-plugins-cmd() {
     local is_58
     is-at-least 5.8 && is_58=1
     integer retval
-    [[ $1 == default-ice ]] && { shift; integer eas_subcommand=1; }
+    [[ $1 == annex-loaded-plugins ]] && { shift; integer eas_subcommand=1; }
     integer ibdebug=$+ICE[debug]
     # -D - clear out the recognized options
     # -E - allow mixing of options and non-options
@@ -42,6 +42,6 @@ za-meta-plugins-cmd() {
     local -A ICES
     .zi-ice "$@"
     integer iceret=$?
-    zi_annex_meta_plugins[default-ices]=${(j: :)${(@qkv)ICES}}
-    +zi-message "{pre}default-ice:{rst}{msg} Stored the ices{ehi}:{rst}" "${(j: :)${(@q-kv)ICES}}.{rst}"
+    zi_annex_meta_plugins[annex-loaded-plugins]=${(j: :)${(@qkv)ICES}}
+    +zi-message "{pre}meta-plugins annex:{rst}{msg} Stored the ices{ehi}:{rst}" "${(j: :)${(@q-kv)ICES}}.{rst}"
 }
