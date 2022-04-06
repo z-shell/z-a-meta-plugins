@@ -1,0 +1,29 @@
+#!/usr/bin/env zsh
+
+# Copyright (c) 2019 Sebastian Gniazdowski
+# Copyright (c) 2021 Z-Shell ZI Contributors
+
+.za-meta-plugins-show() {
+
+# Set the base and typically useful options.
+builtin emulate -LR zsh
+builtin setopt extendedglob warncreateglobal typesetsilent noshortloops
+
+if [[ zi_annex_meta_plugins[default-ices] == [[:space:]]# ]] {
+  (( ${#quiet} )) || +zi-message "{pre}default-ice:{rst}{msg} No ices currently set.{rst}"
+  return 1
+}
+
+local -A ice
+ice=( "${(@Q)${(@z)zi_annex_meta_plugins[default-ices]}}" )
+
+local k v
+for k v ( "${(kv)ice[@]}" ) {
+  +zi-message "{b}{ice}$k{ehi}:{rst}{tab}{data}$v{rst}"
+}
+
+return 0
+
+}
+
+# vim: ft=zsh sw=2 ts=2 et
