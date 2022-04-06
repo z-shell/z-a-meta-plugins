@@ -5,30 +5,31 @@
 0="${ZERO:-${${0:#$ZSH_ARGZERO}:-${(%):-%N}}}"
 0="${${(M)0:#/*}:-$PWD/$0}"
 
-typeset -gA zi_annex_meta_plugins
-zi_annex_meta_plugins[0]="$0" zi_annex_meta_plugins[repo-dir]="${0:h}"
+# Functions Directory
+# https://z.digitalclouds.dev/community/zsh_plugin_standard/#funtions-directory
+if [[ $PMSPEC != *f* ]] {
+    fpath+=( "${0:h}/functions" )
+}
 
 # Standard hash for plugins:
 # https://z.digitalclouds.dev/community/zsh_plugin_standard#standard-plugins-hash
+typeset -gA zi_annex_meta_plugins
+zi_annex_meta_plugins[0]="$0" zi_annex_meta_plugins[repo-dir]="${0:h}"
+
 typeset -gA Plugins
 Plugins[META_PLUGINS_DIR]="${0:h}"
 
-autoload -Uz za-meta-plugins-before-load-handler
-#za-meta-plugins-help-handler \
-#za-meta-plugins-load-handler 
+# The Proposed Function-Name Prefixes
+# https://z.digitalclouds.dev/community/zsh_plugin_standard/#the-proposed-function-name-prefixes
+autoload -Uz →za-meta-plugins-before-load-handler
 
 # An empty stub to fill the help handler fields
-za-meta-plugins-help-null-handler() { :; }
+→za-meta-plugins-help-null-handler() { :; }
 
 # The unscoping-support hook.
 @zi-register-annex "z-a-meta-plugins" hook:before-load-4 \
-za-meta-plugins-before-load-handler \
-za-meta-plugins-help-null-handler "skip''" # Add a new ice
-
-# The subcommand `meta'.
-#@zi-register-annex "z-a-meta-plugins" subcommand:meta \
-#za-meta-plugins-load-handler \
-#za-meta-plugins-help-handler
+  →za-meta-plugins-before-load-handler \
+  →za-meta-plugins-help-null-handler "skip''" # Add a new ice
 
 # The map in which the definitions of the meta-plugins are being stored.
 typeset -gA zi_annex_meta_plugins_map
@@ -96,18 +97,17 @@ zi_annex_meta_plugins_map=(
 typeset -gA zi_annex_meta_plugins_config_map
 typeset -g _std="lucid"
 
-# TODO: #4 Check availability of the annexes. Run tests and reflect here.
 zi_annex_meta_plugins_config_map=(
   # @z-shell (all annexes + extensions, without Meta-Plugins, obviously)
   z-shell/z-a-bin-gem-node  "$_std"
+  z-shell/z-a-default-ice   "$_std"
   z-shell/z-a-readurl       "$_std"
   z-shell/z-a-patch-dl      "$_std"
+  z-shell/z-a-unscope       "$_std"
+  z-shell/z-a-submods       "$_std"
+  z-shell/z-a-linkbin       "$_std"
   z-shell/z-a-rust          "$_std"
-  z-shell/z-a-default-ice   "$_std"
-  z-shell/z-a-unscope       "$_std compile'*handler'"
-  z-shell/z-a-submods       "$_std compile'*handler'"
-  z-shell/z-a-linkbin       "$_std compile'*handler'"
-  z-shell/z-a-eval          "$_std compile'*handler'"
+  z-shell/z-a-eval          "$_std"
   z-shell/z-a-test          "$_std compile'*handler'"
   z-shell/z-a-man           "$_std compile'*handler'"
 
@@ -219,3 +219,5 @@ zi_annex_meta_plugins_config_map+=(
 )
 
 unset _std
+
+# vim: ft=zsh sw=2 ts=2 et
