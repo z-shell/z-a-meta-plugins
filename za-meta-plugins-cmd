@@ -2,7 +2,7 @@
 # Copyright (c) 2020 Sebastian Gniazdowski
 # Copyright (c) 2021 Z-Shell ZI Contributors
 
-za-meta-plugins-default-ice-cmd() {
+za-meta-plugins-cmd() {
     # Set the base and typically useful options.
     builtin emulate -LR zsh
     builtin setopt extendedglob warncreateglobal typesetsilent noshortloops rcquotes
@@ -31,12 +31,12 @@ za-meta-plugins-default-ice-cmd() {
     }
     # --help/-h
     if (( ${#help} )) {
-      za-meta-plugins-default-ice-cmd-help-handler
+      za-meta-plugins-cmd-help-handler
       return retval
     }
     # --show/-s
     if (( ${#show} )) {
-      .za-meta-plugins-show-default-ices
+      za-meta-plugins-before-load-handler
       return $?
     }
     local -A ICES

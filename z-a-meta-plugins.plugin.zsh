@@ -1,4 +1,4 @@
-# Copyright (c) 2021 Z-Shell Communituy
+# Copyright (c) 2021 Z-Shell Community
 #
 # Standardized $0 Handling
 # https://z.digitalclouds.dev/community/zsh_plugin_standard#zero-handling
@@ -14,8 +14,8 @@ typeset -gA Plugins
 Plugins[META_PLUGINS_DIR]="${0:h}"
 
 autoload -Uz za-meta-plugins-before-load-handler \
-za-meta-plugins-default-ice-cmd-help-handler \
-za-meta-plugins-default-ice-cmd
+za-meta-plugins-cmd-help-handler \
+za-meta-plugins-cmd
 
 # An empty stub to fill the help handler fields
 za-meta-plugins-help-null-handler() { :; }
@@ -26,10 +26,9 @@ za-meta-plugins-before-load-handler \
 za-meta-plugins-help-null-handler "skip''" # Add a new ice
 
 # The subcommand `meta'.
-@zi-register-annex "z-a-meta-plugins" \
-subcommand:default-ice \
-za-meta-plugins-default-ice-cmd \
-za-meta-plugins-default-ice-cmd-help-handler
+@zi-register-annex "z-a-meta-plugins" subcommand:meta \
+za-meta-plugins-cmd \
+za-meta-plugins-cmd-help-handler
 
 # The map in which the definitions of the meta-plugins are being stored.
 typeset -gA zi_annex_meta_plugins_map
@@ -38,7 +37,7 @@ zi_annex_meta_plugins_map=(
   # Required annexes
   annexes     "z-shell/z-a-bin-gem-node z-shell/z-a-readurl z-shell/z-a-patch-dl z-shell/z-a-rust"
 
-  # Recommended + required annexes 
+  # Recommended + required annexes
   annexes+rec "annexes z-shell/z-a-submods z-shell/z-a-unscope"
 
   # Additional + recommended + required annexes
@@ -67,7 +66,7 @@ zi_annex_meta_plugins_map=(
   # Development-related utilities. color and revolver are zunit' dependencies.
   # Tig is being built from source (Git).
   # The gitignore plugin has a Zsh template automatically set up — gi zsh to see it.
-  # TODO: github-issues github-issues-srv 
+  # TODO: github-issues github-issues-srv
   developer   "zdharma/color zdharma/revolver zdharma/zunit voronkovich/gitignore.plugin.zsh jonas/tig"
 
   # General console utilities. Includes also a LS_COLORS theme with the Zsh completion configured.
@@ -79,7 +78,7 @@ zi_annex_meta_plugins_map=(
 
   # Git extensions.
   ext-git     "paulirish/git-open paulirish/git-recent davidosomething/git-my arzzen/git-quick-stats iwata/git-now tj/git-extras wfxr/forgit"
-  
+
   # Node Managment
   tj-node     "tj/n"
 
@@ -103,20 +102,20 @@ zi_annex_meta_plugins_config_map=(
   z-shell/z-a-bin-gem-node  "$_std"
   z-shell/z-a-readurl       "$_std"
   z-shell/z-a-patch-dl      "$_std"
-  z-shell/z-a-default-ice   "$_std compile'*handler'"
+  z-shell/z-a-rust          "$_std"
+  z-shell/z-a-default-ice   "$_std"
   z-shell/z-a-unscope       "$_std compile'*handler'"
   z-shell/z-a-submods       "$_std compile'*handler'"
   z-shell/z-a-linkbin       "$_std compile'*handler'"
-  z-shell/z-a-rust          "$_std compile'*handler'"
   z-shell/z-a-eval          "$_std compile'*handler'"
   z-shell/z-a-test          "$_std compile'*handler'"
   z-shell/z-a-man           "$_std compile'*handler'"
- 
+
   # @zsh-users
   zsh-users/zsh-syntax-highlighting   "$_std atinit'ZI[COMPINIT_OPTS]=-C; zicompinit; zicdreplay;'"
   zsh-users/zsh-autosuggestions       "$_std atload'_zsh_autosuggest_start;'"
   zsh-users/zsh-completions           "$_std pick'/dev/null'"
-  
+
   # @z-shell
   z-shell/F-Sy-H                      "$_std atinit'ZI[COMPINIT_OPTS]=-C; zicompinit; zicdreplay;'"
   z-shell/H-S-MW                      "$_std atinit'zstyle :history-search-multi-word page-size 7;'"
@@ -195,13 +194,13 @@ zi_annex_meta_plugins_config_map=(
   wfxr/forgit               "$_std atinit'forgit_ignore=fgi'"
   tj/git-extras             "$_std null make'PREFIX=$ZPFX'"
   tj/n                      "$_std as'program' atinit'export N_PREFIX="$PWD/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"' pick'bin/n'"
-  
+
   # @sindresorhus
   sindresorhus/pure           "$_std pick'async.zsh' src'pure.zsh' atload'prompt_pure_precmd' nocd"
-  
+
   # @agkozak
   agkozak/agkozak-zsh-prompt  "$_std atload'_agkozak_precmd' atinit'AGKOZAK_FORCE_ASYNC_METHOD=subst-async' nocd"
-  
+
   # @romkatv
   romkatv/powerlevel10k       "$_std depth=1 atinit'POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true' atload'[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh' nocd"
 
