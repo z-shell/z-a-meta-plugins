@@ -15,7 +15,7 @@ Plugins[META_PLUGINS_DIR]="${0:h}"
 
 autoload -Uz za-meta-plugins-before-load-handler \
 za-meta-plugins-cmd-help-handler \
-za-meta-plugins-cmd
+za-meta-plugins-default-ice-cmd 
 
 # An empty stub to fill the help handler fields
 za-meta-plugins-help-null-handler() { :; }
@@ -27,7 +27,7 @@ za-meta-plugins-help-null-handler "skip''" # Add a new ice
 
 # The subcommand `meta'.
 @zi-register-annex "z-a-meta-plugins" subcommand:meta \
-za-meta-plugins-cmd \
+za-meta-plugins-default-ice-cmd  \
 za-meta-plugins-cmd-help-handler
 
 # The map in which the definitions of the meta-plugins are being stored.
