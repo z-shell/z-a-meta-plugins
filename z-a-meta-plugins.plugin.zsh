@@ -21,7 +21,9 @@ Plugins[META_PLUGINS_DIR]="${0:h}"
 
 # The Proposed Function-Name Prefixes
 # https://z.digitalclouds.dev/community/zsh_plugin_standard/#the-proposed-function-name-prefixes
-autoload -Uz →za-meta-plugins-before-load-handler
+autoload -Uz →za-meta-plugins-before-load-handler \
+→za-meta-plugins-meta-cmd \
+→za-meta-plugins-meta-cmd-help-handler
 
 # An empty stub to fill the help handler fields
 →za-meta-plugins-help-null-handler() { :; }
@@ -30,6 +32,11 @@ autoload -Uz →za-meta-plugins-before-load-handler
 @zi-register-annex "z-a-meta-plugins" hook:before-load-4 \
   →za-meta-plugins-before-load-handler \
   →za-meta-plugins-help-null-handler "skip''" # Add a new ice
+
+# The subcommand `meta'.
+@zi-register-annex "z-a-meta-plugins" subcommand:meta \
+  →za-meta-plugins-meta-cmd \
+  →za-meta-plugins-meta-cmd-help-handler
 
 # The map in which the definitions of the meta-plugins are being stored.
 typeset -gA zi_annex_meta_plugins_map
