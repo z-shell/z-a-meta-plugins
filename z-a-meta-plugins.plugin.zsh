@@ -100,7 +100,7 @@ typeset -g _std="lucid"
 # TODO: #4 Check availability of the annexes. Run tests and reflect here.
 zi_annex_meta_plugins_config_map=(
   # @z-shell (all annexes + extensions, without Meta-Plugins, obviously)
-  z-shell/z-a-bin-gem-node  "$_std compile'*handler'"
+  z-shell/z-a-bin-gem-node  "$_std"
   z-shell/z-a-default-ice   "$_std compile'*handler'"
   z-shell/z-a-patch-dl      "$_std compile'*handler'"
   z-shell/z-a-readurl       "$_std compile'*handler'"
