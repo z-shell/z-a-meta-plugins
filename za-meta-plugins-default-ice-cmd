@@ -43,5 +43,5 @@ za-meta-plugins-default-ice-cmd() {
     .zi-ice "$@"
     integer iceret=$?
     zi_annex_meta_plugins[default-ices]=${(j: :)${(@qkv)ICES}}
-    +zi-message "{pre}Default ices:{rst}{msg} Stored the ices{ehi}:{rst}" "${(j: :)${(@q-kv)ICES}}.{rst}"
+    +zi-message "{pre}Default ice:{rst}{msg} Stored the ices{ehi}:{rst}" "${(j: :)${(@q-kv)ICES}}.{rst}"
 }
