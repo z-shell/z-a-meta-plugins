@@ -2,8 +2,9 @@
 name: "🚀 Deploy"
 on:
   push:
-    branches: [main]
+    branches: [main] 
     tags: ["v*.*.*"]
+    paths: ["docs/**", ".github", ".github/workflows/deploy-call.yml"]
   workflow_dispatch:
 
 jobs:
