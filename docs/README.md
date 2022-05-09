@@ -31,7 +31,7 @@ zi for annexes zsh-users+fast console-tools fuzzy
 <div align="center">
   <table><tr><td>
 
-  ![screenshot](https://raw.githubusercontent.com/z-shell/z-a-meta-plugins/main/docs/images/fuzzy-mplg-ex.png)
+![screenshot](https://raw.githubusercontent.com/z-shell/z-a-meta-plugins/main/docs/images/fuzzy-mplg-ex.png)
 
   </td></tr></table>
 </div>
