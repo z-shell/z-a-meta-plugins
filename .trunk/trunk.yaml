@@ -23,5 +23,5 @@ lint:
         - "!docs/**"
     - linters: [shfmt]
       paths:
-        - "functuions/**"
+        - "functions/**"
 #        - '.github/workflows/trunk_check.yml'
