@@ -1,9 +1,9 @@
 <h1 align="center">
   <a href="https://github.com/z-shell/zi">
     <img src="https://github.com/z-shell/zi/raw/main/docs/images/logo.svg" alt="Logo" width="80" height="80" />
-  </a>
-❮ ZI ❯ Annex - meta plugins
-</h1>
+    </a>
+    ❮ ZI ❯ Annex - meta plugins
+  </h1>
 
 ## 💡 Wiki
 
@@ -28,4 +28,10 @@ zi for annexes zsh-users+fast console-tools fuzzy
 
 ### **… and also have the curated, optimal ice lists automatically applied !**
 
-![screenshot](https://raw.githubusercontent.com/z-shell/z-a-meta-plugins/main/images/fuzzy-mplg-ex.png)
+<div align="center">
+  <table><tr><td>
+
+  ![screenshot](https://raw.githubusercontent.com/z-shell/z-a-meta-plugins/main/docs/images/fuzzy-mplg-ex.png)
+
+  </td></tr></table>
+</div>
