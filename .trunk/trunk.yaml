@@ -21,7 +21,7 @@ lint:
     - linters: [ALL]
       paths:
         - "!docs/**"
-#    - linters: [actionlint]
-#      paths:
-#        - '.github/workflows/sync-labels.yml'
+    - linters: [shfmt]
+      paths:
+        - 'functuions/**'
 #        - '.github/workflows/trunk_check.yml'
