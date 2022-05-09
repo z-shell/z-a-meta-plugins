@@ -10,3 +10,14 @@ jobs:
   deploy:
     name: '🚀 Deploy'
     uses: z-shell/.github/.github/workflows/deploy-call.yml@main
+#    with:
+#      secrets: 
+#        personal_token
+#        deploy_key: ''
+#      external_repository: ''
+#      publish_branch: ''
+#      publish_dir: ''
+#      destination_dir: ''
+#      cname: ''
+#      keep_files: true
+#      allow_empty_commit: true
