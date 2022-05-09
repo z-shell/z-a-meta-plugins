@@ -10,10 +10,8 @@ jobs:
   deploy:
     name: '🚀 Deploy'
     uses: z-shell/.github/.github/workflows/deploy-call.yml@main
-    with:
-      github_token: ${{ secrets.GITHUB_TOKEN }}
-#      secrets:
-#        personal_token
+    secrets:
+      personal_token: ${{ secrets.GH_PAT }}
 #        deploy_key: ''
 #      external_repository: ''
 #      publish_branch: ''
