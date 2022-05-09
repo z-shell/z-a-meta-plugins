@@ -1,14 +1,14 @@
 ---
-name: '🚀 Deploy'
+name: "🚀 Deploy"
 on:
   push:
-    branches: [ main ]
-    tags: ['v*.*.*']
+    branches: [main]
+    tags: ["v*.*.*"]
   workflow_dispatch:
 
 jobs:
   deploy:
-    name: '🚀 Deploy'
+    name: "🚀 Deploy"
     uses: z-shell/.github/.github/workflows/deploy-call.yml@main
     secrets:
       personal_token: ${{ secrets.GH_PAT }}

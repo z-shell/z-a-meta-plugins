@@ -5,7 +5,7 @@
 ❮ ZI ❯ Annex - meta plugins
 </h1>
 
-## 💡 Wiki 
+## 💡 Wiki
 
 - [meta-plugins](https://z.digitalclouds.dev/docs/ecosystem/annexes/meta-plugins)
 - [bin-gem-node](https://z.digitalclouds.dev/docs/ecosystem/annexes/bin-gem-node)
@@ -20,7 +20,6 @@ zi light-mode for \
 zi light-mode for annexes \
     zsh-users+fast
 ```
-
 
 ```zsh
 zi for z-shell/z-a-meta-plugins

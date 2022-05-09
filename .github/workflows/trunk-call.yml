@@ -1,10 +1,10 @@
 ---
-name: '♻️ Trunk Call'
+name: "♻️ Trunk Call"
 on:
   workflow_dispatch:
   push:
-    branches: ['main']
-    tags: ['v*.*.*']
+    branches: ["main"]
+    tags: ["v*.*.*"]
   pull_request:
     types: [opened, synchronize]
 #  schedule:
@@ -12,7 +12,7 @@ on:
 
 jobs:
   check-call:
-    name: '♻️ Trunk'
+    name: "♻️ Trunk"
     uses: z-shell/.github/.github/workflows/trunk-call.yml@main
 #    secrets:
 #      TRUNK_TOKEN: ${{ secrets.TRUNK_TOKEN }}
