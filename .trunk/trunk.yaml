@@ -16,11 +16,7 @@ lint:
     - gitleaks@8.8.4
     - markdownlint@0.31.1
     - prettier@2.6.2
-    - shfmt@3.4.0
   ignore:
     - linters: [ALL]
       paths:
-        - "!docs/**"
-    - linters: [shfmt]
-      paths:
-        - 'functions/**'
+        - "functions/→za-meta-plugins-before-load-handler"
