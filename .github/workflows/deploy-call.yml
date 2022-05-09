@@ -12,11 +12,11 @@ jobs:
     uses: z-shell/.github/.github/workflows/deploy-call.yml@main
     secrets:
       personal_token: ${{ secrets.GH_PAT }}
-#        deploy_key: ''
-#      external_repository: ''
-#      publish_branch: ''
-#      publish_dir: ''
-#      destination_dir: ''
-#      cname: ''
-#      keep_files: true
-#      allow_empty_commit: true
+#     deploy_key: ''
+#     external_repository: ''
+#     publish_branch: ''
+#     publish_dir: ''
+#     destination_dir: ''
+#     cname: ''
+#     keep_files: true
+#     allow_empty_commit: true
