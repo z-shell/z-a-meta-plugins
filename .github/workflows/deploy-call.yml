@@ -1,0 +1,12 @@
+---
+name: '🚀 Deploy'
+on:
+  push:
+    branches: [ main ]
+    tags: ['v*.*.*']
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: '🚀 Deploy'
+    uses: z-shell/.github/.github/workflows/deploy-call.yml@main
