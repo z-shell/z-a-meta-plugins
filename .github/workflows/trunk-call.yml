@@ -13,7 +13,7 @@ on:
 jobs:
   check-call:
     name: '♻️ Trunk'
-    uses: z-shell/.github/.github/workflows/trunk-call@main
+    uses: z-shell/.github/.github/workflows/trunk-call.yml@main
 #    secrets:
 #      TRUNK_TOKEN: ${{ secrets.TRUNK_TOKEN }}
 #    with:
