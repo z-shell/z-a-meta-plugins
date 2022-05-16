@@ -1,8 +1,9 @@
-→za-meta-plugins-meta-cmd-help-handler() {
-  +zi-message "{nl}—— {pre}meta {opt}--help{data}/{opt}-h" \
-    "{rst}{nl}{nl}" \
-    \
-    "{msg}{u}Description{rst}{ehi}:{rst}{nl}" \
-    "{opt}--help{data}/{opt}-h{ehi}:{rst}{msg} this message{rst}{nl}"
-  return 0
-}
+# TODO: Do not register until main cmd created as it's shown in zi.
+#→za-meta-plugins-meta-cmd-help-handler() {
+#  +zi-message "{nl}—— {pre}meta {opt}--help{data}/{opt}-h" \
+#    "{rst}{nl}{nl}" \
+#    \
+#    "{msg}{u}Description{rst}{ehi}:{rst}{nl}" \
+#    "{opt}--help{data}/{opt}-h{ehi}:{rst}{msg} this message{rst}{nl}"
+#  return 0
+#}
