@@ -25,18 +25,18 @@ autoload -Uz →za-meta-plugins-before-load-handler \
 →za-meta-plugins-meta-cmd \
 →za-meta-plugins-meta-cmd-help-handler
 
-# An empty stub to fill the help handler fields
-→za-meta-plugins-help-null-handler() { :; }
+# An empty stub to fill the handler fields
+→za-meta-plugins-null-handler() { :; }
 
-# The unscoping-support hook.
+# The meta-plugins-support hook.
 @zi-register-annex "z-a-meta-plugins" hook:before-load-4 \
   →za-meta-plugins-before-load-handler \
-  →za-meta-plugins-help-null-handler "skip''" # Add a new ice
+  →za-meta-plugins-null-handler "skip''" # Add new ice
 
 # The subcommand `meta'.
 @zi-register-annex "z-a-meta-plugins" subcommand:meta \
   →za-meta-plugins-meta-cmd \
-  →za-meta-plugins-meta-cmd-help-handler
+  →za-meta-plugins-meta-cmd-help-handler # Add subcommand
 
 # The map in which the definitions of the meta-plugins are being stored.
 typeset -gA zi_annex_meta_plugins_map
@@ -124,7 +124,7 @@ zi_annex_meta_plugins_config_map=(
   zsh-users/zsh-completions           "$_std pick'/dev/null'"
 
   # @z-shell
-  z-shell/F-Sy-H                      "$_std atinit'ZI[COMPINIT_OPTS]=-C; zicompinit; zicdreplay;'"
+  z-shell/F-Sy-H                      "$_std atinit'ZI[COMPINIT_OPTS]=-C; zicompinit; zicdreplay;' atload'fast-theme z-shell &>/dev/null;'"
   z-shell/H-S-MW                      "$_std atinit'zstyle :history-search-multi-word page-size 7;'"
   z-shell/zsh-diff-so-fancy           "$_std null sbin'bin/git-dsf;bin/diff-so-fancy'"
 
@@ -200,7 +200,7 @@ zi_annex_meta_plugins_config_map=(
   iwata/git-now             "$_std null sbin"
   wfxr/forgit               "$_std atinit'forgit_ignore=fgi'"
   tj/git-extras             "$_std null make'PREFIX=$ZPFX'"
-  tj/n                      "$_std as'program' atinit'export N_PREFIX="$PWD/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"' pick'bin/n'"
+  tj/n                      "$_std as'program' atinit'export N_PREFIX="$PWD"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"' pick'bin/n'"
 
   # @sindresorhus
   sindresorhus/pure           "$_std pick'async.zsh' src'pure.zsh' atload'prompt_pure_precmd' nocd"
