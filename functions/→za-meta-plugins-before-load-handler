@@ -25,7 +25,7 @@ if (( bad_id || bad_id2 || bad_tele || is_pack )) {
   if (( ibdebug )) {
     local -a msgs
       msgs=( ${bad_id:+the ID contains a slash} ${bad_id2:+the ID looks like a snippet ID} ${bad_tele:+"the {ice}teleid{meta}''{msg} ice contains a slash"} ${is_pack:+"the ID is a package ↔ {ice}pack{meta}''{msg} ice given"} )
-      +zi-message "{pre}meta-plugins annex: {msg}Skipping the ID: {meta2}$id{msg}" "(reason(s): ${(j:, :)msgs}).{rst}"
+      +zi-message "{pre}meta-plugins annex{ehi}:{rst} {msg}Skipping the ID: {meta2}${id}{msg}" "(reason(s): ${(j:, :)msgs}).{rst}"
   }
   return 0
 }
@@ -72,7 +72,7 @@ if [[ -n $meta_plugin_data ]] {
     # Output a separating newline if the previous-processed plugin isn't a meta-plugin → to cluster the messages.
     [[ -z $zi_annex_meta_plugins_map[${ZI[annex-exposed-processed-IDs]##* }] ]] && builtin print
     +zi-message -n "{hi}$zi_annex_meta_plugins_map[recon-count].{rst} "
-    +zi-message -n "{pre}[meta-plugins annex]{msg} Loading" "{b}{meta2}meta-plugin{ehi}: {rst}{msg}\`{meta}{b}$id{rst}{msg}'" "consisting of{ehi}:{rst}"
+    +zi-message -n "{pre}meta-plugins annex{ehi}:{rst} {msg}Loading{ehi}: {rst}{msg}\`{meta}{b}$id{rst}{msg}'" "consisting of{ehi}:{rst}"
     integer count
     local -a skipped
     for p ( $plugin_array ) {
@@ -97,26 +97,24 @@ if [[ -n $meta_plugin_data ]] {
     +zi-message ".{rst}"
     if (( ibdebug && ${#skipped} )) {
       +zi-message -n "{hi}$zi_annex_meta_plugins_map[recon-count].{rst} "
-      +zi-message "{pre}[meta-plugins annex]{msg} Skipping already" "loaded: ${(j:, :)skipped}{msg}.{rst}"
+      +zi-message "{pre}meta-plugins annex{ehi}:{rst} {msg}Skipping already loaded{ehi}:{rst} ${(j:, :)skipped}{msg}.{rst}"
     }
   }
     # Pre-process each plugin retrieving the assigned, default ice-lists and preparing the above communication fields.
     for p ( $plugin_array ) {
       local ice_list_data=$zi_annex_meta_plugins_config_map[$p]
-        if (( ( $not_existing[(I)$p] || ! ($loaded_plugins[(I)$p] || $zsh_loaded_plugins[(I)$p]) ) && ! $on_demand_skip[(I)$p] )) || [[ $p == z-shell/null ]] {
-          # The ↑z-shell/null↑ is a bogus exception, as this plugin will never be loaded under the direct name.
-          ZI[annex-before-load:new-@]+="$ice_list_data @${(q)p} "
-          zi_annex_meta_plugins[annex-loaded-plugins]+=" ${(q)p}"
-        }
+      if (( ( $not_existing[(I)$p] || ! ($loaded_plugins[(I)$p] || $zsh_loaded_plugins[(I)$p]) ) && ! $on_demand_skip[(I)$p] )) || [[ $p == z-shell/null ]] {
+        # The ↑z-shell/null↑ is a bogus exception, as this plugin will never be loaded under the direct name.
+        ZI[annex-before-load:new-@]+="$ice_list_data @${(q)p} "
+        zi_annex_meta_plugins[annex-loaded-plugins]+=" ${(q)p}"
+      }
     }
     ZI[annex-before-load:new-@]+=" $args"
     ZI[annex-before-load:new-@]=${ZI[annex-before-load:new-@]## ##}
     # Setting to 1 here will prevent the error message on no plugin/snippet ID given.
     integer retval_part=${${ZI[annex-before-load:new-@]:+2}:-1}
-} else {
-  integer retval_part=0
-}
-return $(( ${${ZI[annex-before-load:new-global-ices]:+4}:-0} + retval_part + iberror_flag ))
-}
-
-# vim: ft=zsh sw=2 ts=2 et
+ } else {
+    integer retval_part=0
+ }
+    return $(( ${${ZI[annex-before-load:new-global-ices]:+4}:-0} + retval_part + iberror_flag ))
+ }
