@@ -25,7 +25,7 @@ if (( bad_id || bad_id2 || bad_tele || is_pack )) {
   if (( ibdebug )) {
     local -a msgs
       msgs=( ${bad_id:+the ID contains a slash} ${bad_id2:+the ID looks like a snippet ID} ${bad_tele:+"the {ice}teleid{meta}''{msg} ice contains a slash"} ${is_pack:+"the ID is a package ↔ {ice}pack{meta}''{msg} ice given"} )
-      +zi-message "{pre}meta-plugins annex{ehi}:{rst} {msg}Skipping the ID: {meta2}${id}{msg}" "(reason(s): ${(j:, :)msgs}).{rst}"
+      +zi-message "{annex}meta-plugins annex{ehi}:{rst} Skipping the {id-as}ID{ehi}: {meta2}${id}{rst} ({p}reason(s){ehi}:{rst} ${(j:, :)msgs}{rst})"
   }
   return 0
 }
@@ -71,8 +71,8 @@ if [[ -n $meta_plugin_data ]] {
     (($+functions[.zi-two-paths])) || builtin source $ZI[BIN_DIR]/lib/zsh/side.zsh
     # Output a separating newline if the previous-processed plugin isn't a meta-plugin → to cluster the messages.
     [[ -z $zi_annex_meta_plugins_map[${ZI[annex-exposed-processed-IDs]##* }] ]] && builtin print
-    +zi-message -n "{hi}$zi_annex_meta_plugins_map[recon-count].{rst} "
-    +zi-message -n "{pre}meta-plugins annex{ehi}:{rst} {msg}Loading{ehi}: {rst}{msg}\`{meta}{b}$id{rst}{msg}'" "consisting of{ehi}:{rst}"
+    +zi-message -n "{hi}$zi_annex_meta_plugins_map[recon-count]{rst} "
+    +zi-message "{annex}meta-plugins annex{ehi}:{rst} Loading{ehi}:{rst} \`{meta}{b}${id}{rst}' consisting of{ehi}:{rst}"
     integer count
     local -a skipped
     for p ( $plugin_array ) {
@@ -96,8 +96,8 @@ if [[ -n $meta_plugin_data ]] {
     }
     +zi-message ".{rst}"
     if (( ibdebug && ${#skipped} )) {
-      +zi-message -n "{hi}$zi_annex_meta_plugins_map[recon-count].{rst} "
-      +zi-message "{pre}meta-plugins annex{ehi}:{rst} {msg}Skipping already loaded{ehi}:{rst} ${(j:, :)skipped}{msg}.{rst}"
+      +zi-message -n "{hi}$zi_annex_meta_plugins_map[recon-count]{rst} "
+      +zi-message "{annex}meta-plugins annex{ehi}:{rst} Skipping already loaded{ehi}:{rst} ${(j:, :)skipped}{rst}"
     }
   }
     # Pre-process each plugin retrieving the assigned, default ice-lists and preparing the above communication fields.
