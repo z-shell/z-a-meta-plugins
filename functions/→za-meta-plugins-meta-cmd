@@ -25,17 +25,16 @@
     local -a help clear show stats get quiet
     zparseopts -D -E -M ${is_58:+} -clear=clear c=clear -show=show s=show -stats=stats t=stats -get=get g=get -quiet=quiet q=quiet h=help -help=help || retval=1
     if [[ $retval -gt 0 || $1 = -* ]] {
-      +zi-message "{nl}{error}meta-plugins annex: {msg}Incorrect options" "given${${(M)1:#-*}:+ "(bad option: {ehi}$1{rst}{msg})"}." "Usage:{rst}{nl}"
-      help=( -h ) retval=1
-      }
+      +zi-message "{annex}meta-plugins annex{ehi}:{rst} {error}Incorrect options given${${(M)1:#-*}:+ "(bad option{ehi}: {opt}$1{rst})"}". "Usage{ehi}:{rst}{nl}"      help=( -h ) retval=1
+    }
     if (( !$# && !${#help} && !${#show} && !${#clear} && !${#stats} )) {
-      +zi-message "{ehi}meta-plugins annex:{rst}{msg} Missing any" "ices. Usage:{rst}{nl}"
+      +zi-message "{annex}meta-plugins annex{ehi}:{rst} Missing any ices. Usage{ehi}:{rst}"
       help=( -h ) retval=1
     }
     # --help/-h
     if (( ${#help} )) {
       →za-meta-plugins-meta-cmd-help-handler
-      return retval
+      return $?
     }
     # --show/-s
     #if (( ${#show} )) {
