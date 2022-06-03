@@ -7,7 +7,7 @@
 
 →za-meta-plugins-meta-cmd() {
     # Set the base and typically useful options.
-    builtin emulate -LR zsh
+    builtin emulate -LR zsh ${=${options[xtrace]:#off}:+-o xtrace}
     builtin setopt extendedglob warncreateglobal typesetsilent noshortloops rcquotes
     (( $+reply && $+REPLY )) || unsetopt warncreateglobal
     autoload -Uz is-at-least
