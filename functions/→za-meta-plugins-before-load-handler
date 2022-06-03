@@ -4,7 +4,7 @@
 
 →za-meta-plugins-before-load-handler() {
 # Set the base and typically useful options.
-builtin emulate -LR zsh
+builtin emulate -LR zsh ${=${options[xtrace]:#off}:+-o xtrace}
 builtin setopt extendedglob warncreateglobal typesetsilent noshortloops rcquotes
 local type=$1 id=$2 id_as=$3 args=$4 ices=$5 hook=$6 subtype=$7
 # trunk-ignore(shfmt/parse)
