@@ -1,4 +1,3 @@
-
 <div align="center"><table><tr><td>
 <h1 align="center">
   <a href="https://github.com/z-shell/zi">
@@ -9,7 +8,6 @@
 </h2></td></tr></table></div><hr />
 
 ## 💡 Wiki: [meta-plugins](https://z.digitalclouds.dev/ecosystem/annexes/meta-plugins) - [annexes](https://z.digitalclouds.dev/ecosystem/annexes)
-
 
 # Install
 
@@ -24,4 +22,3 @@ After executing this command you can then install meta plugins provided by the a
 ---
 
 This repository compatible with [ZI](https://github.com/z-shell/zi)
-
