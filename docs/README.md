@@ -3,9 +3,9 @@
   <a href="https://github.com/z-shell/zi">
     <img align="center" src="https://github.com/z-shell/zi/raw/main/docs/images/logo.svg" alt="Logo" width="60px" height="60px" />
   </a> ❮ ZI ❯ Annex - meta-plugins </h1>
-  <h2>
+  <h2><p> An annex delivers the capability to install a group of plugins via a single, friendly label </p></h2>
     <p><img align="center" src="https://raw.githubusercontent.com/z-shell/z-a-meta-plugins/main/docs/images/fuzzy-mplg-ex.png" alt="zi annex meta-plugins" width="100%" height="auto" /></p>
-</h2></td></tr></table></div><hr />
+</td></tr></table></div><hr />
 
 ## 💡 Wiki: [meta-plugins](https://z.digitalclouds.dev/ecosystem/annexes/meta-plugins) - [annexes](https://z.digitalclouds.dev/ecosystem/annexes)
 
