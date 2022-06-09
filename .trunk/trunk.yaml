@@ -9,7 +9,8 @@ repo:
 lint:
   linters:
     - name: markdownlint
-      command: [markdownlint, -q, --config, .trunk/.markdownlint.yaml, "${target}"]
+      command:
+        [markdownlint, -q, --config, .trunk/.markdownlint.yaml, "${target}"]
       direct_configs: [.trunk/.markdownlint.yaml]
   enabled:
     - actionlint@1.6.13

@@ -1,5 +1,11 @@
 {
-  "conventionalCommits.scopes": ["workspace"],
+  "conventionalCommits.scopes": [
+    "maintenance",
+    "workspace",
+    "community",
+    "general",
+    "theme"
+  ],
   "markdownlint.config": {
     "extends": ".github/.markdownlint.yaml"
   }

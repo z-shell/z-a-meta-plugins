@@ -1,18 +1,18 @@
 ---
-name: "♻️ Trunk Call"
+name: "⭕ Trunk"
 on:
-  workflow_dispatch:
   push:
     branches: [main]
     tags: ["v*.*.*"]
   pull_request:
     types: [opened, synchronize]
+  workflow_dispatch: {}
 
 jobs:
-  check-call:
-    name: "♻️ Trunk"
-    uses: z-shell/.github/.github/workflows/trunk-call.yml@main
+  check:
+    name: "⚡"
+    uses: z-shell/.github/.github/workflows/trunk.yml@main
     secrets:
       trunk-token: ${{ secrets.TRUNK_TOKEN }}
     with:
-      arguments: --ci-progress
+      arguments: "--no-progress"
