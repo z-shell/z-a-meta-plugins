@@ -7,7 +7,6 @@
   builtin emulate -LR zsh ${=${options[xtrace]:#off}:+-o xtrace}
   builtin setopt extendedglob warncreateglobal typesetsilent noshortloops rcquotes
   local type=$1 id=$2 id_as=$3 args=$4 ices=$5 hook=$6 subtype=$7
-  # trunk-ignore(shfmt/parse)
   if (( $+ICE[debug] )) {
     # Enable the output from this annex
     integer ibshow_messages=1 ibdebug=1
