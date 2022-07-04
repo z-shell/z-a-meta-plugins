@@ -69,7 +69,7 @@
     }
     # Debug message.
     if (( ibshow_messages )) {
-      (($+functions[.zi-two-paths])) || builtin source $ZI[BIN_DIR]/lib/zsh/side.zsh
+      (($+functions[.zi-two-paths])) || builtin source ${ZI[BIN_DIR]}/lib/zsh/side.zsh
       # Output a separating newline if the previous-processed plugin isn't a meta-plugin → to cluster the messages.
       [[ -z $zi_annex_meta_plugins_map[${ZI[annex-exposed-processed-IDs]##* }] ]] && builtin print
       +zi-message -n "{hi}$zi_annex_meta_plugins_map[recon-count]{rst} "
