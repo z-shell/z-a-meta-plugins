@@ -1,6 +1,8 @@
 #autoload
+# -*- mode: zsh; sh-indentation: 2; indent-tabs-mode: nil; sh-basic-offset: 2; -*-
+# vim: ft=zsh sw=2 ts=2 et
 #
-# Copyright (c) 2021 Z-Shell ZI Contributors
+# Copyright (c) 2021-present Z-Shell Community
 
 →za-meta-plugins-before-load-handler() {
   # Set the base and typically useful options.
