@@ -6,8 +6,8 @@
 
 →za-meta-plugins-before-load-handler() {
   # Set the base and typically useful options.
-  builtin emulate -LR zsh ${=${options[xtrace]:#off}:+-o xtrace}
-  builtin setopt extendedglob warncreateglobal typesetsilent noshortloops rcquotes
+  builtin emulate -L zsh ${=${options[xtrace]:#off}:+-o xtrace}
+  builtin setopt extended_glob warn_create_global typeset_silent no_short_loops rc_quotes no_auto_pushd
   local type=$1 id=$2 id_as=$3 args=$4 ices=$5 hook=$6 subtype=$7
   if (( $+ICE[debug] )) {
     # Enable the output from this annex
