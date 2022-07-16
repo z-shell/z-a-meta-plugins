@@ -8,13 +8,14 @@
 # Functions Directory
 # https://z.digitalclouds.dev/community/zsh_plugin_standard/#funtions-directory
 if [[ $PMSPEC != *f* ]] {
-    fpath+=( "${0:h}/functions" )
+  fpath+=( "${0:h}/functions" )
 }
 
 # Standard hash for plugins:
 # https://z.digitalclouds.dev/community/zsh_plugin_standard#standard-plugins-hash
 typeset -gA zi_annex_meta_plugins
-zi_annex_meta_plugins[0]="$0" zi_annex_meta_plugins[repo-dir]="${0:h}"
+zi_annex_meta_plugins[0]="$0" 
+zi_annex_meta_plugins[repo-dir]="${0:h}"
 
 typeset -gA Plugins
 Plugins[META_PLUGINS_DIR]="${0:h}"
@@ -69,7 +70,7 @@ zi_annex_meta_plugins_map=(
   zunit      "zdharma/color zdharma/revolver zdharma/zunit"
 
   # @sharkdp
-  sharkdp     "sharkdp/fd sharkdp/bat sharkdp/hexyl sharkdp/hyperfine sharkdp/vivid"
+  sharkdp    "sharkdp/fd sharkdp/bat sharkdp/hexyl sharkdp/hyperfine sharkdp/vivid"
 
   # Development-related utilities. color and revolver are zunit' dependencies.
   # Tig is being built from source (Git).
