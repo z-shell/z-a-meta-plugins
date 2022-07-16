@@ -82,7 +82,9 @@
         [[ $p = $plugin_array[-1] ]] && local enotlast= || local enotlast=0
         REPLY=${REPLY//\//∕}
         integer idx1=0 idx2=0 idx3=0
-        if (( ((idx1 = $loaded_plugins[(I)$p]) || (idx2 = $zsh_loaded_plugins[(I)$p])) && ! $not_existing[(I)$p] || (idx3 = $on_demand_skip[(I)$p]) )) && [[ $p != z-shell/null ]] {
+        if (( ((idx1 = $loaded_plugins[(I)$p]) || (idx2 = $zsh_loaded_plugins[(I)$p])) && \
+        ! $not_existing[(I)$p] || (idx3 = $on_demand_skip[(I)$p]) )) && \
+        [[ $p != z-shell/null ]] && [[ $p != z-shell/0 ]] {
           idx3=$on_demand_skip[(I)$p]
           local idtxt="{dbg}${p//\//∕} "
           if (( (idx1 || idx2) && !idx3 )) {
