@@ -37,6 +37,9 @@ trim_trailing_whitespace = false
 [*.{cmd,bat}]
 end_of_line = crlf
 
+[*za-*]
+end_of_line = lf
+
 [*.{sh,bash,zsh,fish}]
 end_of_line = lf
 

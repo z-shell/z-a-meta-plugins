@@ -35,9 +35,9 @@ autoload -Uz →za-meta-plugins-before-load-handler \
   →za-meta-plugins-null-handler "skip''" # Add new ice
 
 # The subcommand `meta'.
-@zi-register-annex "z-a-meta-plugins" subcommand:meta \
-  →za-meta-plugins-meta-cmd \
-  →za-meta-plugins-meta-cmd-help-handler # Add subcommand
+#@zi-register-annex "z-a-meta-plugins" subcommand:meta \
+#  →za-meta-plugins-meta-cmd \
+#  →za-meta-plugins-meta-cmd-help-handler # Add subcommand
 
 # The map in which the definitions of the meta-plugins are being stored.
 typeset -gA zi_annex_meta_plugins_map
