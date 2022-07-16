@@ -5,45 +5,45 @@
 #
 # Copyright (c) 2021-present Z-Shell Community
 
-→za-meta-plugins-meta-cmd() {
-    # Set the base and typically useful options.
-    builtin emulate -LR zsh ${=${options[xtrace]:#off}:+-o xtrace}
-    builtin setopt extendedglob warncreateglobal typesetsilent noshortloops rcquotes
-    (( $+reply && $+REPLY )) || unsetopt warncreateglobal
-    autoload -Uz is-at-least
-    local is_58
-    is-at-least 5.8 && is_58=1
-    integer retval
-    [[ $1 == default-ices ]] && { shift; integer eas_subcommand=1; }
-    integer ibdebug=$+ICE[debug]
+#→za-meta-plugins-meta-cmd() {
+#    # Set the base and typically useful options.
+#    builtin emulate -LR zsh ${=${options[xtrace]:#off}:+-o xtrace}
+#    builtin setopt extendedglob warncreateglobal typesetsilent noshortloops rcquotes
+#    (( $+reply && $+REPLY )) || unsetopt warncreateglobal
+#    autoload -Uz is-at-least
+#    local is_58
+#    is-at-least 5.8 && is_58=1
+#    integer retval
+#    [[ $1 == default-ices ]] && { shift; integer eas_subcommand=1; }
+#    integer ibdebug=$+ICE[debug]
     # -D - clear out the recognized options
     # -E - allow mixing of options and non-options
     # -M - allow private arrays for the options
     #
     # The options are:
     # --with/--mod/-m/--use – to pass the desired module(s)
-    local -a help clear show stats get quiet
-    zparseopts -D -E -M ${is_58:+} -clear=clear c=clear -show=show s=show -stats=stats t=stats -get=get g=get -quiet=quiet q=quiet h=help -help=help || retval=1
-    if [[ $retval -gt 0 || $1 = -* ]] {
-      +zi-message "{annex}meta-plugins-annex{ehi}:{rst} {error}Incorrect options given${${(M)1:#-*}:+ "(bad option{ehi}: {opt}$1{rst})"}". "Usage{ehi}:{rst}{nl}"
-      help=( -h ) retval=1
-    }
-    if (( !$# && !${#help} && !${#show} && !${#clear} && !${#stats} )) {
-      +zi-message "{annex}meta-plugins-annex{ehi}:{rst} Usage{ehi}:{rst}"
-      help=( -h ) retval=1
-    }
-    # --help/-h
-    if (( ${#help} )) {
-      →za-meta-plugins-meta-cmd-help-handler
-      return $?
-    }
-    # --show/-s
-    if (( ${#show} )) {
-      local -A ICES
-      .zi-ice "$@"
-      integer iceret=$?
-      zi_annex_meta_plugins[default-ices]=${(j: :)${(@qkv)ICES}}
-      +zi-message "{annex}meta-plugins-annex{ehi}:{rst} {auto}Loaded{ehi}:{rst} $zi_annex_meta_plugins[annex-loaded-plugins]{nl}"
-      +zi-message "{annex}meta-plugins-annex{ehi}:{rst} Stored the ices{ehi}:{rst}" "${(j: :)${(@q-kv)ICES}}{rst}"
-    }
-}
+#   local -a help clear show stats get quiet
+#    zparseopts -D -E -M ${is_58:+} -clear=clear c=clear -show=show s=show -stats=stats t=stats -get=get g=get -quiet=quiet q=quiet h=help -help=help || retval=1
+#    if [[ $retval -gt 0 || $1 = -* ]] {
+#      +zi-message "{annex}meta-plugins-annex{ehi}:{rst} {error}Incorrect options given${${(M)1:#-*}:+ "(bad option{ehi}: {opt}$1{rst})"}". "Usage{ehi}:{rst}{nl}"
+#      help=( -h ) retval=1
+#    }
+#    if (( !$# && !${#help} && !${#show} && !${#clear} && !${#stats} )) {
+#      +zi-message "{annex}meta-plugins-annex{ehi}:{rst} Usage{ehi}:{rst}"
+#      help=( -h ) retval=1
+#    }
+#    # --help/-h
+#    if (( ${#help} )) {
+#      →za-meta-plugins-meta-cmd-help-handler
+#      return $?
+#    }
+#    # --show/-s
+#    if (( ${#show} )) {
+#     local -A ICES
+#      .zi-ice "$@"
+#      integer iceret=$?
+#      zi_annex_meta_plugins[default-ices]=${(j: :)${(@qkv)ICES}}
+#      +zi-message "{annex}meta-plugins-annex{ehi}:{rst} {auto}Loaded{ehi}:{rst} {auto}$zi_annex_meta_plugins[annex-loaded-plugins]{nl}"
+#      +zi-message "{annex}meta-plugins-annex{ehi}:{rst} Stored the ices{ehi}:{rst}" "${(j: :)${(@q-kv)ICES}}{rst}"
+#    }
+#}
