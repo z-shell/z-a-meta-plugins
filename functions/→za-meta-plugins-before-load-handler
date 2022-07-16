@@ -88,7 +88,7 @@
         ! $not_existing[(I)$p] || (idx3 = $on_demand_skip[(I)$p]) )) && \
         [[ $p != z-shell/null ]] && [[ $p != z-shell/0 ]] {
           idx3=$on_demand_skip[(I)$p]
-          local idtxt="{dbg}${p//\//∕} "
+          local idtxt="{msg3}${p//\//∕} "
           if (( (idx1 || idx2) && !idx3 )) {
             skipped+=( $REPLY )
             idtxt+="{warn}a/l{rst}"
