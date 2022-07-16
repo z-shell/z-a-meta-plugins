@@ -76,7 +76,7 @@
       [[ -z $zi_annex_meta_plugins_map[${ZI[annex-exposed-processed-IDs]##* }] ]] && builtin print
       +zi-message -n "{hi}$zi_annex_meta_plugins_map[recon-count]{rst} "
       +zi-message "{annex}meta-plugins-annex{ehi}:{rst} Loading{ehi}:{rst} \`{b}{meta}$id{rst}' consisting of{ehi}:{rst}"
-      integer count=1
+      integer count=0
       local -a skipped
       for p ( $plugin_array ) {
         count+=1
