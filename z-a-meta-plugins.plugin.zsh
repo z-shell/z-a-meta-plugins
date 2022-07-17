@@ -44,17 +44,11 @@ typeset -gA zi_annex_meta_plugins_map
 zi_annex_meta_plugins_map=(
 
   # Required annexes
-  annexes     "z-shell/z-a-bin-gem-node z-shell/z-a-readurl z-shell/z-a-patch-dl z-shell/z-a-rust"
+  annexes     "z-shell/z-a-bin-gem-node z-shell/z-a-readurl z-shell/z-a-patch-dl z-shell/z-a-rust z-shell/z-a-default-ice z-shell/z-a-unscope"
 
   # Recommended + required annexes
-  annexes+rec "annexes z-shell/z-a-submods z-shell/z-a-unscope"
-
-  # Additional + recommended + required annexes
-  annexes+add "annexes+rec z-shell/z-a-default-ice z-shell/z-a-test"
-
-  # Required annexes + the zi-console
-  annexes+con "z-shell/zi-console annexes"
-
+  annexes+ "annexes z-shell/z-a-submods z-shell/z-a-test"
+  
   # @z-shell
   z-shell     "z-shell/F-Sy-H z-shell/H-S-MW z-shell/zsh-diff-so-fancy"
   z-shell2    "z-shell/zconvey z-shell/zui z-shell/zflai"
