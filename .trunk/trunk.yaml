@@ -12,13 +12,10 @@ lint:
       command:
         [markdownlint, -q, --config, .github/.markdownlint.yaml, "${target}"]
       direct_configs: [.github/.markdownlint.yaml]
-    - name: prettier
-      command: [prettier, -q, --config, .github/.prettierrc, "${target}"]
-      direct_configs: [.github/.prettierrc]
   enabled:
     - git-diff-check@SYSTEM
     - actionlint@1.6.15
     - gitleaks@8.8.12
-    - markdownlint@0.31.1
+    - markdownlint@0.32.0
     - prettier@2.7.1
     - shfmt@3.5.0
