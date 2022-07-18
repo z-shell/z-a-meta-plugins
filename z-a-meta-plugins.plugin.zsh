@@ -1,3 +1,6 @@
+# -*- mode: zsh; sh-indentation: 2; indent-tabs-mode: nil; sh-basic-offset: 2; -*-
+# vim: ft=zsh sw=2 ts=2 et
+#
 # Copyright (c) 2021 Z-Shell Community
 #
 # Standardized $0 Handling
@@ -44,14 +47,14 @@ typeset -gA zi_annex_meta_plugins_map
 zi_annex_meta_plugins_map=(
 
   # Required annexes
-  annexes     "z-shell/z-a-bin-gem-node z-shell/z-a-readurl z-shell/z-a-patch-dl z-shell/z-a-rust z-shell/z-a-default-ice z-shell/z-a-unscope"
+  annexes "z-shell/z-a-unscope z-shell/z-a-default-ice z-shell/z-a-bin-gem-node z-shell/z-a-readurl z-shell/z-a-patch-dl z-shell/z-a-rust"
 
   # Recommended + required annexes
   annexes+ "annexes z-shell/z-a-submods z-shell/z-a-test"
   
   # @z-shell
-  z-shell     "z-shell/F-Sy-H z-shell/H-S-MW z-shell/zsh-diff-so-fancy"
-  z-shell2    "z-shell/zconvey z-shell/zui z-shell/zflai"
+  z-shell     "z-shell/F-Sy-H z-shell/H-S-MW z-shell/zsh-diff-so-fancy z-shell/zsh-select"
+  z-shell+    "z-shell/zconvey z-shell/zui z-shell/zflai"
 
   # @zsh-users
   zsh-users       "zsh-users/zsh-syntax-highlighting zsh-users/zsh-autosuggestions zsh-users/zsh-completions"
@@ -126,6 +129,7 @@ zi_annex_meta_plugins_config_map=(
   # @z-shell, less popular
   z-shell/zui             "$_std blockf"
   z-shell/zconvey         "$_std sbin'cmds/zc-bg-notify;cmds/plg-zsh-notify'"
+  z-shell/zsh-select      "$_std"
   z-shell/zsh-unique-id   "$_std"
   z-shell/zi-console      "$_std"
   z-shell/zflai           "$_std"
@@ -195,7 +199,7 @@ zi_annex_meta_plugins_config_map=(
   iwata/git-now             "$_std null sbin"
   wfxr/forgit               "$_std atinit'forgit_ignore=fgi'"
   tj/git-extras             "$_std null make'PREFIX=$ZPFX'"
-  tj/n                      "$_std as'program' atinit'export N_PREFIX="$PWD"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"' pick'bin/n'"
+  tj/n                      "$_std as'program' atinit'export N_PREFIX=\$PWD; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"' pick'bin/n'"
 
   # @sindresorhus
   sindresorhus/pure           "$_std pick'async.zsh' src'pure.zsh' atload'prompt_pure_precmd' nocd"
