@@ -97,7 +97,7 @@
           }
           REPLY=$idtxt
         }
-        +zi-message -n " {b}$count{rst}{msg}) $REPLY{msg}${enotlast:+,}"
+        +zi-message -n " {meta}$count{rst}{msg}) $REPLY{msg}${enotlast:+,}"
         }
         +zi-message ".{rst}"
         if (( ibdebug && ${#skipped} )) {
