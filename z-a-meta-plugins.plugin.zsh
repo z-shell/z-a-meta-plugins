@@ -198,7 +198,7 @@ zi_annex_meta_plugins_config_map=(
   arzzen/git-quick-stats    "$_std null sbin atload'export _MENU_THEME=legacy;'"
   iwata/git-now             "$_std null sbin"
   wfxr/forgit               "$_std atinit'forgit_ignore=fgi'"
-  tj/git-extras             "$_std null make'PREFIX=$ZPFX'"
+  tj/git-extras             "$_std null make'PREFIX=$ZPFX MANPREFIX=$ZPFX/man/man1'"
   tj/n                      "$_std as'program' atinit'export N_PREFIX=\$PWD; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"' pick'bin/n'"
 
   # @sindresorhus
