@@ -222,5 +222,3 @@ zi_annex_meta_plugins_config_map+=(
 )
 
 unset _std
-
-# vim: ft=zsh sw=2 ts=2 et
