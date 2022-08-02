@@ -23,11 +23,8 @@ zi_annex_meta_plugins[repo-dir]="${0:h}"
 typeset -gA Plugins
 Plugins[META_PLUGINS_DIR]="${0:h}"
 
-# The Proposed Function-Name Prefixes
-# https://z.digitalclouds.dev/community/zsh_plugin_standard/#the-proposed-function-name-prefixes
-autoload -Uz →za-meta-plugins-before-load-handler \
-→za-meta-plugins-meta-cmd \
-→za-meta-plugins-meta-cmd-help-handler
+# Autoload functions
+autoload -Uz "${0:h}/functions"/*(.:t)
 
 # An empty stub to fill the handler fields
 →za-meta-plugins-null-handler() { :; }
