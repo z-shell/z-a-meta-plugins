@@ -89,9 +89,9 @@
         [[ $p != z-shell/null ]] && [[ $p != z-shell/0 ]] {
           idx3=$on_demand_skip[(I)$p]
           local idtxt="{dbg}${p//\//∕} "
-          if (( (idx1 || idx2) && !idx3 )) {
+          if (( (idx1 || idx2) && ! idx3 )) {
             skipped+=( $REPLY )
-            idtxt+="{warn}a/l{rst}"
+            idtxt+="{warn}already loaded{rst}"
           } else {
             idtxt+="{warn}skip{rst}"
           }
