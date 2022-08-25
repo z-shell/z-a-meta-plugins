@@ -101,7 +101,7 @@ typeset -g _std="lucid"
 
 zi_annex_meta_plugins_config_map=(
   # @z-shell (all annexes + extensions, without Meta-Plugins, obviously)
-  z-shell/z-a-bin-gem-node  "$_std"
+  z-shell/z-a-bin-gem-node  "$_std" compile'functions/.za-bgn-*'"
   z-shell/z-a-default-ice   "$_std"
   z-shell/z-a-readurl       "$_std"
   z-shell/z-a-patch-dl      "$_std"
