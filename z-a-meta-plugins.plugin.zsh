@@ -3,12 +3,11 @@
 #
 # Copyright (c) 2021 Z-Shell Community
 #
-# Standardized $0 Handling
+# Zsh Plugin Standard
 # https://z.digitalclouds.dev/community/zsh_plugin_standard#zero-handling
 0="${ZERO:-${${0:#$ZSH_ARGZERO}:-${(%):-%N}}}"
 0="${${(M)0:#/*}:-$PWD/$0}"
 
-# Functions Directory
 # https://z.digitalclouds.dev/community/zsh_plugin_standard/#funtions-directory
 if [[ $PMSPEC != *f* ]] {
   fpath+=( "${0:h}/functions" )
@@ -23,11 +22,9 @@ zi_annex_meta_plugins[repo-dir]="${0:h}"
 typeset -gA Plugins
 Plugins[META_PLUGINS_DIR]="${0:h}"
 
-# The Proposed Function-Name Prefixes
-# https://z.digitalclouds.dev/community/zsh_plugin_standard/#the-proposed-function-name-prefixes
-autoload -Uz →za-meta-plugins-before-load-handler \
-→za-meta-plugins-meta-cmd \
-→za-meta-plugins-meta-cmd-help-handler
+# Autoload functions
+# TODO: meta-cmd  meta-cmd-help-handler
+autoload -Uz →za-meta-plugins-before-load-handler 
 
 # An empty stub to fill the handler fields
 →za-meta-plugins-null-handler() { :; }
@@ -104,7 +101,7 @@ typeset -g _std="lucid"
 
 zi_annex_meta_plugins_config_map=(
   # @z-shell (all annexes + extensions, without Meta-Plugins, obviously)
-  z-shell/z-a-bin-gem-node  "$_std"
+  z-shell/z-a-bin-gem-node  "$_std compile'functions/.za-bgn-*'"
   z-shell/z-a-default-ice   "$_std"
   z-shell/z-a-readurl       "$_std"
   z-shell/z-a-patch-dl      "$_std"
@@ -225,5 +222,3 @@ zi_annex_meta_plugins_config_map+=(
 )
 
 unset _std
-
-# vim: ft=zsh sw=2 ts=2 et
