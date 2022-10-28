@@ -50,8 +50,8 @@ zi_annex_meta_plugins_map=(
   annexes+ "annexes z-shell/z-a-submods z-shell/z-a-test"
   
   # @z-shell
-  z-shell     "z-shell/F-Sy-H z-shell/H-S-MW z-shell/zsh-diff-so-fancy z-shell/zsh-select"
-  z-shell+    "z-shell/zconvey z-shell/zui z-shell/zflai"
+  z-shell     "z-shell/F-Sy-H z-shell/H-S-MW z-shell/zsh-diff-so-fancy"
+  z-shell+    "z-shell/zsh-select z-shell/zconvey z-shell/zui z-shell/zflai"
 
   # @zsh-users
   zsh-users       "zsh-users/zsh-syntax-highlighting zsh-users/zsh-autosuggestions zsh-users/zsh-completions"
