@@ -76,7 +76,7 @@ zi_annex_meta_plugins_map=(
   console-tools "dircolors-material sharkdp/fd sharkdp/bat sharkdp/hexyl sharkdp/hyperfine sharkdp/vivid ogham/exa BurntSushi/ripgrep jonas/tig"
 
   # Fuzzy searchers (4 of them).
-  fuzzy       "z-shell/fzf z-shell/fzy lotabout/skim peco/peco"
+  fuzzy       "fzf fzy lotabout/skim peco/peco"
   fuzzy-src   "fzf-go fzy skim-cargo peco-go"
 
   # Git extensions.
@@ -122,7 +122,7 @@ zi_annex_meta_plugins_config_map=(
   z-shell/F-Sy-H                      "$_std atinit'ZI[COMPINIT_OPTS]=-C; zicompinit; zicdreplay;' atload'fast-theme z-shell &>/dev/null;'"
   z-shell/H-S-MW                      "$_std atinit'zstyle :history-search-multi-word page-size 7;'"
   z-shell/zsh-diff-so-fancy           "$_std null sbin'bin/git-dsf;bin/diff-so-fancy'"
-  z-shell/zsh-fancy-completions       "$_std null compile'functions/.*{initialization,zstyle}'"
+  z-shell/zsh-fancy-completions       "$_std compile'functions/.*{initialization,zstyle}'"
   
   # @z-shell, less popular
   z-shell/zui             "$_std blockf"
@@ -163,8 +163,8 @@ zi_annex_meta_plugins_config_map=(
   jonas/tig               "$_std binary as'program' atclone'make configure; ./configure' atpull'%atclone' make'prefix=$ZPFX install'"
 
   # Fuzzy searchers
-  z-shell/fzf             "$_std pack'bgn-binary'"
-  z-shell/fzy             "$_std pack'bgn' git"
+  fzf                     "$_std pack'bgn-binary'"
+  fzy                     "$_std pack'bgn' git"
   lotabout/skim           "$_std binary from'gh-r' sbin'**/sk(.exe|) -> sk'"
   peco/peco               "$_std binary from'gh-r' mv'peco* peco' sbin'**/peco(.exe|) -> peco'"
 
