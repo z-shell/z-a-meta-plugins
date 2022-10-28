@@ -122,7 +122,7 @@ zi_annex_meta_plugins_config_map=(
   z-shell/F-Sy-H                      "$_std atinit'ZI[COMPINIT_OPTS]=-C; zicompinit; zicdreplay;' atload'fast-theme z-shell &>/dev/null;'"
   z-shell/H-S-MW                      "$_std atinit'zstyle :history-search-multi-word page-size 7;'"
   z-shell/zsh-diff-so-fancy           "$_std null sbin'bin/git-dsf;bin/diff-so-fancy'"
-  z-shell/zsh-fancy-completions       "$_std null atinit'zstyle ':completion:*' special-dirs false;' compile'functions/.*{initialization,zstyle}' sbin'zoxide'"
+  z-shell/zsh-fancy-completions       "$_std null compile'functions/.*{initialization,zstyle}'"
   
   # @z-shell, less popular
   z-shell/zui             "$_std blockf"
