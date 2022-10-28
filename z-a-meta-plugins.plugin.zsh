@@ -76,7 +76,7 @@ zi_annex_meta_plugins_map=(
   console-tools "dircolors-material sharkdp/fd sharkdp/bat sharkdp/hexyl sharkdp/hyperfine sharkdp/vivid ogham/exa BurntSushi/ripgrep jonas/tig"
 
   # Fuzzy searchers (4 of them).
-  fuzzy       "fzf fzy lotabout/skim peco/peco"
+  fuzzy       "z-shell/fzf z-shell/fzy lotabout/skim peco/peco"
   fuzzy-src   "fzf-go fzy skim-cargo peco-go"
 
   # Git extensions.
@@ -163,8 +163,8 @@ zi_annex_meta_plugins_config_map=(
   jonas/tig               "$_std binary as'program' atclone'make configure; ./configure' atpull'%atclone' make'prefix=$ZPFX install'"
 
   # Fuzzy searchers
-  fzf                     "$_std pack'bgn-binary'"
-  fzy                     "$_std pack'bgn' git"
+  z-shell/fzf             "$_std pack'bgn-binary'"
+  z-shell/fzy             "$_std pack'bgn' git"
   lotabout/skim           "$_std binary from'gh-r' sbin'**/sk(.exe|) -> sk'"
   peco/peco               "$_std binary from'gh-r' mv'peco* peco' sbin'**/peco(.exe|) -> peco'"
 
