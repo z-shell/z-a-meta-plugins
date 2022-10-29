@@ -1,6 +1,6 @@
 version: 0.1
 cli:
-  version: 0.16.1-beta
+  version: 1.0.1
 repo:
   repo:
     host: github.com
@@ -20,3 +20,15 @@ lint:
     - markdownlint@0.32.2
     - prettier@2.7.1
     - shfmt@3.5.0
+actions:
+  enabled:
+    - trunk-upgrade-available
+plugins:
+  sources:
+    - id: trunk
+      ref: v0.0.5
+      uri: https://github.com/trunk-io/plugins
+runtimes:
+  enabled:
+    - go@1.18.3
+    - node@16.14.2
