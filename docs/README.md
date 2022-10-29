@@ -21,4 +21,5 @@ After executing this command you can then install meta plugins provided by the a
 ---
 
 > **Note**
->- This repository compatible with [Zi](https://github.com/z-shell/zi)
+>
+> - This repository compatible with [Zi](https://github.com/z-shell/zi)
