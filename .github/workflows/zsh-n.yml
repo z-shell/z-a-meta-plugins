@@ -26,7 +26,7 @@ jobs:
       - name: "⚡ Set matrix output"
         id: set-matrix
         run: |
-          MATRIX="$(find . -type d -name 'doc' -prune -o -type f \( -iname '*.zsh' -o -iname 'functions/*' \) -print | jq -ncR '{"include": [{"file": inputs}]}')"
+          MATRIX="$(find . -type d -name 'doc' -prune -o -type f \( -iname '*.zsh' -o -iname '*/→za*' \) -print | jq -ncR '{"include": [{"file": inputs}]}')"
           echo "MATRIX=${MATRIX}" >&2
           echo "matrix=${MATRIX}" >> $GITHUB_OUTPUT
   zsh-n:
