@@ -44,10 +44,10 @@ typeset -gA zi_annex_meta_plugins_map
 zi_annex_meta_plugins_map=(
 
   # Required annexes
-  annexes "z-shell/z-a-unscope z-shell/z-a-default-ice z-shell/z-a-bin-gem-node z-shell/z-a-readurl z-shell/z-a-patch-dl z-shell/z-a-rust"
+  annexes "z-shell/z-a-bin-gem-node z-shell/z-a-readurl z-shell/z-a-patch-dl z-shell/z-a-rust"
 
-  # Recommended + required annexes
-  annexes+ "annexes z-shell/z-a-submods z-shell/z-a-test"
+  # Required + recommended annexes
+  annexes+ "annexes z-shell/z-a-submods z-shell/z-a-default-ice z-shell/z-a-test z-shell/z-a-unscope"
   
   # @z-shell
   z-shell     "z-shell/F-Sy-H z-shell/H-S-MW z-shell/zsh-diff-so-fancy"
@@ -119,6 +119,7 @@ zi_annex_meta_plugins_config_map=(
   zsh-users/zsh-completions           "$_std atpull'zi creinstall -q .' pick'/dev/null'"
 
   # @z-shell
+  z-shell/nb                          "$_std"
   z-shell/F-Sy-H                      "$_std atinit'ZI[COMPINIT_OPTS]=-C; zicompinit; zicdreplay;' atload'fast-theme z-shell &>/dev/null;'"
   z-shell/H-S-MW                      "$_std atinit'zstyle :history-search-multi-word page-size 7;'"
   z-shell/zsh-diff-so-fancy           "$_std null sbin'bin/git-dsf;bin/diff-so-fancy'"
@@ -154,7 +155,7 @@ zi_annex_meta_plugins_config_map=(
 
   # @ogham
   ogham/exa               "$_std binary from'gh-r' sbin'**/exa -> exa' atclone'cp -vf completions/exa.zsh _exa' atpull'%atclone'"
-  exa-cargo               "$_std binary cargo='!exa' teleid'z-shell/null'"
+  exa-cargo               "$_std binary cargo='!exa' teleid'z-shell/0'"
 
   # @BurntSushi
   BurntSushi/ripgrep      "$_std binary from'gh-r' mv'rip* ripgrep' sbin'**/rg(.exe|) -> rg'"
@@ -165,19 +166,19 @@ zi_annex_meta_plugins_config_map=(
   # Fuzzy searchers
   fzf                     "$_std pack'bgn-binary'"
   fzy                     "$_std pack'bgn' git"
-  lotabout/skim           "$_std binary from'gh-r' sbin'**/sk(.exe|) -> sk'"
+  lotabout/skim           "$_std binary lucid sbin'*/sk' atclone'ln -s shell/completion.zsh _sk; cp -f man/man1/sk.1 $ZI[MAN_DIR]/man1; ./install >/dev/null;' atpull'%atclone'"
   peco/peco               "$_std binary from'gh-r' mv'peco* peco' sbin'**/peco(.exe|) -> peco'"
 
   # Fuzzy searchers – from sources
   fzf-go                  "$_std pack'bgn' teleid'fzf' git"
-  skim-cargo              "$_std binary cargo='!skim -> sk' teleid'z-shell/null'"
+  skim-cargo              "$_std binary cargo='!skim -> sk' teleid'z-shell/0'"
   peco-go                 "$_std binary make'build' sbin'**/peco(.exe|) -> peco' teleid'peco/peco'"
 
   # no username → a rust-annex usage to install Rust toolchain
-  rust-toolchain          "$_std binary sbin='bin/*' rustup teleid'z-shell/null' atload='[[ ! -f \${ZI[COMPLETIONS_DIR]}/_cargo ]] && zi creinstall rust; export CARGO_HOME=\$PWD RUSTUP_HOME=\$PWD/rustup'"
+  rust-toolchain          "$_std binary sbin='bin/*' rustup teleid'z-shell/0' atload='[[ ! -f \${ZI[COMPLETIONS_DIR]}/_cargo ]] && zi creinstall rust; export CARGO_HOME=\$PWD RUSTUP_HOME=\$PWD/rustup'"
 
   # see: https://dev.to/cad97/rust-must-know-crates-5ad8
-  cargo-extensions        "$_std binary cargo'cargo-edit;cargo-outdated;cargo-tree; cargo-update; cargo-expand;cargo-modules;cargo-audit;cargo-clone' sbin'bin/*' teleid'z-shell/null'"
+  cargo-extensions        "$_std binary cargo'cargo-edit;cargo-outdated;cargo-tree; cargo-update; cargo-expand;cargo-modules;cargo-audit;cargo-clone' sbin'bin/*' teleid'z-shell/0'"
 
   # A few utility plugins
   hlissner/zsh-autopair         "$_std"
