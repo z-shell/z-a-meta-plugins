@@ -101,7 +101,7 @@ typeset -g _std="lucid"
 
 zi_annex_meta_plugins_config_map=(
   # @z-shell (all annexes + extensions, without Meta-Plugins, obviously)
-  z-shell/z-a-bin-gem-node  "$_std compile'functions/.*{handler,body,cygwin}'"
+  z-shell/z-a-bin-gem-node  "$_std compile'functions/.*za-bgn*~*.zwc"
   z-shell/z-a-default-ice   "$_std"
   z-shell/z-a-readurl       "$_std"
   z-shell/z-a-patch-dl      "$_std"
@@ -119,8 +119,7 @@ zi_annex_meta_plugins_config_map=(
   zsh-users/zsh-completions           "$_std atpull'zi creinstall -q .' pick'/dev/null'"
 
   # @z-shell
-  z-shell/nb                          "$_std"
-  z-shell/F-Sy-H                      "$_std atinit'ZI[COMPINIT_OPTS]=-C; zicompinit; zicdreplay;' atload'fast-theme z-shell &>/dev/null;'"
+  z-shell/F-Sy-H                      "$_std atinit'ZI[COMPINIT_OPTS]=-C; zicompinit; zicdreplay;' atload'FAST_HIGHLIGHT[chroma-man]=; fast-theme z-shell &>/dev/null;' compile'functions/.*fast*~*.zwc'"
   z-shell/H-S-MW                      "$_std atinit'zstyle :history-search-multi-word page-size 7;'"
   z-shell/zsh-diff-so-fancy           "$_std null sbin'bin/git-dsf;bin/diff-so-fancy'"
   z-shell/zsh-fancy-completions       "$_std"
