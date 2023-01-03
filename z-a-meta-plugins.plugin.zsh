@@ -3,9 +3,6 @@
 #
 # Copyright (c) 2021 Z-Shell Community
 #
-builtin emulate -L zsh ${=${options[xtrace]:#off}:+-o xtrace}
-builtin setopt extended_glob warn_create_global typeset_silent no_short_loops rc_quotes no_auto_pushd
-
 # https://wiki.zshell.dev/community/zsh_plugin_standard#zero-handling
 0="${ZERO:-${${0:#$ZSH_ARGZERO}:-${(%):-%N}}}"
 0="${${(M)0:#/*}:-$PWD/$0}"
@@ -121,7 +118,7 @@ zi_annex_meta_plugins_config_map=(
   zsh-users/zsh-completions           "$_std atpull'zi creinstall -q .' pick'/dev/null'"
 
   # @z-shell
-  z-shell/F-Sy-H                      "$_std atinit'ZI[COMPINIT_OPTS]=-C; zicompinit; zicdreplay;' atclone'(){local f;cd -q →c*;for f (*~*.zwc){zcompile -Uz -- ${f}};};' atpull'%atclone' atload'FAST_HIGHLIGHT[chroma-man]=; fast-theme z-shell &>/dev/null;'"
+  z-shell/F-Sy-H                      "$_std atinit'ZI[COMPINIT_OPTS]=-C; zicompinit; zicdreplay;' atload'FAST_HIGHLIGHT[chroma-man]=; fast-theme z-shell &>/dev/null;' compile'{*fast*~*.zwc,functions/.*fast*~*.zwc}'"
   z-shell/H-S-MW                      "$_std atinit'zstyle :history-search-multi-word page-size 7;' compile'functions/h*~*.zwc'"
   z-shell/zsh-diff-so-fancy           "$_std null sbin'bin/git-dsf;bin/diff-so-fancy'"
   z-shell/zsh-fancy-completions       "$_std compile'lib/*.zsh'"
