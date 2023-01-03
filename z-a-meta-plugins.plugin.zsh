@@ -121,7 +121,7 @@ zi_annex_meta_plugins_config_map=(
   zsh-users/zsh-completions           "$_std atpull'zi creinstall -q .' pick'/dev/null'"
 
   # @z-shell
-  z-shell/F-Sy-H                      "$_std atinit'ZI[COMPINIT_OPTS]=-C; zicompinit; zicdreplay;' atload'FAST_HIGHLIGHT[chroma-man]=; fast-theme z-shell &>/dev/null;' atclone'_compile_chromas;' compile'{*fast*~*.zwc,functions/.*fast*~*.zwc}'"
+  z-shell/F-Sy-H                      "$_std atinit'ZI[COMPINIT_OPTS]=-C; zicompinit; zicdreplay;' atload'FAST_HIGHLIGHT[chroma-man]=; fast-theme z-shell &>/dev/null;' atclone'_compile_chromas;' atpull'%atclone' compile'{*fast*~*.zwc,functions/.*fast*~*.zwc}'"
   z-shell/H-S-MW                      "$_std atinit'zstyle :history-search-multi-word page-size 7;' compile'functions/h*~*.zwc'"
   z-shell/zsh-diff-so-fancy           "$_std null sbin'bin/git-dsf;bin/diff-so-fancy'"
   z-shell/zsh-fancy-completions       "$_std compile'lib/*.zsh'"
