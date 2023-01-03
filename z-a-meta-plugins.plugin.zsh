@@ -12,7 +12,6 @@ if [[ $PMSPEC != *f* ]] {
   fpath+=( "${0:h}/functions" )
 }
 
-# Standard hash for plugins:
 # https://wiki.zshell.dev/community/zsh_plugin_standard#standard-plugins-hash
 typeset -gA zi_annex_meta_plugins
 zi_annex_meta_plugins[0]="$0" 
@@ -25,11 +24,8 @@ Plugins[META_PLUGINS_DIR]="${0:h}"
 # TODO: meta-cmd  meta-cmd-help-handler
 autoload -Uz →za-meta-plugins-before-load-handler 
 
-_compile_chromas() { 
-  local f
-  cd -q →chroma
-  for f (*~*.zwc){zcompile -Uz -- ${f}}
-}
+# Wrap ice-modifiers
+_compile_chromas() { local f; cd -q →chroma; for f (*~*.zwc){zcompile -Uz -- ${f}}; }
 
 # An empty stub to fill the handler fields
 →za-meta-plugins-null-handler() { :; }
