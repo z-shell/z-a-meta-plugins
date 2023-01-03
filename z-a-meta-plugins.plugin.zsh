@@ -15,7 +15,7 @@ if [[ $PMSPEC != *f* ]] {
 
 # Standard hash for plugins:
 # https://wiki.zshell.dev/community/zsh_plugin_standard#standard-plugins-hash
-typeset -gA zi_annex_meta_pluginshttps://github.com/z-shell/z-a-meta-plugins/edit/main/z-a-meta-plugins.plugin.zsh
+typeset -gA zi_annex_meta_plugins
 zi_annex_meta_plugins[0]="$0" 
 zi_annex_meta_plugins[repo-dir]="${0:h}"
 
