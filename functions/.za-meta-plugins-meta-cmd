@@ -1,11 +1,9 @@
-#autoload
-#
 # -*- mode: zsh; sh-indentation: 2; indent-tabs-mode: nil; sh-basic-offset: 2; -*-
 # vim: ft=zsh sw=2 ts=2 et
 #
 # Copyright (c) 2021-present Z-Shell Community
 
-#→za-meta-plugins-meta-cmd() {
+#.za-meta-plugins-meta-cmd() {
 #    # Set the base and typically useful options.
 #    builtin emulate -LR zsh ${=${options[xtrace]:#off}:+-o xtrace}
 #    builtin setopt extendedglob warncreateglobal typesetsilent noshortloops rcquotes
@@ -34,7 +32,7 @@
 #    }
 #    # --help/-h
 #    if (( ${#help} )) {
-#      →za-meta-plugins-meta-cmd-help-handler
+#      .za-meta-plugins-meta-cmd-help-handler
 #      return $?
 #    }
 #    # --show/-s

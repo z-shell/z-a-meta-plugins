@@ -1,5 +1,5 @@
 # TODO: Do not register until main cmd created as it's shown in zi.
-#→za-meta-plugins-meta-cmd-help-handler() {
+#.za-meta-plugins-meta-cmd-help-handler() {
 #  +zi-message "{nl}—— {pre}meta {opt}--help{data}/{opt}-h" \
 #    "{rst}{nl}{nl}" \
 #    \

@@ -14,7 +14,7 @@ if [[ $PMSPEC != *f* ]] {
 
 # https://wiki.zshell.dev/community/zsh_plugin_standard#standard-plugins-hash
 typeset -gA zi_annex_meta_plugins
-zi_annex_meta_plugins[0]="$0" 
+zi_annex_meta_plugins[0]="$0"
 zi_annex_meta_plugins[repo-dir]="${0:h}"
 
 typeset -gA Plugins
@@ -22,23 +22,23 @@ Plugins[META_PLUGINS_DIR]="${0:h}"
 
 # Autoload functions
 # TODO: meta-cmd  meta-cmd-help-handler
-autoload -Uz →za-meta-plugins-before-load-handler 
+autoload -Uz .za-meta-plugins-before-load-handler
 
 # Wrap ice-modifiers
 _compile_chromas() { local f; cd -q →chroma; for f (*~*.zwc){zcompile -Uz -- ${f}}; }
 
 # An empty stub to fill the handler fields
-→za-meta-plugins-null-handler() { :; }
+.za-meta-plugins-null-handler() { :; }
 
 # The meta-plugins-support hook.
 @zi-register-annex "z-a-meta-plugins" hook:before-load-4 \
-  →za-meta-plugins-before-load-handler \
-  →za-meta-plugins-null-handler "skip''" # Add new ice
+  .za-meta-plugins-before-load-handler \
+  .za-meta-plugins-null-handler "skip''" # Add new ice
 
 # The subcommand `meta'.
 #@zi-register-annex "z-a-meta-plugins" subcommand:meta \
-#  →za-meta-plugins-meta-cmd \
-#  →za-meta-plugins-meta-cmd-help-handler # Add subcommand
+#  .za-meta-plugins-meta-cmd \
+#  .za-meta-plugins-meta-cmd-help-handler # Add subcommand
 
 # The map in which the definitions of the meta-plugins are being stored.
 typeset -gA zi_annex_meta_plugins_map
@@ -49,7 +49,7 @@ zi_annex_meta_plugins_map=(
 
   # Required + recommended annexes
   annexes+ "annexes z-shell/z-a-submods z-shell/z-a-default-ice z-shell/z-a-test z-shell/z-a-unscope"
-  
+
   # @z-shell
   z-shell     "z-shell/F-Sy-H z-shell/H-S-MW z-shell/zsh-diff-so-fancy"
   z-shell+    "z-shell/zsh-select z-shell/zconvey z-shell/zui z-shell/zflai"
