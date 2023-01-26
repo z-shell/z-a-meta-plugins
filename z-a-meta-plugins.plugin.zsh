@@ -68,8 +68,10 @@ zi_annex_meta_plugins_map=(
   # Tig is being built from source (Git).
   # The gitignore plugin has a Zsh template automatically set up — gi zsh to see it.
   # TODO: github-issues github-issues-srv
-  developer   "zdharma/color zdharma/revolver zdharma/zunit voronkovich/gitignore.plugin.zsh jonas/tig"
-
+  developer "voronkovich/gitignore.plugin.zsh jonas/tig"
+  
+  zsh-tools "zdharma/color zdharma/revolver zdharma/zunit"
+  
   # General console utilities. Includes also a LS_COLORS theme with the Zsh completion configured.
   console-tools "dircolors-material sharkdp/fd sharkdp/bat sharkdp/hexyl sharkdp/hyperfine sharkdp/vivid ogham/exa BurntSushi/ripgrep jonas/tig"
 
@@ -81,7 +83,7 @@ zi_annex_meta_plugins_map=(
   ext-git     "paulirish/git-open paulirish/git-recent davidosomething/git-my arzzen/git-quick-stats iwata/git-now tj/git-extras wfxr/forgit"
 
   # Node Managment
-  tj-node     "tj/n"
+  node-utils  "tj/n"
 
   # Rust toolchain + cargo extensions.
   rust-utils  "rust-toolchain cargo-extensions"
@@ -120,8 +122,8 @@ zi_annex_meta_plugins_config_map=(
   # @z-shell
   z-shell/F-Sy-H                      "$_std atinit'ZI[COMPINIT_OPTS]=-C; zicompinit; zicdreplay;' atload'fast-theme z-shell &>/dev/null;' compile'{functions/{.fast,fast}-*~*.zwc,chroma/*~*.zwc}'"
   z-shell/H-S-MW                      "$_std atinit'zstyle :history-search-multi-word page-size 7;' compile'functions/h*~*.zwc'"
-  z-shell/zsh-diff-so-fancy           "$_std null sbin'bin/git-dsf;bin/diff-so-fancy'"
-  z-shell/zsh-fancy-completions       "$_std compile'lib/*.zsh*~*.zwc'"
+  z-shell/zsh-diff-so-fancy           "$_std null sbin'bin/git-dsf;bin/diff-so-fancy;bin/fancy-diff;'"
+  z-shell/zsh-fancy-completions       "$_std compile'{lib/*.zsh*~*.zwc,functions/{.*,*}*~*.zwc}'"
 
   # @z-shell, less popular
   z-shell/zui             "$_std blockf"
