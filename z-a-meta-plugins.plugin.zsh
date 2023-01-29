@@ -109,7 +109,7 @@ zi_annex_meta_plugins_config_map=(
   z-shell/z-a-submods       "$_std compile'functions/.*submods*~*.zwc'"
   z-shell/z-a-linkbin       "$_std"
   z-shell/z-a-linkman       "$_std compile'functions/.*lman*~*.zwc'"
-  z-shell/z-a-rust          "$_std"
+  z-shell/z-a-rust          "$_std compile'functions/.*rust*~*.zwc'"
   z-shell/z-a-eval          "$_std compile'functions/.*ev*~*.zwc'"
   z-shell/z-a-test          "$_std compile'*handler'"
   z-shell/z-a-man           "$_std compile'*handler'"
