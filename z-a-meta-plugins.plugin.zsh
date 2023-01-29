@@ -91,8 +91,10 @@ zi_annex_meta_plugins_map=(
   # A few Prezto modules.
   prezto      "PZTM::archive PZTM::directory PZTM::utility"
 
-  # Oh-My-Zsh popular libraries.
-  ohmyzsh-lib "OMZ::lib"
+  # Oh-My-Zsh library with positive or commonly required effects.
+  ohmyzsh-lib "OMZL::git OMZL::history OMZL::vcs_info OMZL::clipboard OMZL::completion OMZL::theme-and-appearance OMZL::prompt_info_functions"
+  # Oh-My-Zsh library using subversion
+  ohmyzsh-svn-lib "OMZ::lib"
 )
 
 # The map in which the default sets of ices for the real plugins are being stored.
@@ -224,7 +226,14 @@ zi_annex_meta_plugins_config_map+=(
   PZTM::utility       "$_std"
 
   # Oh-My-Zsh Library
-  OMZ::lib            "$_std svn multisrc'{git,clipboard,completion}.zsh' pick'/dev/null'"
+  OMZ::lib                    "$_std svn multisrc'{git,clipboard,history,completion,prompt_info_functions,theme-and-appearance,vcs_info}.zsh' pick'/dev/null'"
+  OMZL::git                   "$_std"
+  OMZL::history               "$_std"
+  OMZL::vcs_info              "$_std"
+  OMZL::clipboard             "$_std"
+  OMZL::completion            "$_std"
+  OMZL::theme-and-appearance  "$_std"
+  OMZL::prompt_info_functions "$_std"
 )
 
 unset _std
