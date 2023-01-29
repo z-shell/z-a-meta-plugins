@@ -45,7 +45,7 @@ zi_annex_meta_plugins_map=(
   annexes "z-shell/z-a-bin-gem-node z-shell/z-a-readurl z-shell/z-a-patch-dl z-shell/z-a-rust"
 
   # Required + recommended annexes
-  annexes+ "annexes z-shell/z-a-submods z-shell/z-a-default-ice z-shell/z-a-test z-shell/z-a-unscope"
+  annexes+ "annexes z-shell/z-a-submods z-shell/z-a-default-ice z-shell/z-a-test z-shell/z-a-unscope z-shell/z-a-eval"
 
   # @z-shell
   z-shell     "z-shell/F-Sy-H z-shell/H-S-MW z-shell/zsh-diff-so-fancy"
@@ -110,7 +110,7 @@ zi_annex_meta_plugins_config_map=(
   z-shell/z-a-linkbin       "$_std"
   z-shell/z-a-linkman       "$_std compile'functions/.*lman*~*.zwc'"
   z-shell/z-a-rust          "$_std"
-  z-shell/z-a-eval          "$_std"
+  z-shell/z-a-eval          "$_std compile'functions/.*ev*~*.zwc'"
   z-shell/z-a-test          "$_std compile'*handler'"
   z-shell/z-a-man           "$_std compile'*handler'"
 
