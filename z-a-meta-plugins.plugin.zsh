@@ -62,16 +62,16 @@ zi_annex_meta_plugins_map=(
   zunit      "zdharma/color zdharma/revolver zdharma/zunit"
 
   # @sharkdp
-  sharkdp    "sharkdp/fd sharkdp/bat sharkdp/hexyl sharkdp/hyperfine sharkdp/vivid"  
+  sharkdp    "sharkdp/fd sharkdp/bat sharkdp/hexyl sharkdp/hyperfine sharkdp/vivid"
 
   # ---------------------------------------------------------------------- #
   # Command line productivity, creativity and style.
   console-tools "sharkdp/fd sharkdp/bat sharkdp/hexyl sharkdp/hyperfine ogham/exa BurntSushi/ripgrep"
   console-style "dircolors-material sharkdp/vivid"
-  
+
   # Zsh toolchain for creators and tinkers.
   zsh-tools "z-shell/zui zsh-cmd-architect zsh-editing-workbench"
-  
+
   # Fuzzy searchers (4 of them).
   fuzzy       "fzf fzy lotabout/skim peco/peco"
   fuzzy-src   "fzf-go fzy skim-cargo peco-go"
@@ -134,7 +134,7 @@ zi_annex_meta_plugins_config_map=(
   z-shell/zflai                 "$_std"
   z-shell/zsh-navigation-tools  "$_std"
   z-shell/zsh-cmd-architect     "$_std compile'functions/{h-*,zca*}*~*.zwc'"
-  z-shell/zsh-editing-workbench "$_std atinit'local zew_word_style=whitespace;'" compile'functions/zew*~*.zwc'  
+  z-shell/zsh-editing-workbench "$_std atinit'local zew_word_style=whitespace;' compile'functions/zew*~*.zwc'"
   github-issues                 "$_std pack"
   github-issues-srv             "$_std pack atinit'GIT_PROJECTS=z-shell/zi GIT_SLEEP_TIME=700;'"
 
@@ -222,7 +222,7 @@ zi_annex_meta_plugins_config_map+=(
   PZTM::archive       "$_std svn silent nocompile"
   PZTM::directory     "$_std"
   PZTM::utility       "$_std"
-  
+
   # Oh-My-Zsh Library
   OMZ::lib            "$_std svn multisrc'{git,clipboard,completion}.zsh' pick'/dev/null'"
 )
