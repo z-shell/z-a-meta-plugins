@@ -40,7 +40,7 @@ autoload -Uz .za-meta-plugins-before-load-handler
 # The map in which the definitions of the meta-plugins are being stored.
 typeset -gA zi_annex_meta_plugins_map
 zi_annex_meta_plugins_map=(
-
+  # ---------------------------------------------------------------------- #
   # Required annexes
   annexes "z-shell/z-a-bin-gem-node z-shell/z-a-readurl z-shell/z-a-patch-dl z-shell/z-a-rust"
 
@@ -62,25 +62,22 @@ zi_annex_meta_plugins_map=(
   zunit      "zdharma/color zdharma/revolver zdharma/zunit"
 
   # @sharkdp
-  sharkdp    "sharkdp/fd sharkdp/bat sharkdp/hexyl sharkdp/hyperfine sharkdp/vivid"
+  sharkdp    "sharkdp/fd sharkdp/bat sharkdp/hexyl sharkdp/hyperfine sharkdp/vivid"  
 
-  # Development-related utilities. color and revolver are zunit' dependencies.
-  # Tig is being built from source (Git).
-  # The gitignore plugin has a Zsh template automatically set up — gi zsh to see it.
-  # TODO: github-issues github-issues-srv
-  developer "voronkovich/gitignore.plugin.zsh jonas/tig"
+  # ---------------------------------------------------------------------- #
+  # Command line productivity, creativity and style.
+  console-tools "sharkdp/fd sharkdp/bat sharkdp/hexyl sharkdp/hyperfine ogham/exa BurntSushi/ripgrep"
+  console-style "dircolors-material sharkdp/vivid"
   
-  zsh-tools "zdharma/color zdharma/revolver zdharma/zunit"
+  # Zsh toolchain for creators and tinkers.
+  zsh-tools "z-shell/zui zsh-cmd-architect zsh-editing-workbench"
   
-  # General console utilities. Includes also a LS_COLORS theme with the Zsh completion configured.
-  console-tools "dircolors-material sharkdp/fd sharkdp/bat sharkdp/hexyl sharkdp/hyperfine sharkdp/vivid ogham/exa BurntSushi/ripgrep jonas/tig"
-
   # Fuzzy searchers (4 of them).
   fuzzy       "fzf fzy lotabout/skim peco/peco"
   fuzzy-src   "fzf-go fzy skim-cargo peco-go"
 
   # Git extensions.
-  ext-git     "paulirish/git-open paulirish/git-recent davidosomething/git-my arzzen/git-quick-stats iwata/git-now tj/git-extras wfxr/forgit"
+  ext-git     "paulirish/git-open paulirish/git-recent davidosomething/git-my arzzen/git-quick-stats iwata/git-now tj/git-extras wfxr/forgit voronkovich/gitignore.plugin.zsh jonaes/tig"
 
   # Node Managment
   node-utils  "tj/n"
@@ -93,6 +90,9 @@ zi_annex_meta_plugins_map=(
 
   # A few Prezto modules.
   prezto      "PZTM::archive PZTM::directory PZTM::utility"
+
+  # Oh-My-Zsh popular libraries.
+  ohmyzsh-lib "OMZ::lib"
 )
 
 # The map in which the default sets of ices for the real plugins are being stored.
@@ -126,14 +126,17 @@ zi_annex_meta_plugins_config_map=(
   z-shell/zsh-fancy-completions       "$_std compile'{lib/*.zsh*~*.zwc,functions/{.*,*}*~*.zwc}'"
 
   # @z-shell, less popular
-  z-shell/zui             "$_std blockf"
-  z-shell/zconvey         "$_std sbin'cmds/zc-bg-notify;cmds/plg-zsh-notify'"
-  z-shell/zsh-select      "$_std"
-  z-shell/zsh-unique-id   "$_std"
-  z-shell/zi-console      "$_std"
-  z-shell/zflai           "$_std"
-  github-issues           "$_std pack"
-  github-issues-srv       "$_std pack atinit'GIT_PROJECTS=z-shell/zi GIT_SLEEP_TIME=700;'"
+  z-shell/zui                   "$_std blockf"
+  z-shell/zconvey               "$_std sbin'cmds/zc-bg-notify;cmds/plg-zsh-notify'"
+  z-shell/zsh-select            "$_std"
+  z-shell/zsh-unique-id         "$_std"
+  z-shell/zi-console            "$_std"
+  z-shell/zflai                 "$_std"
+  z-shell/zsh-navigation-tools  "$_std"
+  z-shell/zsh-cmd-architect     "$_std compile'functions/{h-*,zca*}*~*.zwc'"
+  z-shell/zsh-editing-workbench "$_std atinit'local zew_word_style=whitespace;'" compile'functions/zew*~*.zwc'  
+  github-issues                 "$_std pack"
+  github-issues-srv             "$_std pack atinit'GIT_PROJECTS=z-shell/zi GIT_SLEEP_TIME=700;'"
 
   # @zdharma
   zdharma/zunit            "$_std binary sbin atclone'./build.zsh;' atpull'%atclone'"
@@ -183,8 +186,6 @@ zi_annex_meta_plugins_config_map=(
   # A few utility plugins
   hlissner/zsh-autopair         "$_std"
   urbainvaes/fzf-marks          "$_std"
-  z-shell/zsh-navigation-tools  "$_std"
-  z-shell/zsh-editing-workbench "$_std atinit'local zew_word_style=whitespace;'"
 
   # @marzocchi, a notifier, configured to use zconvey
   marzocchi/zsh-notify      "$_std atinit'zstyle \":notify:*\" command-complete-timeout 3; zstyle \":notify:*\" notifier plg-zsh-notify"
@@ -221,6 +222,9 @@ zi_annex_meta_plugins_config_map+=(
   PZTM::archive       "$_std svn silent nocompile"
   PZTM::directory     "$_std"
   PZTM::utility       "$_std"
+  
+  # Oh-My-Zsh Library
+  OMZ::lib            "$_std svn multisrc'${git,clipboard,completion}' pick'/dev/null'"
 )
 
 unset _std
