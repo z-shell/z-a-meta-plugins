@@ -224,7 +224,7 @@ zi_annex_meta_plugins_config_map+=(
   PZTM::utility       "$_std"
   
   # Oh-My-Zsh Library
-  OMZ::lib            "$_std svn multisrc'${git,clipboard,completion}' pick'/dev/null'"
+  OMZ::lib            "$_std svn multisrc'{git,clipboard,completion}.zsh' pick'/dev/null'"
 )
 
 unset _std
