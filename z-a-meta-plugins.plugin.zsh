@@ -77,7 +77,7 @@ zi_annex_meta_plugins_map=(
   fuzzy-src   "fzf-go fzy skim-cargo peco-go"
 
   # Git extensions.
-  ext-git     "paulirish/git-open paulirish/git-recent davidosomething/git-my arzzen/git-quick-stats iwata/git-now tj/git-extras wfxr/forgit voronkovich/gitignore.plugin.zsh jonaes/tig"
+  ext-git     "paulirish/git-open paulirish/git-recent davidosomething/git-my arzzen/git-quick-stats iwata/git-now tj/git-extras wfxr/forgit voronkovich/gitignore.plugin.zsh jonas/tig"
 
   # Node Managment
   node-utils  "tj/n"
