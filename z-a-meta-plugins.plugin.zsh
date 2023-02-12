@@ -70,7 +70,7 @@ zi_annex_meta_plugins_map=(
   console-style "dircolors-material sharkdp/vivid"
 
   # Zsh toolchain for creators and tinkers.
-  zsh-tools "z-shell/zui zsh-cmd-architect zsh-editing-workbench"
+  zsh-tools "z-shell/zui zsh-cmd-architect zsh-editing-workbench z-shell/zbrowse" 
 
   # Fuzzy searchers (4 of them).
   fuzzy       "fzf fzy lotabout/skim peco/peco"
@@ -129,6 +129,7 @@ zi_annex_meta_plugins_config_map=(
 
   # @z-shell, less popular
   z-shell/zui                   "$_std blockf"
+  z-shell/zbrowse               "$_std compile'functions/zbr*~*.zwc}'"
   z-shell/zconvey               "$_std sbin'cmds/zc-bg-notify;cmds/plg-zsh-notify'"
   z-shell/zsh-select            "$_std"
   z-shell/zsh-unique-id         "$_std"
