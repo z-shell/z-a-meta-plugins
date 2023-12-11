@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "🚀 Run stale"
-        uses: actions/stale@v8
+        uses: actions/stale@v9
         with:
           # 📋 https://github.com/actions/stale#all-options
           exempt-all-pr-assignees: true
