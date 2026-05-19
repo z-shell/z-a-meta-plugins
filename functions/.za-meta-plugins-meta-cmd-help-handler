@@ -1,9 +1,5 @@
-# TODO: Do not register until main cmd created as it's shown in zi.
-#.za-meta-plugins-meta-cmd-help-handler() {
-#  +zi-message "{nl}—— {pre}meta {opt}--help{data}/{opt}-h" \
-#    "{rst}{nl}{nl}" \
-#    \
-#    "{msg}{u}Description{rst}{ehi}:{rst}{nl}" \
-#    "{opt}--help{data}/{opt}-h{ehi}:{rst}{msg} this message{rst}{nl}"
-#  return 0
-#}
+# -*- mode: zsh; sh-indentation: 2; indent-tabs-mode: nil; sh-basic-offset: 2; -*-
+# vim: ft=zsh sw=2 ts=2 et
+#
+# NOT YET IMPLEMENTED: Help handler for the `meta` subcommand.
+# Depends on .za-meta-plugins-meta-cmd being implemented first.

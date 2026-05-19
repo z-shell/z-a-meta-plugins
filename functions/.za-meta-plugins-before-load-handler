@@ -114,7 +114,10 @@ if [[ -n $meta_plugin_data ]] {
     local ice_list_data=$zi_annex_meta_plugins_config_map[$p]
     if (( ( $not_existing[(I)$p] || ! ($loaded_plugins[(I)$p] || $zsh_loaded_plugins[(I)$p]) ) && \
     ! $on_demand_skip[(I)$p] )) || [[ $p == z-shell/null ]] || [[ $p == z-shell/0 ]] {
-      # The ↑z-shell/null↑ is a bogus exception, as this plugin will never be loaded under the direct name.
+      # The ↑z-shell/null↑ and ↑z-shell/0↑ are bogus exceptions — these plugins are never loaded under their direct names.
+      if (( ibdebug )) && [[ -z $ice_list_data ]] && [[ $p != z-shell/null ]] && [[ $p != z-shell/0 ]] {
+        +zi-message "{annex}meta-plugins-annex{ehi}:{warn} No config entry for{ehi}: {meta}$p{rst} (no ices applied)"
+      }
       ZI[annex-before-load:new-@]+="$ice_list_data @${(q)p} "
       zi_annex_meta_plugins[annex-loaded-plugins]+=" ${(q)p}"
     }
