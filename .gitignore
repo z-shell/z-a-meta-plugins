@@ -43,7 +43,11 @@ Sessionx.vim
 # Temporary
 .netrwhist
 *~
+
 # Auto-generated tag files
 tags
+docs/superpowers
+docs/plans
+
 # Persistent undo
 [._]*.un~
