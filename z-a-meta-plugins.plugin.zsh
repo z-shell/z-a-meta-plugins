@@ -53,7 +53,7 @@ zi_annex_meta_plugins_map=(
   romkatv    "romkatv/powerlevel10k"
 
   # @zunit
-  zunit      "z-shell/color z-shell/revolver z-shell/zunit"
+  zunit      "z-shell/zunit"
 
   # @sharkdp
   sharkdp    "sharkdp/fd sharkdp/bat sharkdp/hexyl sharkdp/hyperfine sharkdp/vivid"
@@ -131,8 +131,6 @@ zi_annex_meta_plugins_config_map=(
 
   # @z-shell
   z-shell/zunit            "$_std binary sbin atclone'./build.zsh;' atpull'%atclone'"
-  z-shell/color            "$_std binary sbin'color.zsh -> color'"
-  z-shell/revolver         "$_std as'program' pick'revolver'"
 
   # @zpm-zsh
   dircolors-material      "$_std pack"
