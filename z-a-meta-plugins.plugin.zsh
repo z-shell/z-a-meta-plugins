@@ -53,7 +53,7 @@ zi_annex_meta_plugins_map=(
   romkatv    "romkatv/powerlevel10k"
 
   # @zunit
-  zunit      "zdharma/color zdharma/revolver zdharma/zunit"
+  zunit      "z-shell/color z-shell/revolver z-shell/zunit"
 
   # @sharkdp
   sharkdp    "sharkdp/fd sharkdp/bat sharkdp/hexyl sharkdp/hyperfine sharkdp/vivid"
@@ -129,10 +129,10 @@ zi_annex_meta_plugins_config_map=(
   github-issues                 "$_std pack"
   github-issues-srv             "$_std pack atinit'GIT_PROJECTS=z-shell/zi GIT_SLEEP_TIME=700;'"
 
-  # @zdharma
-  zdharma/zunit            "$_std binary sbin atclone'./build.zsh;' atpull'%atclone'"
-  zdharma/color            "$_std binary sbin'color.zsh -> color'"
-  zdharma/revolver         "$_std as'program' pick'revolver'"
+  # @z-shell
+  z-shell/zunit            "$_std binary sbin atclone'./build.zsh;' atpull'%atclone'"
+  z-shell/color            "$_std binary sbin'color.zsh -> color'"
+  z-shell/revolver         "$_std as'program' pick'revolver'"
 
   # @zpm-zsh
   dircolors-material      "$_std pack"
