@@ -88,13 +88,8 @@ zi_annex_meta_plugins_map=(
   # Python utilities.
   py-utils    "pyenv"
 
-  # A few Prezto modules.
-  prezto      "PZTM::archive PZTM::directory PZTM::utility"
-
   # Oh-My-Zsh library with positive or commonly required effects.
-  ohmyzsh-lib "OMZL::git OMZL::history OMZL::vcs_info OMZL::clipboard OMZL::completion OMZL::theme-and-appearance OMZL::prompt_info_functions"
-  # Oh-My-Zsh library using subversion
-  ohmyzsh-svn-lib "OMZ::lib"
+  ohmyzsh-lib "OMZL::git OMZL::history OMZL::vcs_info OMZL::clipboard OMZL::completion OMZL::theme-and-appearance OMZL::prompt_info_functions OMZL::termsupport OMZL::key-bindings OMZL::compfix OMZL::directories OMZL::functions"
 )
 
 # The map in which the default sets of ices for the real plugins are being stored.
@@ -220,13 +215,7 @@ zi_annex_meta_plugins_config_map=(
 _std+=" is-snippet"
 
 zi_annex_meta_plugins_config_map+=(
-  # Prezto
-  PZTM::archive       "$_std svn silent nocompile"
-  PZTM::directory     "$_std"
-  PZTM::utility       "$_std"
-
   # Oh-My-Zsh Library
-  OMZ::lib                    "$_std svn multisrc'{git,clipboard,history,completion,prompt_info_functions,theme-and-appearance,vcs_info}.zsh' pick'/dev/null'"
   OMZL::git                   "$_std"
   OMZL::history               "$_std"
   OMZL::vcs_info              "$_std"
@@ -234,6 +223,11 @@ zi_annex_meta_plugins_config_map+=(
   OMZL::completion            "$_std"
   OMZL::theme-and-appearance  "$_std"
   OMZL::prompt_info_functions "$_std"
+  OMZL::termsupport           "$_std"
+  OMZL::key-bindings          "$_std"
+  OMZL::compfix               "$_std"
+  OMZL::directories           "$_std"
+  OMZL::functions             "$_std"
 )
 
 unset _std
