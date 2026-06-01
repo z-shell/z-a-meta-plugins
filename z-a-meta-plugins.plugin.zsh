@@ -114,7 +114,7 @@ zi_annex_meta_plugins_config_map=(
   # @zsh-users
   zsh-users/zsh-syntax-highlighting   "$_std atinit'ZI[COMPINIT_OPTS]=-C; zicompinit; zicdreplay;'"
   zsh-users/zsh-autosuggestions       "$_std compile'{src/*.zsh*~*.zwc,src/strategies/*~*.zwc}' atload'!_zsh_autosuggest_start;'"
-  zsh-users/zsh-completions           "$_std atpull'zi creinstall -q .' pick'/dev/null'"
+  zsh-users/zsh-completions           "$_std atpull'zi creinstall \$PWD' pick'/dev/null'"
 
   # @z-shell
   z-shell/F-Sy-H                      "$_std atinit'ZI[COMPINIT_OPTS]=-C; zicompinit; zicdreplay;' atload'fast-theme z-shell &>/dev/null;' compile'{functions/{.fast,fast}-*~*.zwc,chroma/*~*.zwc}'"
