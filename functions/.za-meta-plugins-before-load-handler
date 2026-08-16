@@ -4,7 +4,12 @@
 # Copyright (c) 2021-present Z-Shell Community
 #
 # Set the base and typically useful options.
-builtin emulate -L zsh ${=${options[xtrace]:#off}:+-o xtrace}
+builtin setopt local_options
+if [[ $options[xtrace] == on ]]; then
+  builtin emulate -L zsh -o xtrace
+else
+  builtin emulate -L zsh
+fi
 builtin setopt extended_glob warn_create_global typeset_silent no_short_loops rc_quotes no_auto_pushd
 
 local type=$1 id=$2 id_as=$3 args=$4 ices=$5 hook=$6 subtype=$7
@@ -67,7 +72,7 @@ if [[ -n $meta_plugin_data ]] {
   }
   # Check if any plugins are missing on the disk.
   for p ( ${plugin_array:|on_demand_skip} ) {
-    if [[ -z $zi_annex_meta_plugins_map[$p] ]] && ! .zi-get-object-path AUTO $p
+    if [[ -z $zi_annex_meta_plugins_map[$p] ]] && ! .zi-get-object-path AUTO "$p"
     then
       ibshow_messages=1
       not_existing+=( $p )
@@ -75,7 +80,7 @@ if [[ -n $meta_plugin_data ]] {
   }
   # Debug message.
   if (( ibshow_messages )) {
-    (($+functions[.zi-two-paths])) || builtin source ${ZI[BIN_DIR]}/lib/zsh/side.zsh
+    (($+functions[.zi-two-paths])) || builtin source "${ZI[BIN_DIR]}/lib/zsh/side.zsh"
     # Output a separating newline if the previous-processed plugin isn't a meta-plugin → to cluster the messages.
     [[ -z $zi_annex_meta_plugins_map[${ZI[annex-exposed-processed-IDs]##* }] ]] && builtin print
     +zi-message -n "{hi}$zi_annex_meta_plugins_map[recon-count]{rst} "
@@ -84,7 +89,7 @@ if [[ -n $meta_plugin_data ]] {
     local -a skipped
     for p ( $plugin_array ) {
       count+=1
-      .zi-any-colorify-as-uspl2 $p
+      .zi-any-colorify-as-uspl2 "$p"
       [[ $p = $plugin_array[-1] ]] && local enotlast= || local enotlast=0
       REPLY=${REPLY//\//∕}
       integer idx1=0 idx2=0 idx3=0
@@ -122,7 +127,7 @@ if [[ -n $meta_plugin_data ]] {
   ZI[annex-before-load:new-@]+=" $args"
   ZI[annex-before-load:new-@]=${ZI[annex-before-load:new-@]## ##}
   # Setting to 1 here will prevent the error message on no plugin/snippet ID given.
-  integer retval_part=${${ZI[annex-before-load:new-@]:+2}:-1}
+  integer retval_part="${${ZI[annex-before-load:new-@]:+2}:-1}"
 } else {
   integer retval_part=0
 }
