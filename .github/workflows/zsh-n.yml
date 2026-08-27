@@ -9,10 +9,12 @@ on:
     paths:
       - "*.zsh"
       - "functions/*"
+      - "tests/**"
   pull_request:
     paths:
       - "*.zsh"
       - "functions/*"
+      - "tests/**"
   workflow_dispatch: {}
 
 permissions:
@@ -58,3 +60,19 @@ jobs:
         run: |
           zsh -fc "zcompile ${ZSH_FILE}"; rc=$?
           ls -al "${ZSH_FILE}.zwc"; exit "$rc"
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⤵️ Check out code from GitHub
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - name: "⚡ Install dependencies"
+        run: sudo apt update && sudo apt-get install -yq zsh
+      - name: "🧪 Run test suite"
+        run: |
+          zsh -f -c '
+            setopt err_exit
+            for test_file in tests/*.zsh; do
+              print -r -- "== $test_file"
+              zsh -f "$test_file"
+            done
+          '
