@@ -88,6 +88,9 @@ zi_annex_meta_plugins_map=(
   # Python utilities.
   py-utils    "pyenv"
 
+  # A few Prezto modules. The archive module uses Zi's Git sparse directory backend.
+  prezto      "PZTM::archive PZTM::directory PZTM::utility"
+
   # Oh-My-Zsh library with positive or commonly required effects.
   ohmyzsh-lib "OMZL::git OMZL::history OMZL::vcs_info OMZL::clipboard OMZL::completion OMZL::theme-and-appearance OMZL::prompt_info_functions OMZL::termsupport OMZL::key-bindings OMZL::compfix OMZL::directories OMZL::functions"
 )
@@ -216,6 +219,11 @@ zi_annex_meta_plugins_config_map=(
 _std+=" is-snippet"
 
 zi_annex_meta_plugins_config_map+=(
+  # Prezto
+  PZTM::archive       "$_std svn silent nocompile"
+  PZTM::directory     "$_std"
+  PZTM::utility       "$_std"
+
   # Oh-My-Zsh Library
   OMZL::git                   "$_std"
   OMZL::history               "$_std"
