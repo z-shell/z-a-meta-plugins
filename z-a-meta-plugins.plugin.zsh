@@ -3,22 +3,25 @@
 #
 # Copyright (c) 2021 Z-Shell Community
 #
-# https://wiki.zshell.dev/community/zsh_plugin_standard#zero-handling
-0="${ZERO:-${${0:#$ZSH_ARGZERO}:-${(%):-%N}}}"
-0="${${(M)0:#/*}:-$PWD/$0}"
+# Preserve caller state while resolving this sourced entrypoint.
+() {
+  builtin emulate -L zsh
+
+  typeset -r source_path="${${(M)1:#/*}:-$PWD/$1}"
+  typeset -r annex_dir=${source_path:h}
 
 # https://wiki.zshell.dev/community/zsh_plugin_standard/#funtions-directory
 if [[ $PMSPEC != *f* ]] {
-  fpath+=( "${0:h}/functions" )
+  fpath+=( "${annex_dir}/functions" )
 }
 
 # https://wiki.zshell.dev/community/zsh_plugin_standard#standard-plugins-hash
 typeset -gA zi_annex_meta_plugins
-zi_annex_meta_plugins[0]="$0"
-zi_annex_meta_plugins[repo-dir]="${0:h}"
+zi_annex_meta_plugins[0]="$source_path"
+zi_annex_meta_plugins[repo-dir]="$annex_dir"
 
 typeset -gA Plugins
-Plugins[META_PLUGINS_DIR]="${0:h}"
+Plugins[META_PLUGINS_DIR]="$annex_dir"
 
 # Autoload functions
 # TODO: meta-cmd  meta-cmd-help-handler
@@ -240,3 +243,4 @@ zi_annex_meta_plugins_config_map+=(
 )
 
 unset _std
+} "${ZERO:-${${0:#$ZSH_ARGZERO}:-${(%):-%N}}}"
