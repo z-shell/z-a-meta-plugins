@@ -7,8 +7,8 @@
 () {
   builtin emulate -L zsh
 
-  typeset -r source_path="${${(M)1:#/*}:-$PWD/$1}"
-  typeset -r annex_dir=${source_path:h}
+  local -r source_path=${1:a}
+  local -r annex_dir=${source_path:h}
 
 # https://wiki.zshell.dev/community/zsh_plugin_standard/#funtions-directory
 if [[ $PMSPEC != *f* ]] {
