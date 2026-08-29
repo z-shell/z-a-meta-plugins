@@ -14,7 +14,8 @@ fail() {
 
 if [[ $1 != --case ]]; then
   for option_mode in default no_function_argzero posix_argzero; do
-    for source_mode in direct manager_zero; do
+    for source_mode in \
+      direct direct_relative manager_zero manager_zero_relative; do
       zsh -f "${0:A}" --case "$option_mode" "$source_mode" ||
         fail "$option_mode/$source_mode"
     done
@@ -34,18 +35,32 @@ function @zi-register-annex() { :; }
 typeset -g PMSPEC=f
 typeset -gA Plugins
 
-if [[ $3 == manager_zero ]]; then
-  typeset -g ZERO=$entrypoint
-else
-  unset ZERO
-fi
+typeset source_target=$entrypoint
+case $3 in
+  direct)
+    unset ZERO
+    ;;
+  direct_relative)
+    unset ZERO
+    builtin cd -- "$repo_dir" || fail 'enter repository directory'
+    source_target=./z-a-meta-plugins.plugin.zsh
+    ;;
+  manager_zero)
+    typeset -g ZERO=$entrypoint
+    ;;
+  manager_zero_relative)
+    builtin cd -- "$repo_dir" || fail 'enter repository directory'
+    typeset -g ZERO='./discarded [literal]*? segment/../z-a-meta-plugins.plugin.zsh'
+    ;;
+  *) fail "unknown source mode: $3" ;;
+esac
 
 typeset caller_zero=$0
-builtin source "$entrypoint" >/dev/null || fail 'source annex entrypoint'
+builtin source "$source_target" >/dev/null || fail 'source annex entrypoint'
 [[ $0 == "$caller_zero" ]] || fail 'preserve caller 0'
 [[ ${zi_annex_meta_plugins[0]} == "$entrypoint" ]] || fail 'record source path'
 [[ ${zi_annex_meta_plugins[repo-dir]} == "$repo_dir" ]] || fail 'record annex directory'
 [[ ${Plugins[META_PLUGINS_DIR]} == "$repo_dir" ]] || fail 'record plugin directory'
 
-builtin source "$entrypoint" >/dev/null || fail 're-source annex entrypoint'
+builtin source "$source_target" >/dev/null || fail 're-source annex entrypoint'
 [[ $0 == "$caller_zero" ]] || fail 'preserve caller 0 after re-source'
