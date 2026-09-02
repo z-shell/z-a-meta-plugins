@@ -21,7 +21,7 @@ if (( $+ICE[debug] )) {
 
 # Apply the default ices first.
 local -a ices
-ices=( "${(@Q)${(@z)zi_annex_meta_plugins[default-ices]}}" )
+ices=( "${(@Q)${(@z)_z_a_meta_plugins_state[default-ices]}}" )
 (( ${#ices} > 0 && ${#ices} % 2 == 0 )) && ICE=( "${(@kv)ICE}" "${ices[@]}" )
 # Exclude IDs with slashes and also packages
 [[ $id == */* ]] && local bad_id=1
@@ -51,14 +51,14 @@ ZI[annex-before-load:new-@]=""
 ZI[annex-before-load:new-global-ices]=""
 # Strip the ID from some possible accidental /-s.
 id=${${id#@}%%(///|//|/)}
-local meta_plugin_data=${(v)zi_annex_meta_plugins_map[$id]}
+local meta_plugin_data=${(v)_z_a_meta_plugins_map[$id]}
 
 if [[ -n $meta_plugin_data ]] {
   # Count the recognized meta-plugins
-  zi_annex_meta_plugins_map[recon-count]=$(( zi_annex_meta_plugins_map[recon-count] + 1 ))
+  _z_a_meta_plugins_map[recon-count]=$(( _z_a_meta_plugins_map[recon-count] + 1 ))
   local -a plugin_array loaded_plugins not_existing on_demand_cand on_demand_skip
   plugin_array=( ${(s: :)meta_plugin_data} )
-  loaded_plugins=( ${(@Q)${(@z)zi_annex_meta_plugins[annex-loaded-plugins]}} )
+  loaded_plugins=( ${(@Q)${(@z)_z_a_meta_plugins_state[annex-loaded-plugins]}} )
   local p
   # Detect if any plugins should be skipped on-demand, via skip''.
   on_demand_cand=( ${(@)${(@ps:\t:)${(@s: :)${(@s.;.)ICE[skip]}}}} )
@@ -72,7 +72,7 @@ if [[ -n $meta_plugin_data ]] {
   }
   # Check if any plugins are missing on the disk.
   for p ( ${plugin_array:|on_demand_skip} ) {
-    if [[ -z $zi_annex_meta_plugins_map[$p] ]] && ! .zi-get-object-path AUTO "$p"
+    if [[ -z $_z_a_meta_plugins_map[$p] ]] && ! .zi-get-object-path AUTO "$p"
     then
       ibshow_messages=1
       not_existing+=( $p )
@@ -82,8 +82,8 @@ if [[ -n $meta_plugin_data ]] {
   if (( ibshow_messages )) {
     (($+functions[.zi-two-paths])) || builtin source "${ZI[BIN_DIR]}/lib/zsh/side.zsh"
     # Output a separating newline if the previous-processed plugin isn't a meta-plugin → to cluster the messages.
-    [[ -z $zi_annex_meta_plugins_map[${ZI[annex-exposed-processed-IDs]##* }] ]] && builtin print
-    +zi-message -n "{hi}$zi_annex_meta_plugins_map[recon-count]{rst} "
+    [[ -z $_z_a_meta_plugins_map[${ZI[annex-exposed-processed-IDs]##* }] ]] && builtin print
+    +zi-message -n "{hi}$_z_a_meta_plugins_map[recon-count]{rst} "
     +zi-message "{annex}meta-plugins-annex{ehi}:{rst} Loading{ehi}:{rst} \`{b}{meta}$id{rst}' consisting of{ehi}:{rst}"
     integer count=0
     local -a skipped
@@ -110,18 +110,18 @@ if [[ -n $meta_plugin_data ]] {
     }
     +zi-message ".{rst}"
     if (( ibdebug && ${#skipped} )) {
-      +zi-message -n "{hi}$zi_annex_meta_plugins_map[recon-count]{rst} "
+      +zi-message -n "{hi}$_z_a_meta_plugins_map[recon-count]{rst} "
       +zi-message "{annex}meta-plugins-annex{ehi}:{rst} Skipping already loaded{ehi}:{rst} ${(j:, :)skipped}{rst}"
     }
   }
   # Pre-process each plugin retrieving the assigned, default ice-lists and preparing the above communication fields.
   for p ( $plugin_array ) {
-    local ice_list_data=$zi_annex_meta_plugins_config_map[$p]
+    local ice_list_data=$_z_a_meta_plugins_config_map[$p]
     if (( ( $not_existing[(I)$p] || ! ($loaded_plugins[(I)$p] || $zsh_loaded_plugins[(I)$p]) ) && \
     ! $on_demand_skip[(I)$p] )) || [[ $p == z-shell/null ]] || [[ $p == z-shell/0 ]] {
       # The ↑z-shell/null↑ is a bogus exception, as this plugin will never be loaded under the direct name.
       ZI[annex-before-load:new-@]+="$ice_list_data @${(q)p} "
-      zi_annex_meta_plugins[annex-loaded-plugins]+=" ${(q)p}"
+      _z_a_meta_plugins_state[annex-loaded-plugins]+=" ${(q)p}"
     }
   }
   ZI[annex-before-load:new-@]+=" $args"

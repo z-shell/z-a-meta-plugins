@@ -57,8 +57,8 @@ esac
 typeset caller_zero=$0
 builtin source "$source_target" >/dev/null || fail 'source annex entrypoint'
 [[ $0 == "$caller_zero" ]] || fail 'preserve caller 0'
-[[ ${zi_annex_meta_plugins[0]} == "$entrypoint" ]] || fail 'record source path'
-[[ ${zi_annex_meta_plugins[repo-dir]} == "$repo_dir" ]] || fail 'record annex directory'
+[[ ${_z_a_meta_plugins_state[0]} == "$entrypoint" ]] || fail 'record source path'
+[[ ${_z_a_meta_plugins_state[repo-dir]} == "$repo_dir" ]] || fail 'record annex directory'
 (( ${+functions[z-a-meta-plugins_plugin_unload]} )) || fail 'define unload function'
 
 builtin source "$source_target" >/dev/null || fail 're-source annex entrypoint'
@@ -66,7 +66,7 @@ builtin source "$source_target" >/dev/null || fail 're-source annex entrypoint'
 
 z-a-meta-plugins_plugin_unload || fail 'execute unload function'
 (( ! ${+functions[z-a-meta-plugins_plugin_unload]} )) || fail 'self-destruct unload function'
-(( ! ${+zi_annex_meta_plugins} )) || fail 'unset zi_annex_meta_plugins'
+(( ! ${+_z_a_meta_plugins_state} )) || fail 'unset _z_a_meta_plugins_state'
 
 # Zi keeps the before-load-4 registration after unload, so the handler must
 # stay callable and inert rather than disappear from under Zi's dispatch.

@@ -17,10 +17,11 @@ if [[ $PMSPEC != *f* ]]; then
   fi
 fi
 
-# https://wiki.zshell.dev/community/zsh_plugin_standard#standard-plugins-hash
-typeset -gA zi_annex_meta_plugins
-zi_annex_meta_plugins[0]="$source_path"
-zi_annex_meta_plugins[repo-dir]="$annex_dir"
+# Private runtime state, project-prefixed per the plugin standard's naming rules.
+# https://wiki.zshell.dev/community/zsh_plugin_standard#names-and-persistent-state
+typeset -gA _z_a_meta_plugins_state
+_z_a_meta_plugins_state[0]="$source_path"
+_z_a_meta_plugins_state[repo-dir]="$annex_dir"
 
 # Autoload functions
 # TODO: meta-cmd  meta-cmd-help-handler
@@ -44,8 +45,8 @@ fi
 #  .za-meta-plugins-meta-cmd-help-handler # Add subcommand
 
 # The map in which the definitions of the meta-plugins are being stored.
-typeset -gA zi_annex_meta_plugins_map
-zi_annex_meta_plugins_map=(
+typeset -gA _z_a_meta_plugins_map
+_z_a_meta_plugins_map=(
   # ---------------------------------------------------------------------- #
   # Required annexes
   annexes "z-shell/z-a-bin-gem-node z-shell/z-a-readurl z-shell/z-a-patch-dl z-shell/z-a-rust"
@@ -102,10 +103,10 @@ zi_annex_meta_plugins_map=(
 )
 
 # The map in which the default sets of ices for the real plugins are being stored.
-typeset -gA zi_annex_meta_plugins_config_map
+typeset -gA _z_a_meta_plugins_config_map
 local _std="lucid"
 
-zi_annex_meta_plugins_config_map=(
+_z_a_meta_plugins_config_map=(
   # @z-shell (all annexes + extensions, without Meta-Plugins, obviously)
   z-shell/z-a-bin-gem-node  "$_std compile'functions/.*bgn*~*.zwc'"
   z-shell/z-a-default-ice   "$_std"
@@ -224,7 +225,7 @@ zi_annex_meta_plugins_config_map=(
 # Snippets
 _std+=" is-snippet"
 
-zi_annex_meta_plugins_config_map+=(
+_z_a_meta_plugins_config_map+=(
   # Prezto
   PZTM::archive       "$_std svn silent nocompile"
   PZTM::directory     "$_std"
@@ -251,8 +252,8 @@ z-a-meta-plugins_plugin_unload() {
   emulate -L zsh
 
   # Remove functions directory from fpath
-  if (( ${+zi_annex_meta_plugins[repo-dir]} )); then
-    fpath=( "${fpath[@]:#${zi_annex_meta_plugins[repo-dir]}/functions}" )
+  if (( ${+_z_a_meta_plugins_state[repo-dir]} )); then
+    fpath=( "${fpath[@]:#${_z_a_meta_plugins_state[repo-dir]}/functions}" )
   fi
 
   # Zi has no annex unregister API, so the hook stays in ZI_EXTS after unload.
@@ -268,7 +269,7 @@ z-a-meta-plugins_plugin_unload() {
   fi
 
   # Unset state parameters
-  unset zi_annex_meta_plugins zi_annex_meta_plugins_map zi_annex_meta_plugins_config_map
+  unset _z_a_meta_plugins_state _z_a_meta_plugins_map _z_a_meta_plugins_config_map
 
   # Self-destruct
   unfunction z-a-meta-plugins_plugin_unload
