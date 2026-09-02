@@ -20,15 +20,15 @@ typeset -gA ICE ZI
 typeset -ga zsh_loaded_plugins
 builtin source "$repo_dir/z-a-meta-plugins.plugin.zsh" >/dev/null || fail "source meta-plugins annex"
 
-[[ ${zi_annex_meta_plugins_map[prezto]} = "PZTM::archive PZTM::directory PZTM::utility" ]] || \
+[[ ${_z_a_meta_plugins_map[prezto]} = "PZTM::archive PZTM::directory PZTM::utility" ]] || \
   fail "register @prezto members"
-[[ ${zi_annex_meta_plugins_config_map[PZTM::archive]} = "lucid is-snippet svn silent nocompile" ]] || \
+[[ ${_z_a_meta_plugins_config_map[PZTM::archive]} = "lucid is-snippet svn silent nocompile" ]] || \
   fail "configure archive as a directory snippet"
-[[ ${zi_annex_meta_plugins_config_map[PZTM::directory]} = "lucid is-snippet" ]] || \
+[[ ${_z_a_meta_plugins_config_map[PZTM::directory]} = "lucid is-snippet" ]] || \
   fail "configure directory as a file snippet"
-[[ ${zi_annex_meta_plugins_config_map[PZTM::utility]} = "lucid is-snippet" ]] || \
+[[ ${_z_a_meta_plugins_config_map[PZTM::utility]} = "lucid is-snippet" ]] || \
   fail "configure utility as a file snippet"
-(( !${+zi_annex_meta_plugins_map[ohmyzsh-svn-lib]} )) || fail "leave @ohmyzsh-svn-lib unavailable"
+(( !${+_z_a_meta_plugins_map[ohmyzsh-svn-lib]} )) || fail "leave @ohmyzsh-svn-lib unavailable"
 
 function .zi-get-object-path() { return 1; }
 function .zi-any-colorify-as-uspl2() { REPLY=$1; }
@@ -36,7 +36,7 @@ function .zi-two-paths() { :; }
 function +zi-message() { :; }
 
 run_prezto_handler() {
-  builtin source "$repo_dir/functions/.za-meta-plugins-before-load-handler" \
+  builtin source "$repo_dir/functions/_z_a_meta_plugins_before_load_handler" \
     plugin @prezto @prezto '' '' hook subtype
 }
 

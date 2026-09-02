@@ -33,7 +33,6 @@ esac
 
 function @zi-register-annex() { :; }
 typeset -g PMSPEC=f
-typeset -gA Plugins
 
 typeset source_target=$entrypoint
 case $3 in
@@ -58,9 +57,31 @@ esac
 typeset caller_zero=$0
 builtin source "$source_target" >/dev/null || fail 'source annex entrypoint'
 [[ $0 == "$caller_zero" ]] || fail 'preserve caller 0'
-[[ ${zi_annex_meta_plugins[0]} == "$entrypoint" ]] || fail 'record source path'
-[[ ${zi_annex_meta_plugins[repo-dir]} == "$repo_dir" ]] || fail 'record annex directory'
-[[ ${Plugins[META_PLUGINS_DIR]} == "$repo_dir" ]] || fail 'record plugin directory'
+[[ ${_z_a_meta_plugins_state[0]} == "$entrypoint" ]] || fail 'record source path'
+[[ ${_z_a_meta_plugins_state[repo-dir]} == "$repo_dir" ]] || fail 'record annex directory'
+(( ${+functions[z-a-meta-plugins_plugin_unload]} )) || fail 'define unload function'
 
 builtin source "$source_target" >/dev/null || fail 're-source annex entrypoint'
 [[ $0 == "$caller_zero" ]] || fail 'preserve caller 0 after re-source'
+
+z-a-meta-plugins_plugin_unload || fail 'execute unload function'
+(( ! ${+functions[z-a-meta-plugins_plugin_unload]} )) || fail 'self-destruct unload function'
+(( ! ${+_z_a_meta_plugins_state} )) || fail 'unset _z_a_meta_plugins_state'
+
+# Zi keeps the before-load-4 registration after unload, so the handler must
+# stay callable and inert rather than disappear from under Zi's dispatch.
+(( ${+functions[_z_a_meta_plugins_before_load_handler]} )) || fail 'keep handler callable'
+_z_a_meta_plugins_before_load_handler plugin id id_as '' '' before-load-4 load ||
+  fail 'neutralized handler returns success'
+
+# Reloading after an unload must restore the real handler, not keep the stub.
+# The suite runs with PMSPEC=f, so the manager owns fpath here.
+builtin source "$source_target" >/dev/null || fail 'source annex entrypoint after unload'
+fpath+=( "$repo_dir/functions" )
+typeset -gA ICE ZI
+typeset -ga zsh_loaded_plugins=()
+.zi-get-object-path() { return 0; }
+ZI[annex-before-load:new-@]=''
+_z_a_meta_plugins_before_load_handler plugin annexes annexes '' '' before-load-4 load >/dev/null
+[[ ${ZI[annex-before-load:new-@]} == *z-a-bin-gem-node* ]] ||
+  fail 'reloaded handler expands a known meta-plugin'

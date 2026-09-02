@@ -3,7 +3,7 @@
 #
 # Copyright (c) 2021-present Z-Shell Community
 
-#.za-meta-plugins-meta-cmd() {
+#_z_a_meta_plugins_meta_cmd() {
 #    # Set the base and typically useful options.
 #    builtin emulate -LR zsh ${=${options[xtrace]:#off}:+-o xtrace}
 #    builtin setopt extendedglob warncreateglobal typesetsilent noshortloops rcquotes
@@ -32,7 +32,7 @@
 #    }
 #    # --help/-h
 #    if (( ${#help} )) {
-#      .za-meta-plugins-meta-cmd-help-handler
+#      _z_a_meta_plugins_meta_cmd_help_handler
 #      return $?
 #    }
 #    # --show/-s
@@ -40,8 +40,8 @@
 #     local -A ICES
 #      .zi-ice "$@"
 #      integer iceret=$?
-#      zi_annex_meta_plugins[default-ices]=${(j: :)${(@qkv)ICES}}
-#      +zi-message "{annex}meta-plugins-annex{ehi}:{rst} {auto}Loaded{ehi}:{rst} {auto}$zi_annex_meta_plugins[annex-loaded-plugins]{nl}"
+#      _z_a_meta_plugins_state[default-ices]=${(j: :)${(@qkv)ICES}}
+#      +zi-message "{annex}meta-plugins-annex{ehi}:{rst} {auto}Loaded{ehi}:{rst} {auto}$_z_a_meta_plugins_state[annex-loaded-plugins]{nl}"
 #      +zi-message "{annex}meta-plugins-annex{ehi}:{rst} Stored the ices{ehi}:{rst}" "${(j: :)${(@q-kv)ICES}}{rst}"
 #    }
 #}
