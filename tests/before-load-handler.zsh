@@ -6,7 +6,7 @@ typeset repo_dir=${0:A:h:h}
 typeset -gA ICE ZI _z_a_meta_plugins_state _z_a_meta_plugins_map
 
 run_handler() {
-  source "$repo_dir/functions/.za-meta-plugins-before-load-handler" \
+  source "$repo_dir/functions/_z_a_meta_plugins_before_load_handler" \
     plugin owner/name owner/name '' '' hook subtype
 }
 

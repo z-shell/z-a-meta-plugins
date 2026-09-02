@@ -36,7 +36,7 @@ function .zi-two-paths() { :; }
 function +zi-message() { :; }
 
 run_prezto_handler() {
-  builtin source "$repo_dir/functions/.za-meta-plugins-before-load-handler" \
+  builtin source "$repo_dir/functions/_z_a_meta_plugins_before_load_handler" \
     plugin @prezto @prezto '' '' hook subtype
 }
 

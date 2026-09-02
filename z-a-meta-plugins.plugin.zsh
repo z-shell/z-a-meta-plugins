@@ -25,24 +25,24 @@ _z_a_meta_plugins_state[repo-dir]="$annex_dir"
 
 # Autoload functions
 # TODO: meta-cmd  meta-cmd-help-handler
-autoload -Uz .za-meta-plugins-before-load-handler
+autoload -Uz _z_a_meta_plugins_before_load_handler
 
 # An empty stub to fill the handler fields
-.za-meta-plugins-null-handler() { :; }
+_z_a_meta_plugins_null_handler() { :; }
 
 # The meta-plugins-support hook. The name is held in a parameter because a
 # literal `@` inside a subscript trips the zsh-lint parser (z-shell/zsh-lint).
 local register_annex='@zi-register-annex'
 if (( ${+functions[$register_annex]} )); then
   "$register_annex" "z-a-meta-plugins" hook:before-load-4 \
-    .za-meta-plugins-before-load-handler \
-    .za-meta-plugins-null-handler "skip''" # Add new ice
+    _z_a_meta_plugins_before_load_handler \
+    _z_a_meta_plugins_null_handler "skip''" # Add new ice
 fi
 
 # The subcommand `meta'.
 #@zi-register-annex "z-a-meta-plugins" subcommand:meta \
-#  .za-meta-plugins-meta-cmd \
-#  .za-meta-plugins-meta-cmd-help-handler # Add subcommand
+#  _z_a_meta_plugins_meta_cmd \
+#  _z_a_meta_plugins_meta_cmd_help_handler # Add subcommand
 
 # The map in which the definitions of the meta-plugins are being stored.
 typeset -gA _z_a_meta_plugins_map
@@ -263,9 +263,9 @@ z-a-meta-plugins_plugin_unload() {
   local unregister_annex='@zi-unregister-annex'
   if (( ${+functions[$unregister_annex]} )); then
     "$unregister_annex" "z-a-meta-plugins" hook:before-load-4 2>/dev/null
-    unfunction .za-meta-plugins-before-load-handler .za-meta-plugins-null-handler 2>/dev/null
+    unfunction _z_a_meta_plugins_before_load_handler _z_a_meta_plugins_null_handler 2>/dev/null
   else
-    .za-meta-plugins-before-load-handler() { return 0; }
+    _z_a_meta_plugins_before_load_handler() { return 0; }
   fi
 
   # Unset state parameters

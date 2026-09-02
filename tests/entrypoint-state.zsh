@@ -70,6 +70,6 @@ z-a-meta-plugins_plugin_unload || fail 'execute unload function'
 
 # Zi keeps the before-load-4 registration after unload, so the handler must
 # stay callable and inert rather than disappear from under Zi's dispatch.
-(( ${+functions[.za-meta-plugins-before-load-handler]} )) || fail 'keep handler callable'
-.za-meta-plugins-before-load-handler plugin id id_as '' '' before-load-4 load ||
+(( ${+functions[_z_a_meta_plugins_before_load_handler]} )) || fail 'keep handler callable'
+_z_a_meta_plugins_before_load_handler plugin id id_as '' '' before-load-4 load ||
   fail 'neutralized handler returns success'
