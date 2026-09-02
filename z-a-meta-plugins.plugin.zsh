@@ -25,6 +25,10 @@ _z_a_meta_plugins_state[repo-dir]="$annex_dir"
 
 # Autoload functions
 # TODO: meta-cmd  meta-cmd-help-handler
+# `autoload` does not replace an already-defined function, and unload leaves an
+# inert stub behind when Zi has no unregister API, so clear it first to keep a
+# reload after an unload idempotent.
+unfunction _z_a_meta_plugins_before_load_handler 2>/dev/null
 autoload -Uz _z_a_meta_plugins_before_load_handler
 
 # An empty stub to fill the handler fields

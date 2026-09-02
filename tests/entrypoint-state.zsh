@@ -73,3 +73,15 @@ z-a-meta-plugins_plugin_unload || fail 'execute unload function'
 (( ${+functions[_z_a_meta_plugins_before_load_handler]} )) || fail 'keep handler callable'
 _z_a_meta_plugins_before_load_handler plugin id id_as '' '' before-load-4 load ||
   fail 'neutralized handler returns success'
+
+# Reloading after an unload must restore the real handler, not keep the stub.
+# The suite runs with PMSPEC=f, so the manager owns fpath here.
+builtin source "$source_target" >/dev/null || fail 'source annex entrypoint after unload'
+fpath+=( "$repo_dir/functions" )
+typeset -gA ICE ZI
+typeset -ga zsh_loaded_plugins=()
+.zi-get-object-path() { return 0; }
+ZI[annex-before-load:new-@]=''
+_z_a_meta_plugins_before_load_handler plugin annexes annexes '' '' before-load-4 load >/dev/null
+[[ ${ZI[annex-before-load:new-@]} == *z-a-bin-gem-node* ]] ||
+  fail 'reloaded handler expands a known meta-plugin'
