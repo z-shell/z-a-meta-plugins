@@ -59,12 +59,17 @@ builtin source "$source_target" >/dev/null || fail 'source annex entrypoint'
 [[ $0 == "$caller_zero" ]] || fail 'preserve caller 0'
 [[ ${zi_annex_meta_plugins[0]} == "$entrypoint" ]] || fail 'record source path'
 [[ ${zi_annex_meta_plugins[repo-dir]} == "$repo_dir" ]] || fail 'record annex directory'
-(( ${+functions[z_a_meta_plugins_plugin_unload]} )) || fail 'define unload function'
+(( ${+functions[z-a-meta-plugins_plugin_unload]} )) || fail 'define unload function'
 
 builtin source "$source_target" >/dev/null || fail 're-source annex entrypoint'
 [[ $0 == "$caller_zero" ]] || fail 'preserve caller 0 after re-source'
 
-z_a_meta_plugins_plugin_unload || fail 'execute unload function'
-(( ! ${+functions[z_a_meta_plugins_plugin_unload]} )) || fail 'self-destruct unload function'
+z-a-meta-plugins_plugin_unload || fail 'execute unload function'
+(( ! ${+functions[z-a-meta-plugins_plugin_unload]} )) || fail 'self-destruct unload function'
 (( ! ${+zi_annex_meta_plugins} )) || fail 'unset zi_annex_meta_plugins'
-(( ! ${+functions[.za-meta-plugins-before-load-handler]} )) || fail 'remove handler function'
+
+# Zi keeps the before-load-4 registration after unload, so the handler must
+# stay callable and inert rather than disappear from under Zi's dispatch.
+(( ${+functions[.za-meta-plugins-before-load-handler]} )) || fail 'keep handler callable'
+.za-meta-plugins-before-load-handler plugin id id_as '' '' before-load-4 load ||
+  fail 'neutralized handler returns success'

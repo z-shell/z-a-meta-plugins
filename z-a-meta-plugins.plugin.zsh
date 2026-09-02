@@ -29,9 +29,11 @@ autoload -Uz .za-meta-plugins-before-load-handler
 # An empty stub to fill the handler fields
 .za-meta-plugins-null-handler() { :; }
 
-# The meta-plugins-support hook.
-if (( ${+functions[@zi-register-annex]} )); then
-  @zi-register-annex "z-a-meta-plugins" hook:before-load-4 \
+# The meta-plugins-support hook. The name is held in a parameter because a
+# literal `@` inside a subscript trips the zsh-lint parser (z-shell/zsh-lint).
+local register_annex='@zi-register-annex'
+if (( ${+functions[$register_annex]} )); then
+  "$register_annex" "z-a-meta-plugins" hook:before-load-4 \
     .za-meta-plugins-before-load-handler \
     .za-meta-plugins-null-handler "skip''" # Add new ice
 fi
@@ -244,7 +246,8 @@ zi_annex_meta_plugins_config_map+=(
 )
 
 # https://wiki.zshell.dev/community/zsh_plugin_standard#unload-function
-z_a_meta_plugins_plugin_unload() {
+# zsh-lint disable=plugin/function-namespace -- Zi dispatches ${plugin}_plugin_unload verbatim
+z-a-meta-plugins_plugin_unload() {
   emulate -L zsh
 
   # Remove functions directory from fpath
@@ -252,18 +255,22 @@ z_a_meta_plugins_plugin_unload() {
     fpath=( "${fpath[@]:#${zi_annex_meta_plugins[repo-dir]}/functions}" )
   fi
 
-  # Unregister annex hook if Zi unregister API is present
-  if (( ${+functions[@zi-unregister-annex]} )); then
-    @zi-unregister-annex "z-a-meta-plugins" hook:before-load-4 2>/dev/null
+  # Zi has no annex unregister API, so the hook stays in ZI_EXTS after unload.
+  # Removing the handler would leave Zi calling a missing function on the next
+  # plugin load (zi.zsh dispatches "${___arr[5]}" and folds a 127 into its
+  # return value), so neutralize the handler in place instead.
+  local unregister_annex='@zi-unregister-annex'
+  if (( ${+functions[$unregister_annex]} )); then
+    "$unregister_annex" "z-a-meta-plugins" hook:before-load-4 2>/dev/null
+    unfunction .za-meta-plugins-before-load-handler .za-meta-plugins-null-handler 2>/dev/null
+  else
+    .za-meta-plugins-before-load-handler() { return 0; }
   fi
-
-  # Remove handlers and helper functions
-  unfunction .za-meta-plugins-before-load-handler .za-meta-plugins-null-handler 2>/dev/null
 
   # Unset state parameters
   unset zi_annex_meta_plugins zi_annex_meta_plugins_map zi_annex_meta_plugins_config_map
 
   # Self-destruct
-  unfunction z_a_meta_plugins_plugin_unload
+  unfunction z-a-meta-plugins_plugin_unload
 }
 } "${ZERO:-${${0:#$ZSH_ARGZERO}:-${(%):-%N}}}"
