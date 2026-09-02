@@ -33,7 +33,6 @@ esac
 
 function @zi-register-annex() { :; }
 typeset -g PMSPEC=f
-typeset -gA Plugins
 
 typeset source_target=$entrypoint
 case $3 in
@@ -60,7 +59,12 @@ builtin source "$source_target" >/dev/null || fail 'source annex entrypoint'
 [[ $0 == "$caller_zero" ]] || fail 'preserve caller 0'
 [[ ${zi_annex_meta_plugins[0]} == "$entrypoint" ]] || fail 'record source path'
 [[ ${zi_annex_meta_plugins[repo-dir]} == "$repo_dir" ]] || fail 'record annex directory'
-[[ ${Plugins[META_PLUGINS_DIR]} == "$repo_dir" ]] || fail 'record plugin directory'
+(( ${+functions[z_a_meta_plugins_plugin_unload]} )) || fail 'define unload function'
 
 builtin source "$source_target" >/dev/null || fail 're-source annex entrypoint'
 [[ $0 == "$caller_zero" ]] || fail 'preserve caller 0 after re-source'
+
+z_a_meta_plugins_plugin_unload || fail 'execute unload function'
+(( ! ${+functions[z_a_meta_plugins_plugin_unload]} )) || fail 'self-destruct unload function'
+(( ! ${+zi_annex_meta_plugins} )) || fail 'unset zi_annex_meta_plugins'
+(( ! ${+functions[.za-meta-plugins-before-load-handler]} )) || fail 'remove handler function'

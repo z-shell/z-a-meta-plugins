@@ -10,18 +10,17 @@
   local -r source_path=${1:a}
   local -r annex_dir=${source_path:h}
 
-# https://wiki.zshell.dev/community/zsh_plugin_standard/#funtions-directory
-if [[ $PMSPEC != *f* ]] {
-  fpath+=( "${annex_dir}/functions" )
-}
+# https://wiki.zshell.dev/community/zsh_plugin_standard#functions-directory
+if [[ $PMSPEC != *f* ]]; then
+  if (( ! ${fpath[(Ie)${annex_dir}/functions]} )); then
+    fpath+=( "${annex_dir}/functions" )
+  fi
+fi
 
 # https://wiki.zshell.dev/community/zsh_plugin_standard#standard-plugins-hash
 typeset -gA zi_annex_meta_plugins
 zi_annex_meta_plugins[0]="$source_path"
 zi_annex_meta_plugins[repo-dir]="$annex_dir"
-
-typeset -gA Plugins
-Plugins[META_PLUGINS_DIR]="$annex_dir"
 
 # Autoload functions
 # TODO: meta-cmd  meta-cmd-help-handler
@@ -31,9 +30,11 @@ autoload -Uz .za-meta-plugins-before-load-handler
 .za-meta-plugins-null-handler() { :; }
 
 # The meta-plugins-support hook.
-@zi-register-annex "z-a-meta-plugins" hook:before-load-4 \
-  .za-meta-plugins-before-load-handler \
-  .za-meta-plugins-null-handler "skip''" # Add new ice
+if (( ${+functions[@zi-register-annex]} )); then
+  @zi-register-annex "z-a-meta-plugins" hook:before-load-4 \
+    .za-meta-plugins-before-load-handler \
+    .za-meta-plugins-null-handler "skip''" # Add new ice
+fi
 
 # The subcommand `meta'.
 #@zi-register-annex "z-a-meta-plugins" subcommand:meta \
@@ -100,7 +101,7 @@ zi_annex_meta_plugins_map=(
 
 # The map in which the default sets of ices for the real plugins are being stored.
 typeset -gA zi_annex_meta_plugins_config_map
-typeset -g _std="lucid"
+local _std="lucid"
 
 zi_annex_meta_plugins_config_map=(
   # @z-shell (all annexes + extensions, without Meta-Plugins, obviously)
@@ -239,8 +240,29 @@ zi_annex_meta_plugins_config_map+=(
   OMZL::key-bindings          "$_std"
   OMZL::compfix               "$_std"
   OMZL::directories           "$_std"
-  OMZL::functions             "$_std"
 )
 
-unset _std
+# https://wiki.zshell.dev/community/zsh_plugin_standard#unload-function
+z_a_meta_plugins_plugin_unload() {
+  emulate -L zsh
+
+  # Remove functions directory from fpath
+  if (( ${+zi_annex_meta_plugins[repo-dir]} )); then
+    fpath=( "${fpath[@]:#${zi_annex_meta_plugins[repo-dir]}/functions}" )
+  fi
+
+  # Unregister annex hook if Zi unregister API is present
+  if (( ${+functions[@zi-unregister-annex]} )); then
+    @zi-unregister-annex "z-a-meta-plugins" hook:before-load-4 2>/dev/null
+  fi
+
+  # Remove handlers and helper functions
+  unfunction .za-meta-plugins-before-load-handler .za-meta-plugins-null-handler 2>/dev/null
+
+  # Unset state parameters
+  unset zi_annex_meta_plugins zi_annex_meta_plugins_map zi_annex_meta_plugins_config_map
+
+  # Self-destruct
+  unfunction z_a_meta_plugins_plugin_unload
+}
 } "${ZERO:-${${0:#$ZSH_ARGZERO}:-${(%):-%N}}}"
