@@ -240,6 +240,7 @@ zi_annex_meta_plugins_config_map+=(
   OMZL::key-bindings          "$_std"
   OMZL::compfix               "$_std"
   OMZL::directories           "$_std"
+  OMZL::functions             "$_std"
 )
 
 # https://wiki.zshell.dev/community/zsh_plugin_standard#unload-function
