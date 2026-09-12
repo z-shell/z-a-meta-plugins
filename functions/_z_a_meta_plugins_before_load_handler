@@ -126,8 +126,15 @@ if [[ -n $meta_plugin_data ]] {
   }
   ZI[annex-before-load:new-@]+=" $args"
   ZI[annex-before-load:new-@]=${ZI[annex-before-load:new-@]## ##}
-  # Setting to 1 here will prevent the error message on no plugin/snippet ID given.
-  integer retval_part="${${ZI[annex-before-load:new-@]:+2}:-1}"
+  # An empty replacement means the group was recognised and every member was
+  # already loaded, which is success. Zi reads an odd hook status as an error,
+  # so this must be 2 rather than 1.
+  #
+  # It returned 1 to suppress Zi's "No plugin or snippet ID given" message,
+  # which was a workaround for z-shell/zi#511: the dispatcher turned an empty
+  # replacement into one blank argument and reported a missing ID. That is
+  # fixed, so the workaround now causes the error it was written to avoid.
+  integer retval_part=2
 } else {
   integer retval_part=0
 }
