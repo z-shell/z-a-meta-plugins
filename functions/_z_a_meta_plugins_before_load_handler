@@ -126,9 +126,11 @@ if [[ -n $meta_plugin_data ]] {
   }
   ZI[annex-before-load:new-@]+=" $args"
   ZI[annex-before-load:new-@]=${ZI[annex-before-load:new-@]## ##}
-  # An empty replacement means the group was recognised and every member was
-  # already loaded, which is success. Zi reads an odd hook status as an error,
-  # so this must be 2 rather than 1.
+  # An empty replacement means the group was recognised and nothing remains to
+  # load, which is success. Members reach that state by more than one route:
+  # already loaded, or filtered out by `skip''`, which drops a member at the
+  # queue guard whether or not it was ever loaded. Zi reads an odd hook status
+  # as an error, so this must be 2 rather than 1.
   #
   # It returned 1 to suppress Zi's "No plugin or snippet ID given" message,
   # which was a workaround for z-shell/zi#511: the dispatcher turned an empty

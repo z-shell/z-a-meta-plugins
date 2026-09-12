@@ -53,6 +53,23 @@ integer repeated=$?
 (( repeated & 2 )) ||
   fail "repeated group returned $repeated without the replace-arguments bit"
 
+# The other route to an empty replacement: every member filtered by `skip''`,
+# with nothing loaded and nothing provisioned. The status must be the same,
+# because "nothing left to load" is the condition, not "already loaded".
+zsh_loaded_plugins=()
+ZI_EXTS[ice-mods]=""
+ICE[skip]='bin-gem-node;readurl;patch-dl;rust'
+
+expand annexes
+integer skipped=$?
+ICE[skip]=""
+[[ -z ${ZI[annex-before-load:new-@]//[[:space:]]/} ]] ||
+  fail "a fully skipped group queued [${ZI[annex-before-load:new-@]}]"
+(( (skipped & 1) == 0 )) ||
+  fail "a fully skipped group returned odd status $skipped; Zi reads that as an error"
+(( skipped & 2 )) ||
+  fail "a fully skipped group returned $skipped without the replace-arguments bit"
+
 # An unrecognised name is not this annex's business and must stay untouched.
 expand definitely-not-a-group
 (( $? == 0 )) || fail "an unrecognised id must return 0"
