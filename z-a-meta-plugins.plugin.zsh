@@ -251,7 +251,6 @@ _z_a_meta_plugins_config_map+=(
 )
 
 # https://wiki.zshell.dev/community/zsh_plugin_standard#unload-function
-# zsh-lint disable=plugin/function-namespace -- Zi dispatches ${plugin}_plugin_unload verbatim
 z-a-meta-plugins_plugin_unload() {
   emulate -L zsh
 
