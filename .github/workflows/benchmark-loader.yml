@@ -1,0 +1,95 @@
+name: Loader Benchmarks
+on:
+  pull_request:
+    paths:
+      - "*.zsh"
+      - "functions/**"
+      - "benchmarks/**"
+      - "tests/benchmark-check.py"
+      - ".github/workflows/benchmark-loader.yml"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  report:
+    name: Loader Report (${{ matrix.runtime }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        runtime: [native, zd]
+    steps:
+      - name: Check out candidate
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          path: candidate
+          persist-credentials: false
+      - name: Check out baseline
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          ref: ${{ github.event.pull_request.base.sha || github.sha }}
+          path: baseline
+          persist-credentials: false
+      - name: Check out fixed Zi
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          repository: z-shell/zi
+          ref: 917b7a5f0a8108f4a84c3cf7f074a363ed7d6af7
+          path: zi
+          persist-credentials: false
+      - name: Prepare runtime and manifests
+        env:
+          RUNTIME: ${{ matrix.runtime }}
+          ZD_IMAGE: ghcr.io/z-shell/zd@sha256:ca90cbe53a9dc716b9ac1e87427a735f85d87242fa5d273429d20cef4b67ec09
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y zsh python3
+          if [ "$RUNTIME" = zd ]; then docker pull "$ZD_IMAGE"; fi
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          root = Path.cwd()
+          for variant in ('baseline', 'candidate'):
+              data = {'zi': str(root / 'zi'), 'annex': str(root / variant), 'cases': {'loader': {}}}
+              (root / (variant + '.json')).write_text(json.dumps(data))
+          PY
+      - name: Verify benchmark sensitivity and failures
+        if: matrix.runtime == 'native'
+        run: python3 candidate/tests/benchmark-check.py --zi zi
+      - name: Compare loader behavior and timing
+        env:
+          RUNTIME: ${{ matrix.runtime }}
+          ZD_IMAGE: ghcr.io/z-shell/zd@sha256:ca90cbe53a9dc716b9ac1e87427a735f85d87242fa5d273429d20cef4b67ec09
+        run: |
+          args=()
+          if [ "$RUNTIME" = zd ]; then args=(--zd-image "$ZD_IMAGE"); fi
+          python3 candidate/benchmarks/run.py candidate.json --baseline baseline.json \
+            --output benchmark-results.json "${args[@]}"
+      - name: Record runner image identity
+        if: always()
+        run: |
+          python3 - <<'PYTHON'
+          import json
+          import os
+          from pathlib import Path
+          path = Path('benchmark-results.json')
+          if path.is_file():
+              report = json.loads(path.read_text())
+              report['ci_runner'] = {key: os.environ.get(key) for key in ('ImageOS', 'ImageVersion', 'RUNNER_ARCH')}
+              path.write_text(json.dumps(report, indent=2) + '\n')
+          PYTHON
+      - name: Preserve report including functional failures
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: loader-benchmark-${{ matrix.runtime }}
+          path: benchmark-results.json
+          retention-days: 14
+          if-no-files-found: warn
