@@ -52,49 +52,49 @@ fi
 typeset -gA _z_a_meta_plugins_map
 _z_a_meta_plugins_map=(
   # ---------------------------------------------------------------------- #
-  # Required annexes
+  # Explicit provisioning bundle; individual groups need only their installers.
   annexes "z-shell/z-a-bin-gem-node z-shell/z-a-readurl z-shell/z-a-patch-dl z-shell/z-a-rust"
 
-  # Required + recommended annexes
-  annexes+ "annexes z-shell/z-a-submods z-shell/z-a-default-ice z-shell/z-a-test z-shell/z-a-unscope z-shell/z-a-eval"
+  # Deprecated label; optional annexes are selected individually.
+  annexes+ "annexes"
 
   # @z-shell
-  z-shell     "z-shell/F-Sy-H z-shell/H-S-MW z-shell/zsh-diff-so-fancy"
-  z-shell+    "z-shell/zsh-select z-shell/zconvey z-shell/zui z-shell/zflai"
+  z-shell     "zsh-users+fast"
+  z-shell+    ""
 
   # @zsh-users
-  zsh-users       "zsh-users/zsh-syntax-highlighting zsh-users/zsh-autosuggestions zsh-users/zsh-completions"
-  zsh-users+fast  "z-shell/F-Sy-H zsh-users/zsh-autosuggestions zsh-users/zsh-completions z-shell/zsh-fancy-completions"
+  zsh-users       "zsh-users/zsh-completions zsh-users/zsh-autosuggestions zsh-users/zsh-syntax-highlighting"
+  zsh-users+fast  "zsh-users/zsh-completions zsh-users/zsh-autosuggestions z-shell/F-Sy-H"
 
   # @romkatv
   romkatv    "romkatv/powerlevel10k"
 
   # @zunit
-  zunit      "zdharma/color zdharma/revolver zdharma/zunit"
+  zunit      "z-shell/zunit"
 
   # @sharkdp
-  sharkdp    "sharkdp/fd sharkdp/bat sharkdp/hexyl sharkdp/hyperfine sharkdp/vivid"
+  sharkdp    ""
 
   # ---------------------------------------------------------------------- #
   # Command line productivity, creativity and style.
-  console-tools "sharkdp/fd sharkdp/bat sharkdp/hexyl sharkdp/hyperfine ogham/exa BurntSushi/ripgrep"
-  console-style "dircolors-material sharkdp/vivid"
+  console-tools "sharkdp/fd sharkdp/bat eza-community/eza BurntSushi/ripgrep"
+  console-style "z-shell/zsh-eza"
 
   # Zsh toolchain for creators and tinkers.
-  zsh-tools "z-shell/zui zsh-cmd-architect zsh-editing-workbench z-shell/zbrowse" 
+  zsh-tools "z-shell/zui z-shell/zsh-cmd-architect z-shell/zsh-editing-workbench z-shell/zbrowse"
 
-  # Fuzzy searchers (4 of them).
-  fuzzy       "fzf fzy lotabout/skim peco/peco"
-  fuzzy-src   "fzf-go fzy skim-cargo peco-go"
+  # Fuzzy finder, choose a release or explicit source build.
+  fuzzy       "fzf"
+  fuzzy-src   "fzf-go"
 
   # Git extensions.
-  ext-git     "paulirish/git-open paulirish/git-recent davidosomething/git-my arzzen/git-quick-stats iwata/git-now tj/git-extras wfxr/forgit voronkovich/gitignore.plugin.zsh jonas/tig"
+  ext-git     "fuzzy wfxr/forgit paulirish/git-open"
 
   # Node Managment
   node-utils  "tj/n"
 
-  # Rust toolchain + cargo extensions.
-  rust-utils  "rust-toolchain cargo-extensions"
+  # Optional extensions for an existing Rust toolchain.
+  rust-utils  "cargo-extensions"
 
   # Python utilities.
   py-utils    "pyenv"
@@ -102,13 +102,20 @@ _z_a_meta_plugins_map=(
   # A few Prezto modules. The archive module uses Zi's Git sparse directory backend.
   prezto      "PZTM::archive PZTM::directory PZTM::utility"
 
-  # Oh-My-Zsh library with positive or commonly required effects.
-  ohmyzsh-lib "OMZL::git OMZL::history OMZL::vcs_info OMZL::clipboard OMZL::completion OMZL::theme-and-appearance OMZL::prompt_info_functions OMZL::termsupport OMZL::key-bindings OMZL::compfix OMZL::directories OMZL::functions"
+  # Explicit Oh My Zsh compatibility libraries and their prerequisites.
+  ohmyzsh-lib "OMZL::async_prompt.zsh OMZL::git.zsh OMZL::history.zsh OMZL::vcs_info.zsh OMZL::clipboard.zsh OMZL::completion.zsh OMZL::theme-and-appearance.zsh OMZL::prompt_info_functions.zsh OMZL::functions.zsh OMZL::termsupport.zsh OMZL::key-bindings.zsh OMZL::compfix.zsh OMZL::directories.zsh"
 )
 
 # The map in which the default sets of ices for the real plugins are being stored.
 typeset -gA _z_a_meta_plugins_config_map
 local _std="lucid"
+local _target=unsupported-platform
+case $OSTYPE/$CPUTYPE in
+  linux*/x86_64) _target=x86_64-unknown-linux-musl ;;
+  linux*/aarch64|linux*/arm64) _target=aarch64-unknown-linux-musl ;;
+  darwin*/x86_64) _target=x86_64-apple-darwin ;;
+  darwin*/aarch64|darwin*/arm64) _target=aarch64-apple-darwin ;;
+esac
 
 _z_a_meta_plugins_config_map=(
   # @z-shell (all annexes + extensions, without Meta-Plugins, obviously)
@@ -126,19 +133,20 @@ _z_a_meta_plugins_config_map=(
   z-shell/z-a-man           "$_std compile'*handler'"
 
   # @zsh-users
-  zsh-users/zsh-syntax-highlighting   "$_std atinit'ZI[COMPINIT_OPTS]=-C; zicompinit; zicdreplay;'"
-  zsh-users/zsh-autosuggestions       "$_std compile'{src/*.zsh*~*.zwc,src/strategies/*~*.zwc}' atload'!_zsh_autosuggest_start;'"
-  zsh-users/zsh-completions           "$_std atpull'zi creinstall \$PWD' pick'/dev/null'"
+  zsh-users/zsh-syntax-highlighting   "$_std"
+  zsh-users/zsh-autosuggestions       "$_std"
+  zsh-users/zsh-completions           "$_std atpull'zi creinstall \$PWD' pick'/dev/null' atload'zicompinit; zicdreplay'"
 
   # @z-shell
-  z-shell/F-Sy-H                      "$_std atinit'ZI[COMPINIT_OPTS]=-C; zicompinit; zicdreplay;' atload'fast-theme z-shell &>/dev/null;' compile'{functions/{.fast,fast}-*~*.zwc,chroma/*~*.zwc}'"
-  z-shell/H-S-MW                      "$_std atinit'zstyle :history-search-multi-word page-size 7;' compile'functions/h*~*.zwc'"
-  z-shell/zsh-diff-so-fancy           "$_std null sbin'bin/git-dsf;bin/diff-so-fancy;bin/fancy-diff;'"
+  z-shell/F-Sy-H                      "$_std"
+  z-shell/H-S-MW                      "$_std compile'functions/h*~*.zwc'"
+  z-shell/zsh-diff-so-fancy           "$_std as'program' pick'bin/diff-so-fancy' atpull'git submodule update --init --recursive'"
   z-shell/zsh-fancy-completions       "$_std compile'{lib/*.zsh*~*.zwc,functions/{.*,*}*~*.zwc}'"
+  z-shell/zsh-eza                     "$_std"
 
   # @z-shell, less popular
   z-shell/zui                   "$_std blockf"
-  z-shell/zbrowse               "$_std compile'functions/zbr*~*.zwc}'"
+  z-shell/zbrowse               "$_std compile'functions/zbr*~*.zwc'"
   z-shell/zconvey               "$_std sbin'cmds/zc-bg-notify;cmds/plg-zsh-notify'"
   z-shell/zsh-select            "$_std"
   z-shell/zsh-unique-id         "$_std"
@@ -146,84 +154,62 @@ _z_a_meta_plugins_config_map=(
   z-shell/zflai                 "$_std"
   z-shell/zsh-navigation-tools  "$_std"
   z-shell/zsh-cmd-architect     "$_std compile'functions/{h-*,zca*}*~*.zwc'"
-  z-shell/zsh-editing-workbench "$_std atinit'local zew_word_style=whitespace;' compile'functions/zew*~*.zwc'"
+  z-shell/zsh-editing-workbench "$_std compile'functions/zew*~*.zwc'"
   github-issues                 "$_std pack"
   github-issues-srv             "$_std pack atinit'GIT_PROJECTS=z-shell/zi GIT_SLEEP_TIME=700;'"
 
-  # @zdharma
-  zdharma/zunit            "$_std binary sbin atclone'./build.zsh;' atpull'%atclone'"
-  zdharma/color            "$_std binary sbin'color.zsh -> color'"
-  zdharma/revolver         "$_std as'program' pick'revolver'"
+  # First-party test framework, including its bundled helper libraries.
+  z-shell/zunit           "$_std as'program' pick'zunit' atclone'zsh -f ./build.zsh && cp zunit.zsh-completion _zunit' atpull'%atclone'"
 
   # @zpm-zsh
   dircolors-material      "$_std pack"
 
   # @pyenv
-  pyenv                   "$_std pack'bgn'"
+  pyenv                   "$_std pack'default'"
 
   # @sharkdp
-  sharkdp/fd              "$_std binary lucid from'gh-r' mv'fd* fd' sbin'**/fd(.exe|) -> fd'"
-  sharkdp/bat             "$_std binary lucid from'gh-r' mv'bat* bat' sbin'**/bat(.exe|) -> bat'"
-  sharkdp/hexyl           "$_std binary lucid from'gh-r' mv'hexyl* hexyl' sbin'**/hexyl(.exe|) -> hexyl'"
-  sharkdp/hyperfine       "$_std binary lucid from'gh-r' mv'hyperfine* hyperfine' sbin'**/hyperfine(.exe|) -> hyperfine'"
-  sharkdp/vivid           "$_std binary lucid from'gh-r' mv'vivid* vivid' sbin'**/vivid(.exe|) -> vivid'"
+  sharkdp/fd              "$_std as'program' from'gh-r' bpick'*$_target.tar.gz' pick'fd-*/fd' if'(( ! \$+commands[fd] ))'"
+  sharkdp/bat             "$_std as'program' from'gh-r' bpick'*$_target.tar.gz' pick'bat-*/bat' atclone'cp bat-*/autocomplete/bat.zsh _bat' atpull'%atclone' run-atpull if'(( ! \$+commands[bat] ))'"
+  sharkdp/hexyl           "$_std as'program' from'gh-r' bpick'*$_target.tar.gz' pick'hexyl-*/hexyl' if'(( ! \$+commands[hexyl] ))'"
+  sharkdp/hyperfine       "$_std as'program' from'gh-r' bpick'*$_target.tar.gz' pick'hyperfine-*/hyperfine' if'(( ! \$+commands[hyperfine] ))'"
+  sharkdp/vivid           "$_std as'program' from'gh-r' bpick'*$_target.tar.gz' pick'vivid-*/vivid' if'(( ! \$+commands[vivid] ))'"
 
-  # @ogham
-  ogham/exa               "$_std binary from'gh-r' sbin'**/exa -> exa' atclone'cp -vf completions/exa.zsh _exa' atpull'%atclone'"
-  exa-cargo               "$_std binary cargo='!exa' teleid'z-shell/0'"
+  # Eza binary and completions come from the same GitHub release.
+  eza-community/eza       "$_std as'program' from'gh-r' bpick'eza_x86_64-unknown-linux-musl.tar.gz;completions-*.tar.gz' pick'eza' if'(( ! \$+commands[eza] ))'"
 
   # @BurntSushi
-  BurntSushi/ripgrep      "$_std binary from'gh-r' mv'rip* ripgrep' sbin'**/rg(.exe|) -> rg'"
+  BurntSushi/ripgrep      "$_std as'program' from'gh-r' bpick'*$_target.tar.gz' pick'ripgrep-*/rg' if'(( ! \$+commands[rg] ))'"
 
   # @jonas
   jonas/tig               "$_std binary as'program' atclone'make configure; ./configure' atpull'%atclone' make'prefix=$ZPFX install'"
 
   # Fuzzy searchers
-  fzf                     "$_std pack'bgn-binary'"
-  fzy                     "$_std pack'bgn' git"
-  lotabout/skim           "$_std binary lucid sbin'*/sk' atclone'ln -s shell/completion.zsh _sk; cp -f man/man1/sk.1 $ZI[MAN_DIR]/man1; ./install >/dev/null;' atpull'%atclone'"
-  peco/peco               "$_std binary from'gh-r' mv'peco* peco' sbin'**/peco(.exe|) -> peco'"
+  fzf                     "lucid pack'native+keys'"
 
   # Fuzzy searchers – from sources
-  fzf-go                  "$_std pack'bgn' teleid'fzf' git"
-  skim-cargo              "$_std binary cargo='!skim -> sk' teleid'z-shell/0'"
-  peco-go                 "$_std binary make'build' sbin'**/peco(.exe|) -> peco' teleid'peco/peco'"
+  fzf-go                  "lucid pack'default+keys' id-as'fzf-go' teleid'fzf' git"
 
-  # no username → a rust-annex usage to install Rust toolchain
-  rust-toolchain          "$_std binary sbin='bin/*' rustup teleid'z-shell/0' atload='[[ ! -f \${ZI[COMPLETIONS_DIR]}/_cargo ]] && zi creinstall rust; export CARGO_HOME=\$PWD RUSTUP_HOME=\$PWD/rustup'"
-
-  # see: https://dev.to/cad97/rust-must-know-crates-5ad8
-  cargo-extensions        "$_std binary cargo'cargo-edit;cargo-outdated;cargo-tree; cargo-update; cargo-expand;cargo-modules;cargo-audit;cargo-clone' sbin'bin/*' teleid'z-shell/0'"
+  # Rust extensions use the existing toolchain and preserve its configured roots.
+  cargo-extensions        "$_std as'program' cargo'cargo-expand;cargo-audit' pick'bin/cargo-expand' teleid'z-shell/0'"
 
   # A few utility plugins
   hlissner/zsh-autopair         "$_std"
   urbainvaes/fzf-marks          "$_std"
 
-  # @marzocchi, a notifier, configured to use zconvey
-  marzocchi/zsh-notify      "$_std atinit'zstyle \":notify:*\" command-complete-timeout 3; zstyle \":notify:*\" notifier plg-zsh-notify"
-
   # Git extensions
   Fakerr/git-recall         "$_std null sbin"
-  paulirish/git-open        "$_std null sbin"
+  paulirish/git-open        "$_std as'program' pick'git-open'"
   paulirish/git-recent      "$_std null sbin"
   davidosomething/git-my    "$_std null sbin"
-  arzzen/git-quick-stats    "$_std null sbin atload'export _MENU_THEME=legacy;'"
+  git-quick-stats/git-quick-stats "$_std null sbin atload'export _MENU_THEME=legacy;'"
   iwata/git-now             "$_std null sbin"
-  wfxr/forgit               "$_std atinit'forgit_ignore=fgi'"
+  wfxr/forgit               "$_std as'program' pick'bin/git-forgit' src'forgit.plugin.zsh' atinit'export FORGIT_NO_ALIASES=\${FORGIT_NO_ALIASES-1}'"
   tj/git-extras             "$_std as'completion' blockf atclone'cp -vf etc/git-extras-completion.zsh _git-extras-completion' atpull'%atclone' make'PREFIX=$ZPFX MANPREFIX=${ZI[MAN_DIR]}/man1' nocompile"
-  tj/n                      "$_std as'program' atinit'export N_PREFIX=\$PWD; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"' pick'bin/n'"
-
-  # @sindresorhus
-  sindresorhus/pure           "$_std pick'async.zsh' src'pure.zsh' atload'prompt_pure_precmd' nocd"
-
-  # @agkozak
-  agkozak/agkozak-zsh-prompt  "$_std atload'_agkozak_precmd' atinit'AGKOZAK_FORCE_ASYNC_METHOD=subst-async' nocd"
+  tj/n                      "$_std as'program' atinit'export N_PREFIX=\${N_PREFIX:-\${XDG_DATA_HOME:-\$HOME/.local/share}/n}; (( \${path[(Ie)\$N_PREFIX/bin]} )) || path+=( \"\$N_PREFIX/bin\" )' pick'bin/n'"
 
   # @romkatv
-  romkatv/powerlevel10k       "$_std depth=1 atinit'POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true' atload'[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh' nocd"
+  romkatv/powerlevel10k       "$_std depth=1 atload'[[ ! -f \"\${ZDOTDIR:-\$HOME}/.p10k.zsh\" ]] || source \"\${ZDOTDIR:-\$HOME}/.p10k.zsh\"' nocd"
 
-  # @woefe
-  woefe/git-prompt.zsh        "$_std atload'_zsh_git_prompt_precmd_hook' nocd"
 )
 
 # Snippets
@@ -231,23 +217,24 @@ _std+=" is-snippet"
 
 _z_a_meta_plugins_config_map+=(
   # Prezto
-  PZTM::archive       "$_std svn silent nocompile"
+  PZTM::archive       "$_std svn pick''"
   PZTM::directory     "$_std"
-  PZTM::utility       "$_std"
+  PZTM::utility       "$_std svn pick'init.zsh'"
 
   # Oh-My-Zsh Library
-  OMZL::git                   "$_std"
-  OMZL::history               "$_std"
-  OMZL::vcs_info              "$_std"
-  OMZL::clipboard             "$_std"
-  OMZL::completion            "$_std"
-  OMZL::theme-and-appearance  "$_std"
-  OMZL::prompt_info_functions "$_std"
-  OMZL::termsupport           "$_std"
-  OMZL::key-bindings          "$_std"
-  OMZL::compfix               "$_std"
-  OMZL::directories           "$_std"
-  OMZL::functions             "$_std"
+  OMZL::async_prompt.zsh          "$_std"
+  OMZL::git.zsh                   "$_std"
+  OMZL::history.zsh               "$_std"
+  OMZL::vcs_info.zsh              "$_std"
+  OMZL::clipboard.zsh             "$_std"
+  OMZL::completion.zsh            "$_std atinit'typeset -g ZSH_CACHE_DIR=\${ZSH_CACHE_DIR:-\${ZI[CACHE_DIR]}/omz}; mkdir -p \"\$ZSH_CACHE_DIR\"; zicompinit; zicdreplay'"
+  OMZL::theme-and-appearance.zsh  "$_std"
+  OMZL::prompt_info_functions.zsh "$_std"
+  OMZL::termsupport.zsh           "$_std"
+  OMZL::key-bindings.zsh          "$_std"
+  OMZL::compfix.zsh               "$_std"
+  OMZL::directories.zsh           "$_std"
+  OMZL::functions.zsh             "$_std"
 )
 
 # https://wiki.zshell.dev/community/zsh_plugin_standard#unload-function
