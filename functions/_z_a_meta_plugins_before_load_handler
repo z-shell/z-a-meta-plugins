@@ -131,10 +131,12 @@ if [[ -n $meta_plugin_data || $id == (z-shell+|sharkdp) ]] {
       ZI[annex-before-load:new-@]=$args
       return 3
     fi
-    if [[ $p == sharkdp/(hexyl|hyperfine|vivid) &&
-          $OSTYPE/$CPUTYPE != (linux*/x86_64|darwin*/x86_64|darwin*/aarch64|darwin*/arm64) ]] &&
-      (( ! $+commands[${p:t}] )); then
-      builtin print -u2 -r -- "meta-plugins: install ${p:t} with your platform package manager before loading @$id on this platform."
+    # Release recipes carry the resolved target triple; hexyl, hyperfine and
+    # vivid additionally lack Linux ARM64 assets.
+    if [[ ${_z_a_meta_plugins_config_map[$p]} == *unsupported-platform.tar.gz* ||
+          $p == sharkdp/(hexyl|hyperfine|vivid) && $OSTYPE/$CPUTYPE == linux*/(aarch64|arm64) ]] &&
+      (( ! $+commands[${${p:t}/ripgrep/rg}] )); then
+      builtin print -u2 -r -- "meta-plugins: install ${${p:t}/ripgrep/rg} with your platform package manager before loading @$id on this platform."
       ZI[annex-before-load:new-@]=$args
       return 3
     fi

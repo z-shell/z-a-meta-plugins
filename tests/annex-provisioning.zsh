@@ -121,6 +121,21 @@ expand zsh-users+fast
   [[ ${ZI[annex-before-load:new-@]} == *'@z-shell/zsh-eza'* ]] || fail 'load maintained shell integration'
 }
 
+() {
+  local OSTYPE=freebsd14.0 CPUTYPE=amd64
+  local -hA commands=()
+  ICE=()
+  source "$repo_dir/z-a-meta-plugins.plugin.zsh" || fail 'source unsupported profile'
+  [[ ${_z_a_meta_plugins_config_map[sharkdp/fd]} == *unsupported-platform.tar.gz* ]] || fail 'mark unsupported release target'
+  expand console-tools '@following' 2>/dev/null
+  (( $? == 3 )) || fail 'require system tools on an unsupported release target'
+  [[ ${ZI[annex-before-load:new-@]} == '@following' ]] || fail 'preserve requests after unsupported release target'
+  commands=( fd /fixture/fd bat /fixture/bat eza /fixture/eza rg /fixture/rg )
+  expand console-tools
+  (( $? == 2 )) || fail 'accept existing system tools on an unsupported release target'
+}
+source "$repo_dir/z-a-meta-plugins.plugin.zsh" || fail 'restore host profile'
+
 print -r -- 'ok - provisioning capabilities, retries, skips and dependency failures'
 
 # Native fzf packages must not accidentally retain provisioning requirements.
