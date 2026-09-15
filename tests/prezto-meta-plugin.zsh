@@ -22,12 +22,12 @@ builtin source "$repo_dir/z-a-meta-plugins.plugin.zsh" >/dev/null || fail "sourc
 
 [[ ${_z_a_meta_plugins_map[prezto]} = "PZTM::archive PZTM::directory PZTM::utility" ]] || \
   fail "register @prezto members"
-[[ ${_z_a_meta_plugins_config_map[PZTM::archive]} = "lucid is-snippet svn silent nocompile" ]] || \
+[[ ${_z_a_meta_plugins_config_map[PZTM::archive]} = "lucid is-snippet svn pick''" ]] || \
   fail "configure archive as a directory snippet"
 [[ ${_z_a_meta_plugins_config_map[PZTM::directory]} = "lucid is-snippet" ]] || \
   fail "configure directory as a file snippet"
-[[ ${_z_a_meta_plugins_config_map[PZTM::utility]} = "lucid is-snippet" ]] || \
-  fail "configure utility as a file snippet"
+[[ ${_z_a_meta_plugins_config_map[PZTM::utility]} = "lucid is-snippet svn pick'init.zsh'" ]] || \
+  fail "configure utility as a directory snippet"
 (( !${+_z_a_meta_plugins_map[ohmyzsh-svn-lib]} )) || fail "leave @ohmyzsh-svn-lib unavailable"
 
 function .zi-get-object-path() { return 1; }
@@ -44,12 +44,19 @@ run_prezto_handler
 integer handler_rc=$?
 (( handler_rc == 2 )) || fail "expand @prezto through the before-load handler"
 typeset -a expected_parts=(
-  "lucid is-snippet svn silent nocompile @PZTM::archive"
+  "lucid is-snippet svn pick'' @PZTM::archive"
   "lucid is-snippet @PZTM::directory"
-  "lucid is-snippet @PZTM::utility"
+  "lucid is-snippet svn pick'init.zsh' @PZTM::utility"
 )
 typeset expected_expansion=${(j: :)expected_parts}
 typeset actual_expansion=${ZI[annex-before-load:new-@]%%[[:space:]]#}
 [[ $actual_expansion = "$expected_expansion" ]] || fail "apply restored Prezto ice configuration"
 
 builtin print -r -- "ok - register only the restored Prezto meta-plugin"
+
+typeset -gA ZI_SNIPPETS=( PZTM::archive loaded PZTM::directory loaded PZTM::utility loaded )
+function .zi-get-object-path() { return 0; }
+run_prezto_handler
+(( $? == 2 )) || fail 'repeat snippet group succeeds'
+[[ -z ${ZI[annex-before-load:new-@]} ]] || fail 'loaded snippets are not queued again'
+print -r -- 'ok - repeat groups preserve loaded snippet state'
