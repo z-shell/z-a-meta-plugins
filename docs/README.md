@@ -341,3 +341,9 @@ woefe/git-prompt are also removed. They are not selected by any shipped group.
 Configurations that manually reused those private recipe entries must switch
 to the corresponding upstream installation instructions. This includes removal
 of the broken notifier quoting and obsolete private prompt-hook calls.
+
+## Regression measurements
+
+The [group benchmark guide](../benchmarks/README.md) covers reporting-only
+comparisons for shared loading, editor profiles, fzf and pyenv, including an
+optional pinned `z-shell/zd` runtime. Correctness failures invalidate timings.
