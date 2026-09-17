@@ -7,7 +7,7 @@
     "misc"
   ],
   "markdownlint.config": {
-    "extends": ".trunk/config/.markdownlint.yaml"
+    "extends": ".trunk/configs/.markdownlint.yaml"
   },
   "shellformat.useEditorConfig": true,
   "files.associations": {
