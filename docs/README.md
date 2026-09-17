@@ -273,6 +273,7 @@ The annex owns no `zstyle` context. It is configured per load through ices on th
 - Loading the annex appends its `functions/` directory to `fpath` when the manager does not handle that itself, defines the `_z_a_meta_plugins_*` state parameters, and registers the `before-load` hook with the `skip''` ice. Nothing is installed and no network activity happens until a label is loaded through Zi.
 - Loading a label rewrites Zi's queue with the group's members and their ice lists. Members already loaded, already queued, or present on `PATH` for release-binary recipes are left out. A missing installer annex, an unsupported release-binary platform without the tool on `PATH`, or a conflicting highlighter or fzf build refuses the whole group before any member is queued; build toolchains are not checked.
 - A deprecated or retired label prints its notice once per session, inside the numbered message cluster. An unmatched `skip''` token is reported on every load.
+- The `meta` subcommand handlers in `functions/` are unregistered stubs; `zi meta` is not a user command yet. Its design and first implementation are tracked in [issue 96](https://github.com/z-shell/z-a-meta-plugins/issues/96).
 - `z-a-meta-plugins_plugin_unload` removes the `fpath` entry, unregisters the hook when Zi provides `@zi-unregister-annex` and otherwise neutralizes the handler in place, unsets every state parameter, and removes itself. Plugins installed through labels stay installed.
 
 ## Portable shell contract
@@ -286,7 +287,7 @@ The annex owns no `zstyle` context. It is configured per load through ices on th
 | Public functions             | None; `_z_a_meta_plugins_before_load_handler` is the autoloaded Zi hook                                         |
 | State parameters             | `_z_a_meta_plugins_state`, `_z_a_meta_plugins_notices`, `_z_a_meta_plugins_map`, `_z_a_meta_plugins_config_map` |
 | Unload function              | `z-a-meta-plugins_plugin_unload`                                                                                |
-| Optional directories         | `functions/` for the autoloaded handler                                                                         |
+| Optional directories         | `functions/` for the autoloaded handler and the `meta` subcommand stubs                                         |
 
 ## Verification
 

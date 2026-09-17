@@ -30,6 +30,7 @@ _z_a_meta_plugins_state[migration-section]="migration-from-earlier-catalogs"
 _z_a_meta_plugins_state[migration-anchored]="annexes+ z-shell z-shell+ sharkdp console-tools console-style zsh-users+fast fuzzy fuzzy-src ext-git rust-utils zunit ohmyzsh-lib"
 
 # Autoload functions
+# TODO: meta-cmd  meta-cmd-help-handler
 # `autoload` does not replace an already-defined function, and unload leaves an
 # inert stub behind when Zi has no unregister API, so clear it first to keep a
 # reload after an unload idempotent.
@@ -47,6 +48,11 @@ if (( ${+functions[$register_annex]} )); then
     _z_a_meta_plugins_before_load_handler \
     _z_a_meta_plugins_null_handler "skip''" # Add new ice
 fi
+
+# The subcommand `meta'.
+#@zi-register-annex "z-a-meta-plugins" subcommand:meta \
+#  _z_a_meta_plugins_meta_cmd \
+#  _z_a_meta_plugins_meta_cmd_help_handler # Add subcommand
 
 # Labels that changed meaning. A label listed here without a group below is
 # retired: the handler recognises it, queues nothing and prints the notice. A
