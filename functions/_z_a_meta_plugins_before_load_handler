@@ -22,7 +22,7 @@ if (( $+ICE[debug] )) {
 # Apply the default ices first.
 local -a ices
 ices=( "${(@Q)${(@z)_z_a_meta_plugins_state[default-ices]}}" )
-(( ${#ices} > 0 && ${#ices} % 2 == 0 )) && ICE=( "${(@kv)ICE}" "${ices[@]}" )
+(( ${#ices} > 0 && ${#ices} % 2 == 0 )) && ICE=( "${ices[@]}" "${(@kv)ICE}" )
 # Exclude IDs with slashes and also packages
 [[ $id == */* ]] && local bad_id=1
 [[ $id == *:* ]] && local bad_id2=1
