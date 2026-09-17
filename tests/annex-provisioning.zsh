@@ -79,10 +79,12 @@ ZI_RUN=()
 expand fixture
 [[ ${ZI[annex-before-load:new-@]} == *'@example/tool'* ]] || fail 'retry after the failed task leaves the scheduler'
 
+expand annexes
+typeset provisioning=${ZI[annex-before-load:new-@]}
 expand annexes+ 2>/dev/null
 (( $? == 2 )) || fail 'consume deprecated annex bundle'
-[[ ${ZI[annex-before-load:new-@]} == '@annexes '* ]] || fail 'retain provisioning migration target'
-[[ ${ZI[annex-before-load:new-@]} != *z-a-* ]] || fail 'do not bulk-load optional extensions'
+[[ ${ZI[annex-before-load:new-@]} == "$provisioning" ]] || fail 'retain the provisioning installers'
+[[ $provisioning == *z-a-readurl* && $provisioning != *z-a-submods* && $provisioning != *z-a-eval* ]] || fail 'do not bulk-load optional extensions'
 
 zsh_loaded_plugins=( z-shell/F-Sy-H )
 expand zsh-users '@following' 2>/dev/null
@@ -182,7 +184,6 @@ expand ext-git
 (( $? == 2 )) || fail 'interactive Git group needs no installer annex'
 [[ ${_z_a_meta_plugins_map[ext-git]} == 'fuzzy wfxr/forgit paulirish/git-open' ]] || fail 'supply finder before Git tools'
 [[ ${ZI[annex-before-load:new-@]} == *"pick'bin/git-forgit' src'forgit.plugin.zsh'"* ]] || fail 'expose native forgit command and shell integration'
-[[ ${_z_a_meta_plugins_config_map[git-quick-stats/git-quick-stats]} != '' ]] || fail 'use canonical quick-stats owner'
 print -r -- 'ok - interactive Git group supplies one finder and native commands'
 
 expand zsh-tools
@@ -217,27 +218,4 @@ expand ohmyzsh-lib
 [[ ${ZI[annex-before-load:new-@]} != *'@OMZL::git '* ]] || fail 'use actual OMZ filenames'
 print -r -- 'ok - OMZ compatibility uses complete filenames and ordered prerequisites'
 
-expand z-shell 2>/dev/null
-(( $? == 2 )) || fail 'consume legacy editor label'
-[[ ${ZI[annex-before-load:new-@]} == '@zsh-users+fast '* ]] || fail 'delegate to one editor profile'
-[[ ${_z_a_meta_plugins_config_map[z-shell/H-S-MW]} != *page-size* ]] || fail 'preserve history-search preferences'
-[[ ${_z_a_meta_plugins_config_map[z-shell/zsh-diff-so-fancy]} == *"as'program'"* ]] || fail 'use native optional Git formatter'
-print -r -- 'ok - legacy editor bundle delegates without history or pager side effects'
-
-expand z-shell+ '@following' 2>/dev/null
-(( $? == 2 )) || fail 'consume retired session bundle successfully'
-[[ ${ZI[annex-before-load:new-@]} == '@following' ]] || fail 'retired bundle preserves subsequent requests'
-expand z-shell+ 2>/dev/null
-(( $? == 2 )) || fail 'repeat retired session bundle successfully'
-[[ -z ${ZI[annex-before-load:new-@]} ]] || fail 'retired session bundle installs nothing'
-print -r -- 'ok - retired session bundle is an idempotent no-op'
-
-expand sharkdp '@following' 2>/dev/null
-(( $? == 2 )) || fail 'consume retired author bundle'
-[[ ${ZI[annex-before-load:new-@]} == '@following' ]] || fail 'retired author bundle installs nothing'
-_z_a_meta_plugins_map[diagnostics]='sharkdp/hexyl sharkdp/hyperfine sharkdp/vivid'
-ZI_EXTS=()
-expand diagnostics
-(( $? == 2 )) || fail 'optional diagnostics require no installer annex'
-[[ ${ZI[annex-before-load:new-@]} != *sbin* ]] || fail 'avoid binary wrapper dependency'
-print -r -- 'ok - author bundle retires while explicitly selected diagnostics use native executables'
+# Retired labels (@z-shell, @z-shell+, @sharkdp) are covered by tests/retired-labels.zsh.

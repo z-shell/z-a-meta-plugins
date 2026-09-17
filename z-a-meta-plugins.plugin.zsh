@@ -22,6 +22,9 @@ fi
 typeset -gA _z_a_meta_plugins_state
 _z_a_meta_plugins_state[0]="$source_path"
 _z_a_meta_plugins_state[repo-dir]="$annex_dir"
+# Every deprecation and retirement notice links this page. Replace it with the
+# per-label anchor once the wiki migration section carries one.
+_z_a_meta_plugins_state[migration-guide]="https://wiki.zshell.dev/ecosystem/annexes/meta-plugins"
 
 # Autoload functions
 # TODO: meta-cmd  meta-cmd-help-handler
@@ -48,19 +51,28 @@ fi
 #  _z_a_meta_plugins_meta_cmd \
 #  _z_a_meta_plugins_meta_cmd_help_handler # Add subcommand
 
+# Labels that changed meaning. A label listed here without a group below is
+# retired: the handler recognises it, queues nothing and prints the notice. A
+# label with a group is deprecated: it still expands, with the notice. Each
+# notice is printed once per session and links the migration guide, which
+# carries the exact commands for what the label used to install.
+typeset -gA _z_a_meta_plugins_notices
+_z_a_meta_plugins_notices=(
+  annexes+ "is deprecated and loads only @annexes; load optional annexes explicitly"
+  z-shell  "is retired and installs nothing; use @zsh-users+fast or z-shell/F-Sy-H, and load z-shell/H-S-MW and z-shell/zsh-diff-so-fancy explicitly"
+  z-shell+ "is retired and installs nothing; load z-shell/zui, z-shell/zsh-select, z-shell/zconvey and z-shell/zflai explicitly"
+  sharkdp  "is retired and installs nothing; use @console-tools for fd and bat, and load sharkdp/hexyl, sharkdp/hyperfine and sharkdp/vivid explicitly"
+)
+
 # The map in which the definitions of the meta-plugins are being stored.
 typeset -gA _z_a_meta_plugins_map
+local _annexes="z-shell/z-a-bin-gem-node z-shell/z-a-readurl z-shell/z-a-patch-dl z-shell/z-a-rust"
 _z_a_meta_plugins_map=(
   # ---------------------------------------------------------------------- #
   # Explicit provisioning bundle; individual groups need only their installers.
-  annexes "z-shell/z-a-bin-gem-node z-shell/z-a-readurl z-shell/z-a-patch-dl z-shell/z-a-rust"
-
-  # Deprecated label; optional annexes are selected individually.
-  annexes+ "annexes"
-
-  # @z-shell
-  z-shell     "zsh-users+fast"
-  z-shell+    ""
+  annexes  "$_annexes"
+  # Deprecated spelling of the same bundle; optional annexes are selected individually.
+  annexes+ "$_annexes"
 
   # @zsh-users
   zsh-users       "zsh-users/zsh-completions zsh-users/zsh-autosuggestions zsh-users/zsh-syntax-highlighting"
@@ -71,9 +83,6 @@ _z_a_meta_plugins_map=(
 
   # @zunit
   zunit      "z-shell/zunit"
-
-  # @sharkdp
-  sharkdp    ""
 
   # ---------------------------------------------------------------------- #
   # Command line productivity, creativity and style.
@@ -118,98 +127,64 @@ case $OSTYPE/$CPUTYPE in
 esac
 
 _z_a_meta_plugins_config_map=(
-  # @z-shell (all annexes + extensions, without Meta-Plugins, obviously)
+  # Every recipe below is selected by a label above; tests/catalog-consistency.zsh
+  # enforces that. Recipes for tools no label selects live in the migration
+  # guide as plain `zi ... for` commands instead.
+
+  # @annexes
   z-shell/z-a-bin-gem-node  "$_std compile'functions/.*bgn*~*.zwc'"
-  z-shell/z-a-default-ice   "$_std"
   z-shell/z-a-readurl       "$_std compile'functions/.*readurl*~*.zwc'"
   z-shell/z-a-patch-dl      "$_std compile'functions/.*patch-dl*~*.zwc'"
-  z-shell/z-a-unscope       "$_std"
-  z-shell/z-a-submods       "$_std compile'functions/.*submods*~*.zwc'"
-  z-shell/z-a-linkbin       "$_std"
-  z-shell/z-a-linkman       "$_std compile'functions/.*lman*~*.zwc'"
   z-shell/z-a-rust          "$_std compile'functions/.*rust*~*.zwc'"
-  z-shell/z-a-eval          "$_std compile'functions/.*ev*~*.zwc'"
-  z-shell/z-a-test          "$_std compile'*handler'"
-  z-shell/z-a-man           "$_std compile'*handler'"
 
   # @zsh-users
   zsh-users/zsh-syntax-highlighting   "$_std"
   zsh-users/zsh-autosuggestions       "$_std"
   zsh-users/zsh-completions           "$_std atpull'zi creinstall \$PWD' pick'/dev/null' atload'zicompinit; zicdreplay'"
 
-  # @z-shell
+  # @zsh-users+fast
   z-shell/F-Sy-H                      "$_std"
-  z-shell/H-S-MW                      "$_std compile'functions/h*~*.zwc'"
-  z-shell/zsh-diff-so-fancy           "$_std as'program' pick'bin/diff-so-fancy' atpull'git submodule update --init --recursive'"
-  z-shell/zsh-fancy-completions       "$_std compile'{lib/*.zsh*~*.zwc,functions/{.*,*}*~*.zwc}'"
+
+  # @console-style
   z-shell/zsh-eza                     "$_std"
 
-  # @z-shell, less popular
+  # @zsh-tools
   z-shell/zui                   "$_std blockf"
   z-shell/zbrowse               "$_std compile'functions/zbr*~*.zwc'"
-  z-shell/zconvey               "$_std sbin'cmds/zc-bg-notify;cmds/plg-zsh-notify'"
-  z-shell/zsh-select            "$_std"
-  z-shell/zsh-unique-id         "$_std"
-  z-shell/zi-console            "$_std"
-  z-shell/zflai                 "$_std"
-  z-shell/zsh-navigation-tools  "$_std"
   z-shell/zsh-cmd-architect     "$_std compile'functions/{h-*,zca*}*~*.zwc'"
   z-shell/zsh-editing-workbench "$_std compile'functions/zew*~*.zwc'"
-  github-issues                 "$_std pack"
-  github-issues-srv             "$_std pack atinit'GIT_PROJECTS=z-shell/zi GIT_SLEEP_TIME=700;'"
 
-  # First-party test framework, including its bundled helper libraries.
+  # @zunit: first-party test framework, including its bundled helper libraries.
   z-shell/zunit           "$_std as'program' pick'zunit' atclone'zsh -f ./build.zsh && cp zunit.zsh-completion _zunit' atpull'%atclone'"
 
-  # @zpm-zsh
-  dircolors-material      "$_std pack"
-
-  # @pyenv
+  # @py-utils
   pyenv                   "$_std pack'default'"
 
-  # @sharkdp
+  # @console-tools
   sharkdp/fd              "$_std as'program' from'gh-r' bpick'*$_target.tar.gz' pick'fd-*/fd' if'(( ! \$+commands[fd] ))'"
   sharkdp/bat             "$_std as'program' from'gh-r' bpick'*$_target.tar.gz' pick'bat-*/bat' atclone'cp bat-*/autocomplete/bat.zsh _bat' atpull'%atclone' run-atpull if'(( ! \$+commands[bat] ))'"
-  sharkdp/hexyl           "$_std as'program' from'gh-r' bpick'*$_target.tar.gz' pick'hexyl-*/hexyl' if'(( ! \$+commands[hexyl] ))'"
-  sharkdp/hyperfine       "$_std as'program' from'gh-r' bpick'*$_target.tar.gz' pick'hyperfine-*/hyperfine' if'(( ! \$+commands[hyperfine] ))'"
-  sharkdp/vivid           "$_std as'program' from'gh-r' bpick'*$_target.tar.gz' pick'vivid-*/vivid' if'(( ! \$+commands[vivid] ))'"
-
   # Eza binary and completions come from the same GitHub release.
   eza-community/eza       "$_std as'program' from'gh-r' bpick'eza_x86_64-unknown-linux-musl.tar.gz;completions-*.tar.gz' pick'eza' if'(( ! \$+commands[eza] ))'"
-
-  # @BurntSushi
   BurntSushi/ripgrep      "$_std as'program' from'gh-r' bpick'*$_target.tar.gz' pick'ripgrep-*/rg' if'(( ! \$+commands[rg] ))'"
 
-  # @jonas
-  jonas/tig               "$_std binary as'program' atclone'make configure; ./configure' atpull'%atclone' make'prefix=$ZPFX install'"
-
-  # Fuzzy searchers
+  # @fuzzy
   fzf                     "lucid pack'native+keys'"
 
-  # Fuzzy searchers – from sources
+  # @fuzzy-src: from sources
   fzf-go                  "lucid pack'default+keys' id-as'fzf-go' teleid'fzf' git"
 
-  # Rust extensions use the existing toolchain and preserve its configured roots.
+  # @rust-utils: extensions use the existing toolchain and preserve its configured roots.
   cargo-extensions        "$_std as'program' cargo'cargo-expand;cargo-audit' pick'bin/cargo-expand' teleid'z-shell/0'"
 
-  # A few utility plugins
-  hlissner/zsh-autopair         "$_std"
-  urbainvaes/fzf-marks          "$_std"
-
-  # Git extensions
-  Fakerr/git-recall         "$_std null sbin"
+  # @ext-git
   paulirish/git-open        "$_std as'program' pick'git-open'"
-  paulirish/git-recent      "$_std null sbin"
-  davidosomething/git-my    "$_std null sbin"
-  git-quick-stats/git-quick-stats "$_std null sbin atload'export _MENU_THEME=legacy;'"
-  iwata/git-now             "$_std null sbin"
   wfxr/forgit               "$_std as'program' pick'bin/git-forgit' src'forgit.plugin.zsh' atinit'export FORGIT_NO_ALIASES=\${FORGIT_NO_ALIASES-1}'"
-  tj/git-extras             "$_std as'completion' blockf atclone'cp -vf etc/git-extras-completion.zsh _git-extras-completion' atpull'%atclone' make'PREFIX=$ZPFX MANPREFIX=${ZI[MAN_DIR]}/man1' nocompile"
+
+  # @node-utils
   tj/n                      "$_std as'program' atinit'export N_PREFIX=\${N_PREFIX:-\${XDG_DATA_HOME:-\$HOME/.local/share}/n}; (( \${path[(Ie)\$N_PREFIX/bin]} )) || path+=( \"\$N_PREFIX/bin\" )' pick'bin/n'"
 
   # @romkatv
   romkatv/powerlevel10k       "$_std depth=1 atload'[[ ! -f \"\${ZDOTDIR:-\$HOME}/.p10k.zsh\" ]] || source \"\${ZDOTDIR:-\$HOME}/.p10k.zsh\"' nocd"
-
 )
 
 # Snippets
@@ -259,7 +234,7 @@ z-a-meta-plugins_plugin_unload() {
   fi
 
   # Unset state parameters
-  unset _z_a_meta_plugins_state _z_a_meta_plugins_map _z_a_meta_plugins_config_map
+  unset _z_a_meta_plugins_state _z_a_meta_plugins_notices _z_a_meta_plugins_map _z_a_meta_plugins_config_map
 
   # Self-destruct
   unfunction z-a-meta-plugins_plugin_unload

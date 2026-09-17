@@ -45,22 +45,10 @@ names the annex to load. Skipped recipes do not require their installers.
 Repeating `@annexes` retries providers whose capabilities were not registered,
 even if a previous failed attempt left their directories on disk.
 
-### Migrating from `@annexes+`
-
-`@annexes+` is deprecated and now expands only to `@annexes`, with a migration
-message. Replace it with `@annexes` or the specific installers you need.
-Load optional extensions explicitly when your configuration uses them:
-
-```zsh
-zi light z-shell/z-a-submods      # submodule recipes
-zi light z-shell/z-a-default-ice  # session defaults
-zi light z-shell/z-a-test         # plugin test hooks
-zi light z-shell/z-a-unscope      # unqualified plugin names
-zi light z-shell/z-a-eval         # cached command output
-```
-
-These are independent choices, not a recommended bundle. Existing explicitly
-loaded extensions remain supported by their own repositories.
+`@annexes+` is deprecated and expands to the same four installers, with a
+notice. Replace it with `@annexes` and load optional extensions explicitly. The
+[migration guide](https://wiki.zshell.dev/ecosystem/annexes/meta-plugins)
+lists them, with the retired labels `@z-shell`, `@z-shell+` and `@sharkdp`.
 
 ## Editor profile
 
@@ -160,10 +148,11 @@ and other functions. Export other `FORGIT_*` settings before loading.
 `git open --print` prints a repository URL without launching a browser.
 
 The group does not change global Git configuration or select a pager. Tig,
-git-extras, git-recent and git-quick-stats remain separate choices. The latter
-recipe uses `git-quick-stats/git-quick-stats`. Git-my, git-now and the separate
-gitignore plugin are no longer defaults because their roles overlap or are
-more specialized than this workflow.
+git-extras, git-recent and git-quick-stats remain separate choices; the
+[migration guide](https://wiki.zshell.dev/ecosystem/annexes/meta-plugins) gives
+their commands. Git-my, git-now and the separate gitignore plugin are no
+longer defaults because their roles overlap or are more specialized than this
+workflow.
 
 ## Zsh development tools
 
@@ -282,65 +271,15 @@ startup file, following upstream instructions. The annex does not rewrite it.
 [Pure](https://github.com/sindresorhus/pure#install) is a separate minimal prompt
 alternative; follow its normal setup instead of loading `@romkatv` too.
 
-### Migrating from `@z-shell`
+## Retired labels
 
-`@z-shell` is deprecated and now aliases `@zsh-users+fast`. This adds that
-profile's completions and autosuggestions to F-Sy-H; it no longer installs a
-history-search binding or Git formatter. Use the explicit editor label, or
-load F-Sy-H alone if you do not want the complete editor profile.
-
-For multiword history search, load `z-shell/H-S-MW` separately. It owns Ctrl-R,
-so choose it or fzf history search and configure your bindings explicitly.
-Set its zstyles before loading; the annex no longer forces a page size.
-
-For Git formatting, install `z-shell/zsh-diff-so-fancy` explicitly following
-[its instructions](https://github.com/z-shell/zsh-diff-so-fancy#readme).
-The retained recipe uses native program loading and updates its bundled
-submodule, without changing global Git pager settings. Its helper commands
-remain upstream behavior; configure a pager only when you choose to use it.
-
-### Migrating from `@z-shell+`
-
-This retired label emits a migration notice and installs nothing. Remove it
-from your startup file. Existing installations are not deleted.
-
-- For developing interactive interfaces, choose `z-shell/zsh-select` or
-  `z-shell/zui` explicitly. The broader `@zsh-tools` workbench remains opt-in.
-- For communication between sessions, configure `z-shell/zconvey` explicitly.
-- For application logging, configure `z-shell/zflai` explicitly.
-
-These tools solve separate development needs. Their individual setup remains
-owned by their upstream repositories; retirement does not certify their
-compatibility with every shell or logging configuration.
-
-### Migrating from `@sharkdp`
-
-This retired author label installs nothing and prints a migration notice.
-Use `@console-tools` for fd and bat, with eza and ripgrep; use `@console-style`
-for explicit eza aliases. No existing executable or configuration is deleted.
-
-Hexyl (hex viewing), hyperfine (command benchmarks) and vivid (LS_COLORS
-generation) remain optional recipes. None belongs in every interactive shell.
-To select an individual recipe, define your own group after loading this annex:
-
-```zsh
-_z_a_meta_plugins_map[hex-viewer]='sharkdp/hexyl'
-zi light-mode for @hex-viewer
-```
-
-Substitute `sharkdp/hyperfine` or `sharkdp/vivid` for those distinct workflows.
-These recipes use native release executables and preserve existing commands.
-They select x86-64 Linux musl or x86-64/ARM64 macOS archives. Other platforms
-require a system executable. Only Linux x86-64 was exercised here. Vivid is
-installed without generating or overwriting LS_COLORS; choose its theme and
-initialization explicitly. The obsolete exa Cargo and forced Pure precmd
-recipes are removed; use eza and Pure's documented initialization instead.
-
-Unused legacy recipes for fzy, Skim, peco, zsh-notify, agkozak and
-woefe/git-prompt are also removed. They are not selected by any shipped group.
-Configurations that manually reused those private recipe entries must switch
-to the corresponding upstream installation instructions. This includes removal
-of the broken notifier quoting and obsolete private prompt-hook calls.
+`@z-shell`, `@z-shell+` and `@sharkdp` install nothing. Each prints one notice
+per session that links the
+[migration guide](https://wiki.zshell.dev/ecosystem/annexes/meta-plugins),
+which gives the replacement commands for every former member and the reasons
+for the change. Remove the label from your startup file; existing
+installations are not deleted. A `skip''` token that names no current member of
+a group is reported with the same link on every load.
 
 ## Regression measurements
 
