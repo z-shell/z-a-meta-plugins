@@ -12,6 +12,7 @@ AI agent orientation for this repository. Organization policy lives in [z-shell/
 | :------------------------------------------------ | :---------------------------------------------------------------------------------- |
 | `z-a-meta-plugins.plugin.zsh`                     | Entry point: state parameters, the label catalog, member recipes, hook registration |
 | `functions/_z_a_meta_plugins_before_load_handler` | The Zi hook: expansion, `skip''`, provisioning checks, notices                      |
+| `functions/_z_a_meta_plugins_meta_cmd*`           | `zi meta` subcommand stubs, commented out and unregistered; see issue 96            |
 | `tests/*.zsh`                                     | Self-contained tests; each stubs the Zi API and runs with `zsh -f`                  |
 | `benchmarks/`                                     | Reporting-only loader timing guide and scripts                                      |
 | `docs/README.md`                                  | The user-facing README; there is no root `README.md`                                |
