@@ -19,10 +19,6 @@ if (( $+ICE[debug] )) {
   integer ibshow_messages=1 ibdebug=1
 }
 
-# Apply the default ices first.
-local -a ices
-ices=( "${(@Q)${(@z)_z_a_meta_plugins_state[default-ices]}}" )
-(( ${#ices} > 0 && ${#ices} % 2 == 0 )) && ICE=( "${(@kv)ICE}" "${ices[@]}" )
 # Exclude IDs with slashes and also packages
 [[ $id == */* ]] && local bad_id=1
 [[ $id == *:* ]] && local bad_id2=1
