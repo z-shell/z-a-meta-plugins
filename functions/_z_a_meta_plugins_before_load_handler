@@ -52,22 +52,31 @@ ZI[annex-before-load:new-global-ices]=""
 # Strip the ID from some possible accidental /-s.
 id=${${id#@}%%(///|//|/)}
 local meta_plugin_data=${(v)_z_a_meta_plugins_map[$id]}
+# A label with a notice and no group is retired: recognised, nothing to load.
+integer retired=$(( $+_z_a_meta_plugins_notices[$id] && ! $+_z_a_meta_plugins_map[$id] ))
+# The previous ID's kind decides whether a blank line separates the clusters.
+local previous_id=${ZI[annex-exposed-processed-IDs]##* }
+# zsh-lint v1.3.0, which CI pins, reads a colon inside a subscript as a ternary
+# (z-shell/zsh-lint#235), so the once-per-session key is named outside
+# arithmetic context.
+local notice_key=notified:$id
 
-if [[ -n $meta_plugin_data || $id == (z-shell+|sharkdp) ]] {
-  if [[ $id == z-shell+ && -z $meta_plugin_data ]]; then
-    builtin print -u2 -r -- 'meta-plugins: @z-shell+ is retired; load UI, session and logging tools explicitly. See the migration guide.'
-  fi
-  if [[ $id == annexes+ ]]; then
-    builtin print -u2 -r -- 'meta-plugins: @annexes+ is deprecated and now loads only @annexes; load optional annexes explicitly.'
-  fi
-  if [[ $id == z-shell ]]; then
-    builtin print -u2 -r -- 'meta-plugins: @z-shell is deprecated; use @zsh-users+fast and choose history search and Git formatting separately.'
-  fi
-  if [[ $id == sharkdp && -z $meta_plugin_data ]]; then
-    builtin print -u2 -r -- 'meta-plugins: @sharkdp is retired; use @console-tools and choose hexyl, hyperfine or vivid explicitly.'
-  fi
+if [[ -n $meta_plugin_data ]] || (( retired )) {
   # Count the recognized meta-plugins
   _z_a_meta_plugins_map[recon-count]=$(( _z_a_meta_plugins_map[recon-count] + 1 ))
+  # Say once per session what a deprecated or retired label does now, inside
+  # the numbered cluster, and where the replacement commands are.
+  if (( $+_z_a_meta_plugins_notices[$id] && ! $+_z_a_meta_plugins_state[$notice_key] )) {
+    _z_a_meta_plugins_state[$notice_key]=1
+    (( $+_z_a_meta_plugins_map[$previous_id] || $+_z_a_meta_plugins_notices[$previous_id] )) || builtin print
+    +zi-message -n "{hi}$_z_a_meta_plugins_map[recon-count]{rst} "
+    +zi-message "{annex}meta-plugins-annex{ehi}:{rst} \`{b}{meta}@$id{rst}' ${_z_a_meta_plugins_notices[$id]}{ehi}.{rst} Migration guide{ehi}:{rst} {url}${_z_a_meta_plugins_state[migration-guide]}{rst}"
+  }
+}
+if (( retired )) {
+  ZI[annex-before-load:new-@]=$args
+  integer retval_part=2
+} elif [[ -n $meta_plugin_data ]] {
   local -a plugin_array loaded_plugins not_existing on_demand_cand on_demand_skip
   plugin_array=( ${(s: :)meta_plugin_data} )
   loaded_plugins=( "${zsh_loaded_plugins[@]}" "${ZI_REGISTERED_PLUGINS[@]}" "${(@k)ZI_SNIPPETS}" )
@@ -99,16 +108,29 @@ if [[ -n $meta_plugin_data || $id == (z-shell+|sharkdp) ]] {
       loaded_plugins=( "${(@)loaded_plugins:#$provider}" )
     fi
   done
-  local p
-  # Detect if any plugins should be skipped on-demand, via skip''.
+  local p member
+  # Detect if any plugins should be skipped on-demand, via skip''. A member
+  # that is itself a label receives the tokens that match its own members
+  # (one level; the catalog test keeps nesting that shallow), and a token that
+  # matches nothing anywhere is reported below.
+  local -a unmatched_skip
+  local -A nested_skip
   on_demand_cand=( ${(@)${(@ps:\t:)${(@s: :)${(@s.;.)ICE[skip]}}}} )
   for p ( $on_demand_cand ) {
-    integer idx1 count=1
+    integer idx1 count=1 matched=0
     local pattern="(*/$p*|$p*|*$p|*-$p*|*$p-*)"
     while (( (idx1 = $plugin_array[(in:count:)$pattern]) != ${#plugin_array} + 1  )) {
-      count+=1
+      count+=1 matched=1
       on_demand_skip+=( $plugin_array[idx1] )
     }
+    for member ( $plugin_array ) {
+      (( $+_z_a_meta_plugins_map[$member] )) || continue
+      if (( ${${(s: :)_z_a_meta_plugins_map[$member]}[(I)$pattern]} )) {
+        matched=1
+        nested_skip[$member]+="${nested_skip[$member]:+ }$p"
+      }
+    }
+    (( matched )) || unmatched_skip+=( $p )
   }
   # Check only recipes selected by this group, before queuing any of them.
   # These are the four supported installers, not a general dependency resolver.
@@ -131,10 +153,8 @@ if [[ -n $meta_plugin_data || $id == (z-shell+|sharkdp) ]] {
       ZI[annex-before-load:new-@]=$args
       return 3
     fi
-    # Release recipes carry the resolved target triple; hexyl, hyperfine and
-    # vivid additionally lack Linux ARM64 assets.
-    if [[ ${_z_a_meta_plugins_config_map[$p]} == *unsupported-platform.tar.gz* ||
-          $p == sharkdp/(hexyl|hyperfine|vivid) && $OSTYPE/$CPUTYPE == linux*/(aarch64|arm64) ]] &&
+    # Release recipes carry the resolved target triple.
+    if [[ ${_z_a_meta_plugins_config_map[$p]} == *unsupported-platform.tar.gz* ]] &&
       (( ! $+commands[${${p:t}/ripgrep/rg}] )); then
       builtin print -u2 -r -- "meta-plugins: install ${${p:t}/ripgrep/rg} with your platform package manager before loading @$id on this platform."
       ZI[annex-before-load:new-@]=$args
@@ -180,7 +200,7 @@ if [[ -n $meta_plugin_data || $id == (z-shell+|sharkdp) ]] {
   if (( ibshow_messages )) {
     (($+functions[.zi-two-paths])) || builtin source "${ZI[BIN_DIR]}/lib/zsh/side.zsh"
     # Output a separating newline if the previous-processed plugin isn't a meta-plugin → to cluster the messages.
-    [[ -z $_z_a_meta_plugins_map[${ZI[annex-exposed-processed-IDs]##* }] ]] && builtin print
+    (( $+_z_a_meta_plugins_map[$previous_id] || $+_z_a_meta_plugins_notices[$previous_id] || $+_z_a_meta_plugins_state[$notice_key] )) || builtin print
     +zi-message -n "{hi}$_z_a_meta_plugins_map[recon-count]{rst} "
     +zi-message "{annex}meta-plugins-annex{ehi}:{rst} Loading{ehi}:{rst} \`{b}{meta}$id{rst}' consisting of{ehi}:{rst}"
     integer count=0
@@ -212,9 +232,25 @@ if [[ -n $meta_plugin_data || $id == (z-shell+|sharkdp) ]] {
       +zi-message "{annex}meta-plugins-annex{ehi}:{rst} Skipping already loaded{ehi}:{rst} ${(j:, :)skipped}{rst}"
     }
   }
+  # A skip token that names no member is a configuration written for an
+  # earlier catalog; say so, with what the group contains now.
+  if (( ${#unmatched_skip} )) {
+    local token_list member_list verb=match
+    (( $#unmatched_skip == 1 )) && verb=matches
+    for p ( $unmatched_skip ) {
+      token_list+="${token_list:+, }\`{meta}$p{rst}'"
+    }
+    member_list=${(j:, :)${(@)plugin_array//\//∕}}
+    (( ibshow_messages || $+_z_a_meta_plugins_map[$previous_id] || $+_z_a_meta_plugins_notices[$previous_id] || $+_z_a_meta_plugins_state[$notice_key] )) || builtin print
+    +zi-message -n "{hi}$_z_a_meta_plugins_map[recon-count]{rst} "
+    +zi-message "{annex}meta-plugins-annex{ehi}:{rst} {ice}skip{meta}''{rst} $token_list $verb no member of \`{b}{meta}@$id{rst}'{ehi}:{rst} $member_list{ehi}.{rst} Migration guide{ehi}:{rst} {url}${_z_a_meta_plugins_state[migration-guide]}{rst}"
+  }
   # Pre-process each plugin retrieving the assigned, default ice-lists and preparing the above communication fields.
   for p ( $plugin_array ) {
     local ice_list_data=$_z_a_meta_plugins_config_map[$p]
+    # Zi splits and unquotes this string before parsing ices, so a forwarded
+    # skip'' must survive as one word.
+    (( $+nested_skip[$p] )) && ice_list_data+="${ice_list_data:+ }skip${(qq)nested_skip[$p]}"
     if (( ( $not_existing[(I)$p] || ! $loaded_plugins[(I)$p] ) && \
     ! $on_demand_skip[(I)$p] )) || [[ $p == z-shell/null ]] || [[ $p == z-shell/0 ]] {
       # The ↑z-shell/null↑ is a bogus exception, as this plugin will never be loaded under the direct name.
