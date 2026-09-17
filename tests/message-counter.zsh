@@ -44,20 +44,31 @@ typeset -a catalog=( "${(@ok)_z_a_meta_plugins_map}" )
 unknown recon-count
 
 # Every recognised group advances the counter and numbers its own cluster.
-ICE=( debug 1 )
 integer expected=0 handler_status
-typeset label
-for label in zsh-users annexes zsh-users; do
+counted() {  # counted <label>; the expansion is numbered as the next cluster
   expected+=1
   messages=()
-  expand $label
+  expand $1
   handler_status=$?
-  (( handler_status == 2 )) || fail "@$label must be recognised, got status $handler_status"
+  (( handler_status == 2 )) || fail "@$1 must be recognised, got status $handler_status"
   (( ${_z_a_meta_plugins_state[recon-count]:-0} == expected )) ||
-    fail "counter after @$label is [${_z_a_meta_plugins_state[recon-count]}], expected $expected"
+    fail "counter after @$1 is [${_z_a_meta_plugins_state[recon-count]}], expected $expected"
   [[ ${messages[1]} == "{hi}$expected{rst} " ]] ||
-    fail "@$label cluster must be numbered $expected, got: ${messages[1]}"
+    fail "@$1 cluster must be numbered $expected, got: ${messages[1]}"
+}
+ICE=( debug 1 )
+typeset label
+for label in zsh-users annexes zsh-users; do
+  counted $label
 done
+
+# The counter is session state: a re-source of the entrypoint keeps it, like
+# the once-per-session notice keys, so numbering continues rather than restarts.
+builtin source "$repo_dir/z-a-meta-plugins.plugin.zsh" >/dev/null 2>&1 ||
+  fail 're-source the annex'
+(( ${_z_a_meta_plugins_state[recon-count]:-0} == expected )) ||
+  fail "re-source reset the counter to [${_z_a_meta_plugins_state[recon-count]}]"
+counted annexes
 ICE=()
 
 # Expansion leaves the catalog as it was declared.
