@@ -3,7 +3,8 @@
 # vim: ft=zsh sw=2 ts=2 et
 #
 # Every label expands to real recipes and every recipe is selected by a label.
-# Run before any expansion: the handler writes runtime keys into the map.
+# The handler keeps its runtime state out of the map, so the catalog can be
+# read at any point in a session (tests/message-counter.zsh).
 builtin emulate -R zsh
 setopt extended_glob
 
