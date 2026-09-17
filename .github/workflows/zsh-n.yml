@@ -3,18 +3,19 @@ name: "✅ Zsh"
 on:
   push:
     tags: ["v*.*.*"]
-    branches:
-      - main
-      - next
+    branches: [main]
     paths:
       - "*.zsh"
       - "functions/*"
       - "tests/**"
+      - "docs/README.md"
   pull_request:
+    branches: [main]
     paths:
       - "*.zsh"
       - "functions/*"
       - "tests/**"
+      - "docs/README.md"
   workflow_dispatch: {}
 
 permissions:
@@ -31,13 +32,15 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - name: ⤵️ Check out code from GitHub
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: "⚡ Set matrix output"
         id: set-matrix
         run: |
           MATRIX="$(find . -type d -name 'doc' -prune -o -type f \( -iname '*.zsh' -o -path './functions/*' \) -print | jq -ncR '{"include": [{"file": inputs}]}')"
           echo "MATRIX=${MATRIX}" >&2
-          echo "matrix=${MATRIX}" >> $GITHUB_OUTPUT
+          echo "matrix=${MATRIX}" >> "$GITHUB_OUTPUT"
   zsh-n:
     runs-on: ubuntu-latest
     needs: zsh-matrix
@@ -46,7 +49,9 @@ jobs:
       matrix: ${{ fromJSON(needs.zsh-matrix.outputs.matrix) }}
     steps:
       - name: ⤵️ Check out code from GitHub
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: "⚡ Install dependencies"
         run: sudo apt update && sudo apt-get install -yq zsh
       - name: "⚡ zsh -n: ${{ matrix.file }}"
@@ -64,7 +69,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⤵️ Check out code from GitHub
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: "⚡ Install dependencies"
         run: sudo apt update && sudo apt-get install -yq zsh
       - name: "🧪 Run test suite"
