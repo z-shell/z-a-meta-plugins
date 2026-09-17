@@ -54,8 +54,10 @@ id=${${id#@}%%(///|//|/)}
 local meta_plugin_data=${(v)_z_a_meta_plugins_map[$id]}
 # A label with a notice and no group is retired: recognised, nothing to load.
 integer retired=$(( $+_z_a_meta_plugins_notices[$id] && ! $+_z_a_meta_plugins_map[$id] ))
-# The previous ID's kind decides whether a blank line separates the clusters.
+# The previous ID's kind decides whether a blank line separates the clusters,
+# unless this call has already printed a message that opened the cluster.
 local previous_id=${ZI[annex-exposed-processed-IDs]##* }
+integer notice_emitted=0
 # The CI-pinned linter (zsh-lint v1.3.0) reads a colon inside a subscript as
 # a ternary (z-shell/zsh-lint#235), so the once-per-session key is named
 # outside arithmetic context.
@@ -68,6 +70,7 @@ if [[ -n $meta_plugin_data ]] || (( retired )) {
   # the numbered cluster, and where the replacement commands are.
   if (( $+_z_a_meta_plugins_notices[$id] && ! $+_z_a_meta_plugins_state[$notice_key] )) {
     _z_a_meta_plugins_state[$notice_key]=1
+    notice_emitted=1
     (( $+_z_a_meta_plugins_map[$previous_id] || $+_z_a_meta_plugins_notices[$previous_id] )) || builtin print
     +zi-message -n "{hi}$_z_a_meta_plugins_map[recon-count]{rst} "
     +zi-message "{annex}meta-plugins-annex{ehi}:{rst} \`{b}{meta}@$id{rst}' ${_z_a_meta_plugins_notices[$id]}{ehi}.{rst} Migration guide{ehi}:{rst} {url}${_z_a_meta_plugins_state[migration-guide]}{rst}"
@@ -131,6 +134,21 @@ if (( retired )) {
       }
     }
     (( matched )) || unmatched_skip+=( $p )
+  }
+  # A skip token that names no member is a configuration written for an
+  # earlier catalog; say so, with what the group contains now, before any
+  # validation below can return without loading the group.
+  if (( ${#unmatched_skip} )) {
+    local token_list member_list verb=match
+    (( $#unmatched_skip == 1 )) && verb=matches
+    for p ( $unmatched_skip ) {
+      token_list+="${token_list:+, }\`{meta}$p{rst}'"
+    }
+    member_list=${(j:, :)${(@)plugin_array//\//∕}}
+    (( notice_emitted || $+_z_a_meta_plugins_map[$previous_id] || $+_z_a_meta_plugins_notices[$previous_id] )) || builtin print
+    notice_emitted=1
+    +zi-message -n "{hi}$_z_a_meta_plugins_map[recon-count]{rst} "
+    +zi-message "{annex}meta-plugins-annex{ehi}:{rst} {ice}skip{meta}''{rst} $token_list $verb no member of \`{b}{meta}@$id{rst}'{ehi}:{rst} $member_list{ehi}.{rst} Migration guide{ehi}:{rst} {url}${_z_a_meta_plugins_state[migration-guide]}{rst}"
   }
   # Check only recipes selected by this group, before queuing any of them.
   # These are the four supported installers, not a general dependency resolver.
@@ -200,7 +218,7 @@ if (( retired )) {
   if (( ibshow_messages )) {
     (($+functions[.zi-two-paths])) || builtin source "${ZI[BIN_DIR]}/lib/zsh/side.zsh"
     # Output a separating newline if the previous-processed plugin isn't a meta-plugin → to cluster the messages.
-    (( $+_z_a_meta_plugins_map[$previous_id] || $+_z_a_meta_plugins_notices[$previous_id] || $+_z_a_meta_plugins_state[$notice_key] )) || builtin print
+    (( notice_emitted || $+_z_a_meta_plugins_map[$previous_id] || $+_z_a_meta_plugins_notices[$previous_id] )) || builtin print
     +zi-message -n "{hi}$_z_a_meta_plugins_map[recon-count]{rst} "
     +zi-message "{annex}meta-plugins-annex{ehi}:{rst} Loading{ehi}:{rst} \`{b}{meta}$id{rst}' consisting of{ehi}:{rst}"
     integer count=0
@@ -231,19 +249,6 @@ if (( retired )) {
       +zi-message -n "{hi}$_z_a_meta_plugins_map[recon-count]{rst} "
       +zi-message "{annex}meta-plugins-annex{ehi}:{rst} Skipping already loaded{ehi}:{rst} ${(j:, :)skipped}{rst}"
     }
-  }
-  # A skip token that names no member is a configuration written for an
-  # earlier catalog; say so, with what the group contains now.
-  if (( ${#unmatched_skip} )) {
-    local token_list member_list verb=match
-    (( $#unmatched_skip == 1 )) && verb=matches
-    for p ( $unmatched_skip ) {
-      token_list+="${token_list:+, }\`{meta}$p{rst}'"
-    }
-    member_list=${(j:, :)${(@)plugin_array//\//∕}}
-    (( ibshow_messages || $+_z_a_meta_plugins_map[$previous_id] || $+_z_a_meta_plugins_notices[$previous_id] || $+_z_a_meta_plugins_state[$notice_key] )) || builtin print
-    +zi-message -n "{hi}$_z_a_meta_plugins_map[recon-count]{rst} "
-    +zi-message "{annex}meta-plugins-annex{ehi}:{rst} {ice}skip{meta}''{rst} $token_list $verb no member of \`{b}{meta}@$id{rst}'{ehi}:{rst} $member_list{ehi}.{rst} Migration guide{ehi}:{rst} {url}${_z_a_meta_plugins_state[migration-guide]}{rst}"
   }
   # Pre-process each plugin retrieving the assigned, default ice-lists and preparing the above communication fields.
   for p ( $plugin_array ) {

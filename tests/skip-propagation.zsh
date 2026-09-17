@@ -93,6 +93,20 @@ done
 # Zi messages render the owner separator as U+2215, as the Loading cluster does.
 [[ $warnings[1] == *console-tools* && $warnings[1] == *eza-community[/∕]eza* ]] ||
   fail "the warning must name the group and its current members: $warnings[1]"
+
+# The report does not wait for validation: a group that cannot load on this
+# shell still names the stale token, so the configuration gets fixed once.
+ICE=( skip fzy )
+zsh_loaded_plugins=( fzf-go )
+messages=()
+expand fuzzy
+(( $? == 3 )) || fail "another fzf is loaded; @fuzzy must return 3, got $?"
+warnings=( ${(M)messages:#*no member*} )
+(( ${#warnings} == 1 )) ||
+  fail "a group that fails validation must still report its stale token: ${(F)messages}"
+[[ $warnings[1] == *fzy* && $warnings[1] == *fuzzy* ]] ||
+  fail "the warning must name the token and the group: $warnings[1]"
+zsh_loaded_plugins=()
 ICE=()
 
 builtin print -r -- 'ok - skip reaches nested labels and unmatched tokens are reported'

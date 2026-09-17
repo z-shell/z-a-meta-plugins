@@ -68,6 +68,21 @@ expand annexes+
 hits=( ${(M)messages:#*$guide*} )
 (( ${#hits} == 0 )) || fail '@annexes+ repeated its notice'
 
+# The blank line that separates the cluster from an ordinary plugin's output
+# depends on the previous ID, not on a notice printed earlier in the session.
+separated() {  # separated <label>; stdout of the expansion, END-terminated
+  ( expand $1 >/dev/null 2>&1; messages=(); expand $1 2>/dev/null; builtin print -n END )
+}
+ICE=( debug 1 )
+ZI[annex-exposed-processed-IDs]='zsh-users/zsh-autosuggestions'
+[[ $(separated annexes+) == $'\nEND' ]] ||
+  fail 'a notified label loaded after an ordinary plugin lost the separator'
+ZI[annex-exposed-processed-IDs]='zsh-users'
+[[ $(separated annexes+) == END ]] ||
+  fail 'a notified label loaded after a meta-plugin gained a separator'
+ZI[annex-exposed-processed-IDs]=''
+ICE=()
+
 [[ ! -s $errfile ]] || fail "notices bypassed Zi messaging: $(<$errfile)"
 
 builtin print -r -- 'ok - retired labels are once-notified no-ops that link the guide'
