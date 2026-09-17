@@ -8,12 +8,14 @@ on:
       - "*.zsh"
       - "functions/*"
       - "tests/**"
+      - "docs/README.md"
   pull_request:
     branches: [main]
     paths:
       - "*.zsh"
       - "functions/*"
       - "tests/**"
+      - "docs/README.md"
   workflow_dispatch: {}
 
 permissions:

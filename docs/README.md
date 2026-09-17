@@ -36,7 +36,7 @@
 
 - One label, such as `@zsh-users` or `@console-tools`, queues a curated group of plugins with a tested ice list for every member.
 - `skip''` drops members by full ID, repository name, or nested label, and forwards matching tokens to a nested group.
-- A group whose recipes need an installer annex, a toolchain, or an executable that is missing is refused before anything is queued, with a message that names what to load first.
+- A group whose recipes need an installer annex that is not loaded, a release binary the platform cannot receive, or a second highlighter or fzf build is refused before anything is queued, with a message that names what to load first. Build toolchains such as Go or make are not checked; `@fuzzy-src` fails during installation when they are missing.
 - Members that Zi has already loaded or queued, and release binaries already on `PATH`, are not installed again.
 - Deprecated and retired labels print one notice per session that links their subsection of the migration guide.
 - Repository tests keep every label, recipe, notice, and migration anchor consistent, and check that each recipe parses natively.
@@ -271,7 +271,7 @@ The annex owns no `zstyle` context. It is configured per load through ices on th
 ## Lifecycle and side effects
 
 - Loading the annex appends its `functions/` directory to `fpath` when the manager does not handle that itself, defines the `_z_a_meta_plugins_*` state parameters, and registers the `before-load` hook with the `skip''` ice. Nothing is installed and no network activity happens until a label is loaded through Zi.
-- Loading a label rewrites Zi's queue with the group's members and their ice lists. Members already loaded, already queued, or present on `PATH` for release-binary recipes are left out. A missing installer annex, executable, toolchain, or a conflicting highlighter or fzf build refuses the whole group before any member is queued.
+- Loading a label rewrites Zi's queue with the group's members and their ice lists. Members already loaded, already queued, or present on `PATH` for release-binary recipes are left out. A missing installer annex, an unsupported release-binary platform without the tool on `PATH`, or a conflicting highlighter or fzf build refuses the whole group before any member is queued; build toolchains are not checked.
 - A deprecated or retired label prints its notice once per session, inside the numbered message cluster. An unmatched `skip''` token is reported on every load.
 - `z-a-meta-plugins_plugin_unload` removes the `fpath` entry, unregisters the hook when Zi provides `@zi-unregister-annex` and otherwise neutralizes the handler in place, unsets every state parameter, and removes itself. Plugins installed through labels stay installed.
 
