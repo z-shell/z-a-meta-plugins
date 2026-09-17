@@ -93,6 +93,19 @@ done
 # Zi messages render the owner separator as U+2215, as the Loading cluster does.
 [[ $warnings[1] == *console-tools* && $warnings[1] == *eza-community[/∕]eza* ]] ||
   fail "the warning must name the group and its current members: $warnings[1]"
+[[ $warnings[1] == *"${_z_a_meta_plugins_state[migration-guide]}#migrate-console-tools"* ]] ||
+  fail "the warning must link the @console-tools subsection of the guide: $warnings[1]"
+ICE=()
+
+# A group without its own subsection sends the user to the migration section.
+ICE=( skip nothing-here )
+messages=()
+expand zsh-users
+(( $? == 2 )) || fail 'unmatched tokens must not fail @zsh-users'
+warnings=( ${(M)messages:#*no member*} )
+(( ${#warnings} == 1 )) || fail "expected one warning, got ${#warnings}: ${(F)messages}"
+[[ $warnings[1] == *"${_z_a_meta_plugins_state[migration-guide]}#${_z_a_meta_plugins_state[migration-section]}"* ]] ||
+  fail "the warning must link the migration section of the guide: $warnings[1]"
 
 # The report does not wait for validation: a group that cannot load on this
 # shell still names the stale token, so the configuration gets fixed once.

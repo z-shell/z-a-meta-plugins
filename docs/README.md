@@ -47,7 +47,7 @@ even if a previous failed attempt left their directories on disk.
 
 `@annexes+` is deprecated and expands to the same four installers, with a
 notice. Replace it with `@annexes` and load optional extensions explicitly. The
-[migration guide](https://wiki.zshell.dev/ecosystem/annexes/meta-plugins)
+[migration guide](https://wiki.zshell.dev/ecosystem/annexes/meta-plugins#migrate-annexes+)
 lists them, with the retired labels `@z-shell`, `@z-shell+` and `@sharkdp`.
 
 ## Editor profile
@@ -149,8 +149,8 @@ and other functions. Export other `FORGIT_*` settings before loading.
 
 The group does not change global Git configuration or select a pager. Tig,
 git-extras, git-recent and git-quick-stats remain separate choices; the
-[migration guide](https://wiki.zshell.dev/ecosystem/annexes/meta-plugins) gives
-their commands. Git-my, git-now and the separate gitignore plugin are no
+[migration guide](https://wiki.zshell.dev/ecosystem/annexes/meta-plugins#migrate-ext-git)
+gives their commands. Git-my, git-now and the separate gitignore plugin are no
 longer defaults because their roles overlap or are more specialized than this
 workflow.
 
@@ -274,12 +274,13 @@ alternative; follow its normal setup instead of loading `@romkatv` too.
 ## Retired labels
 
 `@z-shell`, `@z-shell+` and `@sharkdp` install nothing. Each prints one notice
-per session that links the
-[migration guide](https://wiki.zshell.dev/ecosystem/annexes/meta-plugins),
+per session that links its subsection of the
+[migration guide](https://wiki.zshell.dev/ecosystem/annexes/meta-plugins#migration-from-earlier-catalogs),
 which gives the replacement commands for every former member and the reasons
 for the change. Remove the label from your startup file; existing
 installations are not deleted. A `skip''` token that names no current member of
-a group is reported with the same link on every load.
+a group is reported on every load, with a link to the group's subsection when
+the guide has one.
 
 ## Regression measurements
 

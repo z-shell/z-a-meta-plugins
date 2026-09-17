@@ -44,6 +44,8 @@ for label in z-shell z-shell+ sharkdp; do
   hits=( ${(M)messages:#*$guide*} )
   (( ${#hits} == 1 )) ||
     fail "@$label must print one notice with the guide URL, got: ${(F)messages}"
+  [[ $hits[1] == *"$guide#migrate-$label"* ]] ||
+    fail "the notice must link the @$label subsection of the guide: $hits[1]"
   [[ ${(F)messages} == *"@$label"* ]] || fail "the notice must name @$label"
   messages=()
   expand $label
@@ -63,6 +65,8 @@ expand annexes+
 hits=( ${(M)messages:#*$guide*} )
 (( ${#hits} == 1 )) ||
   fail "@annexes+ must print one notice with the guide URL, got: ${(F)messages}"
+[[ $hits[1] == *"$guide#migrate-annexes+"* ]] ||
+  fail "the notice must link the @annexes+ subsection of the guide: $hits[1]"
 messages=()
 expand annexes+
 hits=( ${(M)messages:#*$guide*} )
@@ -85,4 +89,4 @@ ICE=()
 
 [[ ! -s $errfile ]] || fail "notices bypassed Zi messaging: $(<$errfile)"
 
-builtin print -r -- 'ok - retired labels are once-notified no-ops that link the guide'
+builtin print -r -- 'ok - retired labels are once-notified no-ops that link their guide subsection'
