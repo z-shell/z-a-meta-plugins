@@ -56,9 +56,9 @@ local meta_plugin_data=${(v)_z_a_meta_plugins_map[$id]}
 integer retired=$(( $+_z_a_meta_plugins_notices[$id] && ! $+_z_a_meta_plugins_map[$id] ))
 # The previous ID's kind decides whether a blank line separates the clusters.
 local previous_id=${ZI[annex-exposed-processed-IDs]##* }
-# zsh-lint v1.3.0, which CI pins, reads a colon inside a subscript as a ternary
-# (z-shell/zsh-lint#235), so the once-per-session key is named outside
-# arithmetic context.
+# The CI-pinned linter (zsh-lint v1.3.0) reads a colon inside a subscript as
+# a ternary (z-shell/zsh-lint#235), so the once-per-session key is named
+# outside arithmetic context.
 local notice_key=notified:$id
 
 if [[ -n $meta_plugin_data ]] || (( retired )) {
