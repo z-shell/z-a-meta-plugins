@@ -58,6 +58,11 @@ integer retired=$(( $+_z_a_meta_plugins_notices[$id] && ! $+_z_a_meta_plugins_ma
 # unless this call has already printed a message that opened the cluster.
 local previous_id=${ZI[annex-exposed-processed-IDs]##* }
 integer notice_emitted=0
+# Where a notice about this label sends the user: the label's own subsection of
+# the migration guide when it has one, the migration section otherwise.
+local guide=${_z_a_meta_plugins_state[migration-guide]}#${_z_a_meta_plugins_state[migration-section]}
+[[ " ${_z_a_meta_plugins_state[migration-anchored]} " == *" $id "* ]] &&
+  guide=${_z_a_meta_plugins_state[migration-guide]}#migrate-$id
 # The CI-pinned linter (zsh-lint v1.3.0) reads a colon inside a subscript as
 # a ternary (z-shell/zsh-lint#235), so the once-per-session key is named
 # outside arithmetic context.
@@ -73,7 +78,7 @@ if [[ -n $meta_plugin_data ]] || (( retired )) {
     notice_emitted=1
     (( $+_z_a_meta_plugins_map[$previous_id] || $+_z_a_meta_plugins_notices[$previous_id] )) || builtin print
     +zi-message -n "{hi}$_z_a_meta_plugins_map[recon-count]{rst} "
-    +zi-message "{annex}meta-plugins-annex{ehi}:{rst} \`{b}{meta}@$id{rst}' ${_z_a_meta_plugins_notices[$id]}{ehi}.{rst} Migration guide{ehi}:{rst} {url}${_z_a_meta_plugins_state[migration-guide]}{rst}"
+    +zi-message "{annex}meta-plugins-annex{ehi}:{rst} \`{b}{meta}@$id{rst}' ${_z_a_meta_plugins_notices[$id]}{ehi}.{rst} Migration guide{ehi}:{rst} {url}$guide{rst}"
   }
 }
 if (( retired )) {
@@ -148,7 +153,7 @@ if (( retired )) {
     (( notice_emitted || $+_z_a_meta_plugins_map[$previous_id] || $+_z_a_meta_plugins_notices[$previous_id] )) || builtin print
     notice_emitted=1
     +zi-message -n "{hi}$_z_a_meta_plugins_map[recon-count]{rst} "
-    +zi-message "{annex}meta-plugins-annex{ehi}:{rst} {ice}skip{meta}''{rst} $token_list $verb no member of \`{b}{meta}@$id{rst}'{ehi}:{rst} $member_list{ehi}.{rst} Migration guide{ehi}:{rst} {url}${_z_a_meta_plugins_state[migration-guide]}{rst}"
+    +zi-message "{annex}meta-plugins-annex{ehi}:{rst} {ice}skip{meta}''{rst} $token_list $verb no member of \`{b}{meta}@$id{rst}'{ehi}:{rst} $member_list{ehi}.{rst} Migration guide{ehi}:{rst} {url}$guide{rst}"
   }
   # Check only recipes selected by this group, before queuing any of them.
   # These are the four supported installers, not a general dependency resolver.

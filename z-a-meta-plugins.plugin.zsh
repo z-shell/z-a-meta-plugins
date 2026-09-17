@@ -22,9 +22,12 @@ fi
 typeset -gA _z_a_meta_plugins_state
 _z_a_meta_plugins_state[0]="$source_path"
 _z_a_meta_plugins_state[repo-dir]="$annex_dir"
-# Every deprecation and retirement notice links this page. Replace it with the
-# per-label anchor once the wiki migration section carries one.
+# Every deprecation, retirement and unmatched-skip notice links the migration
+# section of this page. A label listed in migration-anchored has its own
+# subsection there, "#migrate-<label>", and its notices link that instead.
 _z_a_meta_plugins_state[migration-guide]="https://wiki.zshell.dev/ecosystem/annexes/meta-plugins"
+_z_a_meta_plugins_state[migration-section]="migration-from-earlier-catalogs"
+_z_a_meta_plugins_state[migration-anchored]="annexes+ z-shell z-shell+ sharkdp console-tools console-style zsh-users+fast fuzzy fuzzy-src ext-git rust-utils zunit ohmyzsh-lib"
 
 # Autoload functions
 # TODO: meta-cmd  meta-cmd-help-handler

@@ -56,4 +56,18 @@ for label in "${(@k)_z_a_meta_plugins_notices}"; do
   [[ -n ${_z_a_meta_plugins_notices[$label]} ]] || fail "@$label has an empty notice"
 done
 
+# A label whose notices link its own guide subsection must be a label at all,
+# and every noticed label has such a subsection.
+[[ -n ${_z_a_meta_plugins_state[migration-section]} ]] || fail 'no migration section anchor declared'
+typeset -a anchored
+anchored=( ${=_z_a_meta_plugins_state[migration-anchored]} )
+(( ${#anchored} )) || fail 'no anchored labels declared'
+for label in $anchored; do
+  (( $+_z_a_meta_plugins_map[$label] || $+_z_a_meta_plugins_notices[$label] )) ||
+    fail "$label has a guide anchor but is not a label"
+done
+for label in "${(@k)_z_a_meta_plugins_notices}"; do
+  (( ${anchored[(Ie)$label]} )) || fail "@$label has a notice but no guide anchor"
+done
+
 builtin print -r -- 'ok - every label selects real recipes and every recipe has a label'
