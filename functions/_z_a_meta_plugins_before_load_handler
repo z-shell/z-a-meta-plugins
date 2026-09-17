@@ -69,15 +69,15 @@ local guide=${_z_a_meta_plugins_state[migration-guide]}#${_z_a_meta_plugins_stat
 local notice_key=notified:$id
 
 if [[ -n $meta_plugin_data ]] || (( retired )) {
-  # Count the recognized meta-plugins
-  _z_a_meta_plugins_map[recon-count]=$(( _z_a_meta_plugins_map[recon-count] + 1 ))
+  # Count the recognized meta-plugins in runtime state; the catalog holds only labels.
+  _z_a_meta_plugins_state[recon-count]=$(( _z_a_meta_plugins_state[recon-count] + 1 ))
   # Say once per session what a deprecated or retired label does now, inside
   # the numbered cluster, and where the replacement commands are.
   if (( $+_z_a_meta_plugins_notices[$id] && ! $+_z_a_meta_plugins_state[$notice_key] )) {
     _z_a_meta_plugins_state[$notice_key]=1
     notice_emitted=1
     (( $+_z_a_meta_plugins_map[$previous_id] || $+_z_a_meta_plugins_notices[$previous_id] )) || builtin print
-    +zi-message -n "{hi}$_z_a_meta_plugins_map[recon-count]{rst} "
+    +zi-message -n "{hi}$_z_a_meta_plugins_state[recon-count]{rst} "
     +zi-message "{annex}meta-plugins-annex{ehi}:{rst} \`{b}{meta}@$id{rst}' ${_z_a_meta_plugins_notices[$id]}{ehi}.{rst} Migration guide{ehi}:{rst} {url}$guide{rst}"
   }
 }
@@ -152,7 +152,7 @@ if (( retired )) {
     member_list=${(j:, :)${(@)plugin_array//\//∕}}
     (( notice_emitted || $+_z_a_meta_plugins_map[$previous_id] || $+_z_a_meta_plugins_notices[$previous_id] )) || builtin print
     notice_emitted=1
-    +zi-message -n "{hi}$_z_a_meta_plugins_map[recon-count]{rst} "
+    +zi-message -n "{hi}$_z_a_meta_plugins_state[recon-count]{rst} "
     +zi-message "{annex}meta-plugins-annex{ehi}:{rst} {ice}skip{meta}''{rst} $token_list $verb no member of \`{b}{meta}@$id{rst}'{ehi}:{rst} $member_list{ehi}.{rst} Migration guide{ehi}:{rst} {url}$guide{rst}"
   }
   # Check only recipes selected by this group, before queuing any of them.
@@ -224,7 +224,7 @@ if (( retired )) {
     (($+functions[.zi-two-paths])) || builtin source "${ZI[BIN_DIR]}/lib/zsh/side.zsh"
     # Output a separating newline if the previous-processed plugin isn't a meta-plugin → to cluster the messages.
     (( notice_emitted || $+_z_a_meta_plugins_map[$previous_id] || $+_z_a_meta_plugins_notices[$previous_id] )) || builtin print
-    +zi-message -n "{hi}$_z_a_meta_plugins_map[recon-count]{rst} "
+    +zi-message -n "{hi}$_z_a_meta_plugins_state[recon-count]{rst} "
     +zi-message "{annex}meta-plugins-annex{ehi}:{rst} Loading{ehi}:{rst} \`{b}{meta}$id{rst}' consisting of{ehi}:{rst}"
     integer count=0
     local -a skipped
@@ -251,7 +251,7 @@ if (( retired )) {
     }
     +zi-message ".{rst}"
     if (( ibdebug && ${#skipped} )) {
-      +zi-message -n "{hi}$_z_a_meta_plugins_map[recon-count]{rst} "
+      +zi-message -n "{hi}$_z_a_meta_plugins_state[recon-count]{rst} "
       +zi-message "{annex}meta-plugins-annex{ehi}:{rst} Skipping already loaded{ehi}:{rst} ${(j:, :)skipped}{rst}"
     }
   }
