@@ -28,7 +28,7 @@ concurrency:
 jobs:
   zsh-lint:
     name: Configured Zsh Lint
-    uses: z-shell/.github/.github/workflows/zsh-lint.yml@f127b92a6962157e23892dfd7cc174830da18543 # main
+    uses: z-shell/.github/.github/workflows/zsh-lint.yml@1b790f9ac271fbec149f8c92cd9c4fb2e59cc6ac # zsh-lint/v1.0.0
     with:
       # zsh-lint discovers zsh-lint.json upward from each input, so the
       # configured profile applies without an explicit --config flag.
