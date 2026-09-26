@@ -6,6 +6,7 @@ on:
       - "functions/**"
       - "benchmarks/**"
       - "tests/benchmark-check.py"
+      - "tests/test_benchmark_report.py"
       - ".github/workflows/benchmark-loader.yml"
   workflow_dispatch: {}
 
@@ -60,6 +61,9 @@ jobs:
               data = {'zi': str(root / 'zi'), 'annex': str(root / variant), 'cases': {'loader': {}}}
               (root / (variant + '.json')).write_text(json.dumps(data))
           PY
+      - name: Verify report contract
+        if: matrix.runtime == 'native'
+        run: python3 candidate/tests/test_benchmark_report.py
       - name: Verify benchmark sensitivity and failures
         if: matrix.runtime == 'native'
         run: python3 candidate/tests/benchmark-check.py --zi zi
@@ -72,19 +76,6 @@ jobs:
           if [ "$RUNTIME" = zd ]; then args=(--zd-image "$ZD_IMAGE"); fi
           python3 candidate/benchmarks/run.py candidate.json --baseline baseline.json \
             --output benchmark-results.json "${args[@]}"
-      - name: Record runner image identity
-        if: always()
-        run: |
-          python3 - <<'PYTHON'
-          import json
-          import os
-          from pathlib import Path
-          path = Path('benchmark-results.json')
-          if path.is_file():
-              report = json.loads(path.read_text())
-              report['ci_runner'] = {key: os.environ.get(key) for key in ('ImageOS', 'ImageVersion', 'RUNNER_ARCH')}
-              path.write_text(json.dumps(report, indent=2) + '\n')
-          PYTHON
       - name: Preserve report including functional failures
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
