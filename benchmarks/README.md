@@ -120,3 +120,20 @@ Editor, fzf and pyenv CI comparisons and scheduled upstream detection can call
 this same runner after prerequisite package revisions and fixture provisioning
 are published. No schedule or automatic dependency update is configured.
 Installation/update cost, interactive latency, and the remaining groups need their own controlled fixtures before coverage is claimed.
+
+## Controlled profile pilot
+
+The zd controlled `runtime` profile provides the selected Zsh runtime and Python without build tooling. Prepare its immutable image and a pinned Zi Git checkout before the run, then use the repository-owned entrypoint:
+
+```sh
+python3 /path/to/zd/bin/zd run \
+  --image "$ZD_IMAGE" --profile runtime --source . \
+  --input zi=/checkouts/zi --output /evidence/annex --mode benchmark \
+  --cpuset "$BENCHMARK_CPU" -- python3 scripts/zd-check.py --benchmark
+```
+
+The entrypoint runs every self-contained Zsh test, native source syntax checks, report-contract tests and the existing sensitivity/failure qualification before the full loader self-comparison. The prepared Zi input is copied without Git metadata; zd records its original revision and content identity in `execution.json`, while the benchmark identifies consumed bytes. Raw samples remain in `comparison.json`, accepted by the organization `benchmark-report` action. Tests and sensitivity output are preserved separately. Without `--benchmark`, no Zi fixture is required.
+
+This pilot measures only the loader fixture. It does not provision editor, fzf or pyenv groups, add zpmod, or claim interactive latency coverage. Container startup is outside the reported workload timers. Keep native platform checks and quieter-host confirmation when A/A controls show noise. The legacy `--zd-image` trial mode remains available for existing callers; this entrypoint instead runs the complete repository command inside one controlled container.
+
+The manual `Controlled Zd Validation` workflow prepares the fixed Zi checkout and calls the shared `run-zd` and `benchmark-report` actions. Dispatch requires reviewed full organization/zd commit SHAs and a qualified registry image digest. It preserves existing native/legacy jobs and supplies no mutable fallback or unpublished default pin. Promote the caller to an automatic immutable action reference only after the shared implementation and images are published and hosted qualification passes.
