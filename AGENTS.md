@@ -41,6 +41,14 @@ zsh -f -c 'setopt err_exit; for t in tests/*.zsh; do print -r -- "== $t"; zsh -f
 
 Also run `zsh -n` on the entry point and every file under `functions/`, and `zsh-lint --config zsh-lint.json z-a-meta-plugins.plugin.zsh functions/*` when the analyzer is available.
 
+For reproducible Linux checks, `scripts/zd-check.py` runs the same suite in the zd controlled `runtime` profile.
+
+Its optional loader benchmark requires a prepared named Zi input.
+
+See [the benchmark guide](benchmarks/README.md#controlled-profile-pilot).
+
+Keep the native checks above for platform coverage.
+
 ## Conventions
 
 - Zsh source follows the [Zsh Plugin Standard](https://wiki.zshell.dev/community/zsh_plugin_standard) and the organization [Zsh scripting instructions](https://github.com/z-shell/.github/blob/main/.github/instructions/zsh-scripting.instructions.md). The compatibility floor is Zsh 5.9.2.
