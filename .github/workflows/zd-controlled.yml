@@ -5,10 +5,16 @@ on:
       image:
         description: Qualified Zsh 5.9.2 runtime registry image digest.
         required: true
+  workflow_call:
+    inputs:
+      image:
+        description: Qualified Zsh 5.9.2 runtime registry image digest.
+        type: string
+        required: true
 permissions:
   contents: read
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: zd-controlled-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   controlled:
@@ -33,7 +39,7 @@ jobs:
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           repository: z-shell/.github
-          ref: faab9840039a37b742d474010b64ae052917dd64 # Prerequisite PR 699
+          ref: 18433229ccbfc9e59332710ee3cc1ba5b920b49c # Reviewed main
           path: org-tools
           persist-credentials: false
       - name: Prepare pinned Zi input
@@ -47,7 +53,7 @@ jobs:
         id: execution
         uses: ./org-tools/actions/run-zd
         with:
-          zd-ref: f8d74a1c916d42c99fea2600adff3607f67ee4bc # Prerequisite zd PR 126
+          zd-ref: 7c52bb894cc93d3bfcd2e0f6a359aa8ff0d45490 # Reviewed main
           image: ${{ inputs.image }}
           profile: runtime
           source: ${{ github.workspace }}/candidate
