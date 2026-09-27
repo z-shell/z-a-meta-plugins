@@ -8,7 +8,12 @@ on:
       - "tests/benchmark-check.py"
       - "tests/test_benchmark_report.py"
       - ".github/workflows/benchmark-loader.yml"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      controlled-image:
+        description: Optional qualified runtime digest for the controlled-profile pilot.
+        required: false
+        default: ""
 
 permissions:
   contents: read
@@ -18,6 +23,7 @@ concurrency:
 
 jobs:
   report:
+    if: github.event_name != 'workflow_dispatch' || inputs.controlled-image == ''
     name: Loader Report (${{ matrix.runtime }})
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -84,3 +90,9 @@ jobs:
           path: benchmark-results.json
           retention-days: 14
           if-no-files-found: warn
+  controlled:
+    name: Controlled Profile Pilot
+    if: github.event_name == 'workflow_dispatch' && inputs.controlled-image != ''
+    uses: ./.github/workflows/zd-controlled.yml
+    with:
+      image: ${{ inputs.controlled-image }}
