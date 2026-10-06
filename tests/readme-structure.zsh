@@ -3,7 +3,8 @@
 # vim: ft=zsh sw=2 ts=2 et
 #
 # docs/README.md keeps the sections the organization README template
-# requires (z-shell/.github templates/readme/zsh-plugin.md, adapted for an
+# requires (z-shell/.github
+# knowledge/domains/documentation/templates/zsh-plugin.md, adapted for an
 # annex) and carries none of the template's scaffolding.
 builtin emulate -R zsh
 setopt extended_glob

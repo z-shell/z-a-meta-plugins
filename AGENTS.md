@@ -36,7 +36,7 @@ AI agent orientation for this repository. Organization policy lives in [z-shell/
 
 ## README
 
-The README lives at `docs/README.md` and follows the organization README template, [templates/readme/zsh-plugin.md](https://github.com/z-shell/.github/blob/main/templates/readme/zsh-plugin.md), adapted for an annex the way the `create-readme` skill describes for the Zi Annexes archetype: document the registered ice, the hook, the Zi integration, and only the Zi installation path. Keep the required sections; `tests/readme-structure.zsh` fails when one is missing. Prose is one paragraph per line without hard wrapping. `docs/README.md` is the preferred README location in this organization (then `.github/README.md`, then the root); do not add a second README elsewhere.
+The README lives at `docs/README.md` and follows the organization README template, [knowledge/domains/documentation/templates/zsh-plugin.md](https://github.com/z-shell/.github/blob/main/knowledge/domains/documentation/templates/zsh-plugin.md), adapted for an annex the way the `create-readme` skill describes for the Zi Annexes archetype: document the registered ice, the hook, the Zi integration, and only the Zi installation path. Keep the required sections; `tests/readme-structure.zsh` fails when one is missing. Prose is one paragraph per line without hard wrapping. `docs/README.md` is the preferred README location in this organization (then `.github/README.md`, then the root); do not add a second README elsewhere.
 
 The [wiki page](https://wiki.zshell.dev/ecosystem/annexes/meta-plugins) owns the full catalog table and the migration guide. The README links into it instead of duplicating it.
 
@@ -67,7 +67,7 @@ Keep the native checks above for platform coverage.
 
 ## Conventions
 
-- Zsh source follows the [Zsh Plugin Standard](https://wiki.zshell.dev/community/zsh_plugin_standard) and the organization [Zsh scripting instructions](https://github.com/z-shell/.github/blob/main/.github/instructions/zsh-scripting.instructions.md). The compatibility floor is Zsh 5.9.2.
+- Zsh source follows the [Zsh Plugin Standard](https://wiki.zshell.dev/community/zsh_plugin_standard) and the organization [Zsh scripting instructions](https://github.com/z-shell/.github/blob/main/.github/instructions/zsh/scripting.instructions.md). The compatibility floor is Zsh 5.9.2.
 - Work branches from `main` and pull requests target `main`; by convention (no workflow enforces it) use `feature-<id>`, `bug-<id>`, or `hotfix-<id>` branch names and [Conventional Commits](https://github.com/z-shell/.github/blob/main/decisions/0003-conventional-commits.md).
 - A `Co-authored-by` trailer may credit a real human. Never credit a bot, AI agent, or automation as a co-author.
 - Do not add network activity to the annex load path; loading a label only rewrites Zi's queue.
