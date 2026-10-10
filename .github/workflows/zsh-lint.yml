@@ -28,11 +28,12 @@ concurrency:
 jobs:
   zsh-lint:
     name: Configured Zsh Lint
-    uses: z-shell/.github/.github/workflows/zsh-lint.yml@1b790f9ac271fbec149f8c92cd9c4fb2e59cc6ac # zsh-lint/v1.0.0
+    uses: z-shell/.github/.github/workflows/zsh-lint.yml@dc233851b57784314f99ce5099ea00fc05dc303d # main
     with:
       # zsh-lint discovers zsh-lint.json upward from each input, so the
       # configured profile applies without an explicit --config flag.
       paths: |
         z-a-meta-plugins.plugin.zsh
         functions
-      zsh-lint-ref: 999cb76cc65ef6af56c0ae65ab0f3622eb527944 # v1.3.0
+      zsh-lint-ref: aff60185cddb4b829f39f2db82aae9fc7bce3e7d # v1.4.0
+      config: zsh-lint.json
