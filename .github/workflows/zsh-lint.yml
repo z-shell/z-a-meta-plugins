@@ -35,5 +35,5 @@ jobs:
       paths: |
         z-a-meta-plugins.plugin.zsh
         functions
-      zsh-lint-ref: aff60185cddb4b829f39f2db82aae9fc7bce3e7d # v1.4.0
+      zsh-lint-ref: b3b9fdce3799827755ae546d2185e3d85063e6db # v1.5.0
       config: zsh-lint.json
