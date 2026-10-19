@@ -68,7 +68,7 @@ Keep the native checks above for platform coverage.
 ## Conventions
 
 - Zsh source follows the [Zsh Plugin Standard](https://wiki.zshell.dev/community/zsh_plugin_standard) and the organization [Zsh scripting instructions](https://github.com/z-shell/.github/blob/main/.github/instructions/zsh/scripting.instructions.md). The compatibility floor is Zsh 5.9.2.
-- Work branches from `main` and pull requests target `main`; by convention (no workflow enforces it) use `feature-<id>`, `bug-<id>`, or `hotfix-<id>` branch names and [Conventional Commits](https://github.com/z-shell/.github/blob/main/decisions/0003-conventional-commits.md).
+- Work branches from `main` and pull requests target `main`; name branches by the pattern `commit-lint.yml` enforces, `feature-<issue>`, `bug-<issue>` or `hotfix-<issue>` with an optional `-<slug>`, or `<type>/<slug>` ([pull-request runbook](https://github.com/z-shell/.github/blob/main/runbooks/pull-requests.md#1-before-the-branch)), and use [Conventional Commits](https://github.com/z-shell/.github/blob/main/decisions/0003-conventional-commits.md).
 - A `Co-authored-by` trailer may credit a real human. Never credit a bot, AI agent, or automation as a co-author.
 - Do not add network activity to the annex load path; loading a label only rewrites Zi's queue.
 - Do not use U+2014 in new text; use a hyphen, colon, or separate sentence.
