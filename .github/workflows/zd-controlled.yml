@@ -19,7 +19,7 @@ concurrency:
 jobs:
   controlled:
     name: Controlled Loader Evidence
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     timeout-minutes: 20
     steps:
       - name: Validate immutable image
